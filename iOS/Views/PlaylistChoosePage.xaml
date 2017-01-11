@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            
+             HeightRequest="350"
+             xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
+             x:Class="ProjectMato.iOS.PlaylistChoosePage"
+             BackgroundColor="Gray">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto">
+            </RowDefinition>
+            <RowDefinition>
+            </RowDefinition>
+            <RowDefinition Height="Auto">
+            </RowDefinition>
+        </Grid.RowDefinitions>
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <StackLayout Grid.Row="0"
+                     Padding="{StaticResource DefaultContentPadding}">
+            <Label Text="添加到"
+                   FontSize="{StaticResource SubtitleFontSize}" />
+        </StackLayout>
+
+        <Grid Padding="{StaticResource DefaultContentPadding}"
+              Grid.Row="1">
+            <controls:GeneralListView  RowHeight="50"
+                                       ItemsSource="{Binding Mode=TwoWay}"
+                                       ItemSelected="ListView_OnItemSelected">
+                <controls:GeneralListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <StackLayout>
+                                <Label Text="{Binding Name}"
+                                       FontSize="Large">
+                                </Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </controls:GeneralListView.ItemTemplate>
+            </controls:GeneralListView>
+        </Grid>
+        <Grid Grid.Row="2"
+              BackgroundColor="{StaticResource PhoneAccentBrush}">
+            <Button Text="取消"
+                    x:Name="CancelButton"
+                    TextColor="White"
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    Clicked="Button_OnClicked"></Button>
+        </Grid>
+    </Grid>
+
+
+</ContentView>

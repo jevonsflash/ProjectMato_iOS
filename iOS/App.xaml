@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:ProjectMato.iOS;assembly=ProjectMatoiOS"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             x:Class="ProjectMato.iOS.App">
+  <Application.Resources>
+    <ResourceDictionary>
+
+      <system:String x:Key="Version">3.2.0</system:String>
+
+      <system:Double x:Key="HeaderFontSize">57.5</system:Double>
+      <system:Double x:Key="SubtitleFontSize">38</system:Double>
+      <system:Double x:Key="BodyFontSize">18</system:Double>
+      <system:String x:Key="Bound">0</system:String>
+      <Color x:Key="PhoneBackgroundBrush">Black</Color>
+      <Color x:Key="PhoneForegroundBrush">White</Color>
+      <Color x:Key="PhoneAccentBrush">Red</Color>
+      <Color x:Key="PhoneChromeBrush">Gray</Color>
+      <Style TargetType="Label">
+        <Setter Property="FontFamily"
+                Value="STHeitiTC-Light"></Setter>
+        <Setter Property="TextColor"
+					Value="{StaticResource PhoneForegroundBrush}"></Setter>
+      </Style>
+      <Style TargetType="ContentPage">
+        <Setter Property="BackgroundColor"
+                Value="{StaticResource PhoneBackgroundBrush}"></Setter>
+      </Style>
+
+      <Thickness x:Key="DefaultContentPadding" Left="12" Top="5" Right="12" Bottom="5"/>
+
+      <local:True2FalseConverter x:Key="True2FalseConverter">
+      </local:True2FalseConverter>
+      <local:SliderMaxValueConverter x:Key="SliderMaxValueConverter">
+      </local:SliderMaxValueConverter>
+      <local:SecondsToTimeSpanConverter x:Key="SecondsToTimeSpanConverter">
+      </local:SecondsToTimeSpanConverter>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

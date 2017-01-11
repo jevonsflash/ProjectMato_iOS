@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
+             x:Class="ProjectMato.iOS.PlaylistEntryPage"
+             BackgroundColor="{StaticResource PhoneBackgroundBrush}">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto">
+      </RowDefinition>
+      <RowDefinition>
+      </RowDefinition>
+    </Grid.RowDefinitions>
+    <!--TitlePanel 包含应用程序的名称和页标题-->
+    <StackLayout Grid.Row="0"
+                 Padding="{StaticResource DefaultContentPadding}">
+      <Label Text="{Binding Playlist.Name}"
+             FontSize="{StaticResource HeaderFontSize}" />
+    </StackLayout>
+    <Button Grid.Row="0" Command="{Binding CreateCommand}" Text="新增歌单"></Button>
+    <Grid Padding="{StaticResource DefaultContentPadding}"
+          Grid.Row="1">
+      <controls:GeneralListView  RowHeight="50"
+                             ItemsSource="{Binding Musics,Mode=TwoWay}"
+                              >
+        <controls:GeneralListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <ViewCell.ContextActions>
+                <MenuItem  Command="{Binding RenameCommand} "
+                   Text="More" />
+                <MenuItem Command="{Binding DeleteCommand}"
+                   Text="Delete" IsDestructive="True" />
+              </ViewCell.ContextActions>
+              <StackLayout>
+                <Label Text="{Binding Title}"
+                       FontSize="Large">
+                </Label>
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </controls:GeneralListView.ItemTemplate>
+      </controls:GeneralListView>
+    </Grid>
+  </Grid>
+</ContentPage>

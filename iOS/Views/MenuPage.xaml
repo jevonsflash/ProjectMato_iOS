@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ProjectMato.iOS;assembly=ProjectMatoiOS"
+             x:Class="ProjectMato.iOS.MenuPage" Title="Mato" Icon="Icon/slideout.png">
+  <StackLayout BackgroundColor="Gray" VerticalOptions="FillAndExpand">
+    <local:MenuTableView Intent="Menu">
+      <TableRoot>
+        <TableSection>
+          <local:MenuCell Text="正在播放" Code="NowPlaying"  x:Name="NowPlaying" ></local:MenuCell>
+          <local:MenuCell Text="列队" Code="Queue" x:Name="Queue" ></local:MenuCell>
+          <local:MenuCell Text="音乐库" Code="Library" x:Name="Library" ></local:MenuCell>
+          <local:MenuCell Text="歌单" Code="Playlist"  x:Name="Playlist"></local:MenuCell>
+          <local:MenuCell Text="设置" Code="Setting"  x:Name="Setting"></local:MenuCell>
+          <local:MenuCell Text="关于" Code="About" x:Name="About"></local:MenuCell>
+        </TableSection>
+      </TableRoot>
+
+    </local:MenuTableView>
+
+  </StackLayout>
+
+
+</ContentPage>

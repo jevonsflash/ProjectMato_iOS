@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             xmlns:local="clr-namespace:ProjectMato.iOS;assembly=ProjectMatoiOS"
+             xmlns:local1="clr-namespace:ProjectMato.iOS.Controls"
+             BackgroundColor="{StaticResource PhoneBackgroundBrush}"
+             x:Class="ProjectMato.iOS.NowPlayingPage">
+  <ContentPage.Content>
+    <Grid>
+      <Image x:Name="NowPlayingBackgroundImage" Source="Img/Violet" Aspect="AspectFill"></Image>
+      <Grid BackgroundColor="Black" Opacity="0.8"></Grid>
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="1*" />
+          <RowDefinition Height="1*" />
+          <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+          <local1:GeneralCardView x:Name="MusicFliperCarouselView" OnFlipped="MusicFliperCarouselView_OnOnFlipped">
+            <Grid ColumnSpacing="0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+              </Grid.ColumnDefinitions>
+              <Grid Grid.Column="0" WidthRequest="{StaticResource Bound}">
+                <local:MusicFliperView  BindingContext="{Binding PreviewMusic}" WidthRequest="{StaticResource Bound}"></local:MusicFliperView>
+
+              </Grid>
+              <Grid Grid.Column="1" WidthRequest="{StaticResource Bound}">
+                <local:MusicFliperView BindingContext="{Binding CurrentMusic}" WidthRequest="{StaticResource Bound}"></local:MusicFliperView>
+
+              </Grid>
+              <Grid Grid.Column="2" WidthRequest="{StaticResource Bound}">
+                <local:MusicFliperView BindingContext="{Binding NextMusic}" WidthRequest="{StaticResource Bound}"></local:MusicFliperView>
+              </Grid>
+            </Grid>
+          </local1:GeneralCardView>
+        </Grid>
+        <Grid Grid.Row="1">
+          <Label YAlign="Center" XAlign="Center" Text="查看列队" FontSize="{StaticResource HeaderFontSize}"></Label>
+        </Grid>
+        <Grid Grid.Row="2">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="1*">
+            </RowDefinition>
+          </Grid.RowDefinitions>
+          <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding CurrentTime,Converter={StaticResource SecondsToTimeSpanConverter}}">
+            </Label>
+            <Label Text="/">
+            </Label>
+            <Label Text="{Binding Duration,Converter={StaticResource SecondsToTimeSpanConverter}}">
+            </Label>
+          </StackLayout>
+          <Slider Maximum="{Binding Duration,Converter={StaticResource SliderMaxValueConverter}}" Minimum="0.0" ValueChanged="OnValueChanged" Value="{Binding CurrentTime,Mode=TwoWay} ">
+          </Slider>
+        </Grid>
+        <!--播放控制按钮-->
+        <Grid Grid.Row="3" x:Name="GDR">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="1*">
+            </RowDefinition>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition>
+            </ColumnDefinition>
+            <ColumnDefinition>
+            </ColumnDefinition>
+            <ColumnDefinition>
+            </ColumnDefinition>
+          </Grid.ColumnDefinitions>
+          <Grid Grid.Column="0">
+            <controls:ImageButton Text="pre" Command="{Binding PreCommand}" BackgroundColor="Transparent" HeightRequest="75" WidthRequest="175" Image="Icon/rew" Orientation="ImageToLeft" ImageHeightRequest="50" ImageWidthRequest="50">
+            </controls:ImageButton>
+          </Grid>
+          <Grid Grid.Column="1">
+            <controls:ImageButton Text="play" Command="{Binding PlayCommand}" CommandParameter="play" IsVisible="{Binding IsPlaying,Mode=TwoWay,Converter={StaticResource True2FalseConverter}}" BackgroundColor="Transparent" HeightRequest="75" WidthRequest="175" Image="Icon/play" Orientation="ImageToLeft" ImageHeightRequest="50"
+              ImageWidthRequest="50">
+            </controls:ImageButton>
+            <controls:ImageButton Text="pause" Command="{Binding PlayCommand}" CommandParameter="pause" IsVisible="{Binding IsPlaying,Mode=TwoWay}" BackgroundColor="Transparent" HeightRequest="75" WidthRequest="175" Image="Icon/pause" Orientation="ImageToLeft" ImageHeightRequest="50"
+              ImageWidthRequest="50">
+            </controls:ImageButton>
+          </Grid>
+          <Grid Grid.Column="2">
+            <controls:ImageButton Text="next" Command="{Binding NextCommand}" BackgroundColor="Transparent" HeightRequest="75" WidthRequest="175" Image="Icon/ff" Orientation="ImageToLeft" ImageHeightRequest="50" ImageWidthRequest="50">
+            </controls:ImageButton>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+  </ContentPage.Content>
+</ContentPage>

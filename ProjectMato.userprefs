@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{1B5F61F9-6231-4D19-945D-25FCD0EFF4B6}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="iOS/ViewModel/MusicFunctionPageViewModel.cs">
+    <Files>
+      <File FileName="iOS/Views/LibraryPage.xaml" Line="93" Column="1" />
+      <File FileName="iOS/ViewModel/LibraryPageViewModel.cs" Line="93" Column="1" />
+      <File FileName="iOS/Renders/GeneralListViewRenderer.cs" Line="23" Column="48" />
+      <File FileName="iOS/App.xaml" Line="15" Column="31" />
+      <File FileName="iOS/Renders/MainPageRenderer.cs" Line="17" Column="1" />
+      <File FileName="iOS/Renders/MenuTableViewRenderer.cs" Line="6" Column="1" />
+      <File FileName="iOS/App.xaml.cs" Line="20" Column="1" />
+      <File FileName="iOS/Views/LibraryPage.xaml.cs" Line="11" Column="26" />
+      <File FileName="iOS/Server/MusicInfoServer.cs" Line="263" Column="1" />
+      <File FileName="iOS/Views/MenuPage.xaml.cs" Line="28" Column="14" />
+      <File FileName="iOS/Main.cs" Line="18" Column="1" />
+      <File FileName="iOS/AppDelegate.cs" Line="17" Column="1" />
+      <File FileName="iOS/ViewModel/MusicFunctionPageViewModel.cs" Line="4" Column="13" />
+      <File FileName="iOS/Views/MenuPage.xaml" Line="10" Column="76" NotebookId="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/xamarin/Documents/XamarinProject/ProjectMato_iOS/iOS/Renders/PageRender.cs" line="22" column="58" />
+      <Breakpoint file="/Users/Xamarin/Projects/ProjectMato_iOS-3246bfa/iOS/Main.cs" line="15" column="25" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.ProjectMato.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.D918D3C1-00D5-4306-B78F-390249CB06B8" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
