@@ -10,6 +10,7 @@ using XLabs;
 using Foundation;
 using Microsoft.International.Converters.PinYinConverter;
 using System.Text.RegularExpressions;
+using GameKit;
 using ProjectMato.iOS.Model;
 
 namespace ProjectMato.iOS.Server
@@ -121,13 +122,38 @@ namespace ProjectMato.iOS.Server
 
 
         }
+
+        private bool MediaLibraryAuthorization()
+        {
+            var result = false;
+            var status = MPMediaLibrary.AuthorizationStatus;
+            switch (status)
+            {
+                    case MPMediaLibraryAuthorizationStatus.Authorized:
+                    result = true;
+                    break;
+                    case MPMediaLibraryAuthorizationStatus.NotDetermined:
+                        MPMediaLibrary.RequestAuthorization((c) =>
+                        {
+                            result = c == MPMediaLibraryAuthorizationStatus.Authorized;
+                        });
+                    break;
+                case MPMediaLibraryAuthorizationStatus.Denied:
+                 case   MPMediaLibraryAuthorizationStatus.Restricted:
+                    result = false;
+                    break;
+            }
+            return result;
+            ;
+        }
+
         /// <summary>
         /// 获取MusicInfo集合
         /// </summary>
         /// <returns></returns>
         public List<MusicInfo> GetMusicInfos()
         {
-            if (_musicInfosresult == null)
+            if (_musicInfosresult == null&&MediaLibraryAuthorization())
             {
 
 
@@ -255,8 +281,14 @@ namespace ProjectMato.iOS.Server
         public List<MusicInfo> GetQueueEntry()
         {
             var queueEntrys = DatabaseManager.Current.FetchQueueEntryTables();
-            var result = GetMusicInfos().Where(c => queueEntrys.Select(p => p.MusicTitle).Contains(c.Title)).ToList();
-            return result;
+            var musicInfos
+                = GetMusicInfos();
+            var result =
+                from musicInfo in musicInfos
+                join queueEntryTable in queueEntrys
+                    on musicInfo.Title equals queueEntryTable.MusicTitle
+                select musicInfo;
+            return result.ToList();
 
         }
 
