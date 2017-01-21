@@ -9,14 +9,15 @@ using XLabs.Forms.Controls;
 
 namespace ProjectMato.iOS.Controls
 {
+
     public partial class MusicItemView
     {
 
 
         private MusicFunctionPage _musicFunctionPage;
         private PlaylistChoosePage _playlistChoosePage;
-
-        public PopupLayout Popup { get; set; }
+        
+        public PopupView Popup { get; set; }
         public FunctionMenuType MenuType { get; set; }
         public event EventHandler<MusicFunctionEventArgs> OnJumptoOtherPage;
 
@@ -40,10 +41,10 @@ namespace ProjectMato.iOS.Controls
 
             _musicFunctionPage = new MusicFunctionPage(musicInfo, MenuType);
             _musicFunctionPage.OnFinished += MusicFunctionPage_OnFinished;
-            this.Popup.ShowPopup(_musicFunctionPage,
-                         Constraint.RelativeToParent(c => 0),
-                         Constraint.RelativeToParent(c => (Popup.Height - this._musicFunctionPage.HeightRequest))
-                         );
+
+                this.Popup.ShowPopup(_musicFunctionPage);
+                
+            
 
 
 
@@ -57,7 +58,7 @@ namespace ProjectMato.iOS.Controls
             {
                 return;
             }
-            this.Popup.DismissPopup();
+            this.Popup.HidePopup();
             switch (e.FunctionType)
             {
                 case FunctionType.AddToPlaylist:
@@ -70,14 +71,14 @@ namespace ProjectMato.iOS.Controls
 
 
                         }
-                        this.Popup.DismissPopup();
+                        this.Popup.HidePopup();
                     };
 
                     this.Popup.ShowPopup(
-                        _playlistChoosePage,
-                        Constraint.RelativeToParent(c => 0),
-                        Constraint.RelativeToParent(c => (Popup.Height - this._playlistChoosePage.HeightRequest))
+                        _playlistChoosePage
+                     
                         );
+                  
 
 
 

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             x:Class="ProjectMato.iOS.Controls.PopupView"
+       IsVisible="False"
+      >
+  <Grid x:Name="MainLayout" >
+    <Grid  BackgroundColor="Black" Opacity="0.5"  >
+      <controls:ImageButton Clicked="Button_OnClicked"></controls:ImageButton>
+    </Grid>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition></RowDefinition>
+      <RowDefinition Height="10*"></RowDefinition>
+      <RowDefinition></RowDefinition>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition></ColumnDefinition>
+      <ColumnDefinition Width="8*"></ColumnDefinition>
+      <ColumnDefinition></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+    <Grid x:Name="Popup" Grid.Column="1" Grid.Row="1"></Grid>
+  </Grid>
+</Grid>
+
+</ContentView>

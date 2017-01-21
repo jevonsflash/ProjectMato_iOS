@@ -2,9 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
-             xmlns:controls1="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="ProjectMato.iOS.ArtistPage" BackgroundColor="{StaticResource PhoneBackgroundBrush}">
-  <controls1:PopupLayout x:Name="popup">
+  <Grid>
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto">
@@ -34,5 +33,6 @@
         </controls:GeneralListView>
       </Grid>
     </Grid>
-  </controls1:PopupLayout>
+    <controls:PopupView  x:Name="popup"></controls:PopupView>
+  </Grid>
 </ContentPage>

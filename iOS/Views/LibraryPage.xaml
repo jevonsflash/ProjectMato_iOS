@@ -8,8 +8,7 @@
                              TintColor="{StaticResource PhoneForegroundBrush}">
     <ContentPage Title="歌曲"
                  Icon="Icon/TabbedButton_Songs">
-
-        <controls:PopupLayout x:Name="popup">
+        <Grid>          
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto">
@@ -74,8 +73,9 @@
                 </Grid>
             </Grid>
 
+        <local:PopupView  x:Name="popup"></local:PopupView>
+        </Grid>
 
-        </controls:PopupLayout>
     </ContentPage>
     <ContentPage Title="艺术家"
                  Icon="Icon/TabbedButton_Songs">

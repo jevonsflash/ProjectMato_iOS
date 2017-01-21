@@ -183,7 +183,7 @@ namespace ProjectMato.iOS.Server
         public List<AlbumInfo> GetAlbumInfos()
         {
 
-            if (_albumInforesult == null)
+            if (_albumInforesult == null && MediaLibraryAuthorization())
             {
 
 
@@ -220,7 +220,7 @@ namespace ProjectMato.iOS.Server
         /// <returns></returns>
         public List<ArtistInfo> GetArtistInfos()
         {
-            if (_artistInforesult == null)
+            if (_artistInforesult == null && MediaLibraryAuthorization())
             {
 
 
