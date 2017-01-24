@@ -24,7 +24,7 @@ namespace ProjectMato.iOS
         private void MusicListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             MusicRelatedViewModel.Current.ChangeMusic(e.SelectedItem as MusicInfo);
-            this.detailPage = new NavigationPage(new NowPlayingPage());
+            this.detailPage = new NavigationPage(new NowPlayingPage()) { BarBackgroundColor = Color.Black, BarTextColor = Color.White }; ;
             App.MainMasterDetailPage.Detail = this.detailPage;
         }
 

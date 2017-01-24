@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ProjectMato.iOS;assembly=ProjectMatoiOS"
              x:Class="ProjectMato.iOS.MenuPage" Title="Mato" Icon="Icon/slideout.png">
-  <StackLayout BackgroundColor="Gray" VerticalOptions="FillAndExpand">
+  <StackLayout BackgroundColor="Blue" VerticalOptions="FillAndExpand">
     <local:MenuTableView Intent="Menu">
       <TableRoot>
         <TableSection>

@@ -20,6 +20,9 @@ namespace ProjectMato.iOS.Server
             public const string IsAutoOffset = "IsAutoOffset";
             public const string IsAutoGA = "IsAutoGA";
             public const string SelectedBackground = "SelectedBackground";
+            public const string IsShuffle = "IsShuffle";
+            public const string IsRepeatOne = "IsRepeatOne";
+            public const string IsRepeat = "IsRepeat";
             public const string BreakPointMusicIndex = "BreakPointMusicIndex";
 
         }
@@ -129,6 +132,9 @@ namespace ProjectMato.iOS.Server
             DatabaseManager.Current.AddSettingTable(new SettingTable("离开后关闭", Properties.IsStopWhenTerminate, false));
             DatabaseManager.Current.AddSettingTable(new SettingTable("倒计时", Properties.TimingOffValue, "20"));
             DatabaseManager.Current.AddSettingTable(new SettingTable("歌曲上次播放位置", Properties.BreakPointMusicIndex, "0"));
+            DatabaseManager.Current.AddSettingTable(new SettingTable("是否循环", Properties.IsRepeat, "0"));
+            DatabaseManager.Current.AddSettingTable(new SettingTable("是否单曲循环", Properties.IsRepeatOne, "0"));
+            DatabaseManager.Current.AddSettingTable(new SettingTable("是否随机播放", Properties.IsShuffle, "0"));
         }
 
         private void InitBackgroundDefaultValue()

@@ -13,14 +13,6 @@ namespace ProjectMato.iOS
     {
         public static event EventHandler<bool> OnPlayFinished;
         private static NSError nserror = new NSError();
-        public static void InitMusicInfoList()
-        {
-            if (CurrentPlayer != null)
-            {
-                CurrentPlayer.FinishedPlaying += new EventHandler<AVStatusEventArgs>(OnFinishedPlaying);
-
-            }
-        }
 
         private static void OnFinishedPlaying(Object sender, AVStatusEventArgs e)
         {
@@ -44,10 +36,10 @@ namespace ProjectMato.iOS
         {
             get
             {
-                if (musicInfos == null)
-                {
+                //if (musicInfos == null || musicInfos.Count == 0)
+                //{
                     RebuildMusicInfos();
-                }
+               // }
                 return musicInfos;
             }
         }
@@ -116,6 +108,11 @@ namespace ProjectMato.iOS
         public static void InitPlayer(MusicInfo CurrentMusic)
         {
             currentPlayer = new AVAudioPlayer(new NSUrl(CurrentMusic.Url), "", out nserror);
+            currentPlayer.NumberOfLoops = 2;
+            CurrentPlayer.FinishedPlaying -= new EventHandler<AVStatusEventArgs>(OnFinishedPlaying);
+            CurrentPlayer.FinishedPlaying += new EventHandler<AVStatusEventArgs>(OnFinishedPlaying);
+
+            
         }
 
         public static void Play(MusicInfo currentMusic)

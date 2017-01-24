@@ -23,7 +23,7 @@
           <controls:GeneralListView
             ItemsSource="{Binding Musics,Mode=TwoWay}"
                     SelectedItem="{Binding CurrentMusic,Mode=TwoWay}"
-                    ItemTapped="ListView_OnItemSelected">
+                    ItemSelected="ListView_OnItemSelected">
             <controls:GeneralListView.ItemTemplate>
               <DataTemplate>
                 <ViewCell>
@@ -45,7 +45,7 @@
                                  HorizontalOptions="Center"
                                  Orientation="Horizontal">
                       <Grid>
-                        <controls1:ImageButton Image="Icon/Check"
+                        <controls1:ImageButton Image="Icon/Remove"
                                                Clicked="Button_OnClicked"
                                               >
 
@@ -53,10 +53,10 @@
                       </Grid>
                       <Grid>
 
-                        <Image Source="Icon/FavouriteButton_Dis"
+                        <Image Source="Icon/FavouriteDis"
                                HeightRequest="40"
                                IsVisible="{Binding IsFavourite,Converter={StaticResource True2FalseConverter}}"></Image>
-                        <Image Source="Icon/FavouriteButton_En"
+                        <Image Source="Icon/FavouriteEn"
                                IsVisible="{Binding IsFavourite}"></Image>
                         <controls1:ImageButton Clicked="IsFavouriteButton_OnClicked"></controls1:ImageButton>
                       </Grid>

@@ -168,7 +168,6 @@
       <DependentUpon>BackgroundFliperView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CarouselView.cs" />
-    <Compile Include="Controls\GeneralCardView.cs" />
     <Compile Include="Controls\GeneralListView.cs" />
     <Compile Include="Controls\LibraryGridView.cs" />
     <Compile Include="Controls\PopupView.xaml.cs">
@@ -192,7 +191,6 @@
     <Compile Include="Model\PlaylistTable.cs" />
     <Compile Include="Model\QueueEntryTable.cs" />
     <Compile Include="Model\SettingTable.cs" />
-    <Compile Include="Renders\CardRenderer.cs" />
     <Compile Include="Renders\GeneralListViewRenderer.cs" />
     <Compile Include="Server\DatabaseManager.cs" />
     <Compile Include="Server\SettingServer.cs" />
@@ -289,31 +287,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Icon\browse.png" />
-    <BundleResource Include="Icon\slideout.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Icon\Check.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <BundleResource Include="Icon\AddToList.png" />
     <BundleResource Include="Icon\ff.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Icon\LRCDocument.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <BundleResource Include="Icon\More.png" />
     <BundleResource Include="Icon\pause.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Icon\play.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <BundleResource Include="Icon\Queue.png" />
+    <BundleResource Include="Icon\Remove.png" />
     <BundleResource Include="Icon\rew.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Icon\search.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <BundleResource Include="Icon\slideout.png" />
     <BundleResource Include="Img\AppRecommend\1.png" />
   </ItemGroup>
   <ItemGroup>
@@ -404,9 +387,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Icon\TabbedButton_Songs.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Views\ArtistPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -435,18 +415,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Icon\FavouriteButton_En.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Icon\FavouriteButton_Dis.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Icon\AddToList.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Icon\AddToQueue.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\MusicFunctionPage.xaml">
@@ -491,6 +459,24 @@
     <EmbeddedResource Include="Controls\PopupView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\FavouriteDis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\FavouriteEn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\shuffleDis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\shuffleEn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\repeatOneEn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\repeatOneDis.png" />
   </ItemGroup>
   <Import Project="..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
 </Project>

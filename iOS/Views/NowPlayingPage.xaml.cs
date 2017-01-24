@@ -10,6 +10,8 @@ namespace ProjectMato.iOS
 {
     public partial class NowPlayingPage : ContentPage
     {
+        private NavigationPage detailPage;
+
         public NowPlayingPage()
         {
 
@@ -30,11 +32,6 @@ namespace ProjectMato.iOS
 
         private void InitFliper()
         {
-            this.MusicFliperCarouselView.IsFlipEnable = false;
-            this.MusicFliperCarouselView.AnimateScroll = false;
-            this.MusicFliperCarouselView.Position = new Point(375, 0);
-            this.MusicFliperCarouselView.AnimateScroll = true;
-            this.MusicFliperCarouselView.IsFlipEnable = true;
 
         }
 
@@ -46,19 +43,10 @@ namespace ProjectMato.iOS
         }
 
 
-        private void MusicFliperCarouselView_OnOnFlipped(object sender, OnFlippedEventArgs e)
+        private void Button_OnClicked(object sender, EventArgs e)
         {
-            var musicRelatedViewModel = (this.BindingContext) as MusicRelatedViewModel;
-            if (musicRelatedViewModel != null)
-                if (e.FlipType == FlipType.前进)
-                {
-                    musicRelatedViewModel.NextAction(null);
-
-                }
-                else
-                {
-                    musicRelatedViewModel.PreAction(null);
-                }
+            this.detailPage = new NavigationPage(new QueuePage()) { BarBackgroundColor = Color.Black, BarTextColor = Color.White }; ;
+            App.MainMasterDetailPage.Detail = this.detailPage;
         }
     }
 }

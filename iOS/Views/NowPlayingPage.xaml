@@ -16,30 +16,44 @@
           <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-          <local1:GeneralCardView x:Name="MusicFliperCarouselView" OnFlipped="MusicFliperCarouselView_OnOnFlipped">
-            <Grid ColumnSpacing="0">
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-              </Grid.ColumnDefinitions>
-              <Grid Grid.Column="0" WidthRequest="{StaticResource Bound}">
-                <local:MusicFliperView  BindingContext="{Binding PreviewMusic}" WidthRequest="{StaticResource Bound}"></local:MusicFliperView>
-
-              </Grid>
-              <Grid Grid.Column="1" WidthRequest="{StaticResource Bound}">
-                <local:MusicFliperView BindingContext="{Binding CurrentMusic}" WidthRequest="{StaticResource Bound}"></local:MusicFliperView>
-
-              </Grid>
-              <Grid Grid.Column="2" WidthRequest="{StaticResource Bound}">
-                <local:MusicFliperView BindingContext="{Binding NextMusic}" WidthRequest="{StaticResource Bound}"></local:MusicFliperView>
-              </Grid>
-            </Grid>
-          </local1:GeneralCardView>
+          <local:MusicFliperView BindingContext="{Binding CurrentMusic}" WidthRequest="{StaticResource Bound}"></local:MusicFliperView>
         </Grid>
         <Grid Grid.Row="1">
-          <Label YAlign="Center" XAlign="Center" Text="查看列队" FontSize="{StaticResource HeaderFontSize}"></Label>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="1*">
+            </RowDefinition>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition>
+            </ColumnDefinition>
+            <ColumnDefinition>
+            </ColumnDefinition>
+            <ColumnDefinition>
+            </ColumnDefinition>
+          </Grid.ColumnDefinitions>
+          <Grid Grid.Column="0">
+            <controls:ImageButton  Clicked="Button_OnClicked" BackgroundColor="Transparent" HeightRequest="75" WidthRequest="175" Image="Icon/Queue" Orientation="ImageToLeft" ImageHeightRequest="50" ImageWidthRequest="50">
+            </controls:ImageButton>
+          </Grid>
+
+          <Grid Grid.Column="1">
+            <controls:ImageButton  Command="{Binding ShuffleCommand}" CommandParameter="shuffle" IsVisible="{Binding IsShuffle,Mode=TwoWay,Converter={StaticResource True2FalseConverter}}" BackgroundColor="Transparent" HeightRequest="75" WidthRequest="175" Image="Icon/shuffleDis" Orientation="ImageToLeft" ImageHeightRequest="50"
+              ImageWidthRequest="50">
+            </controls:ImageButton>
+            <controls:ImageButton  Command="{Binding ShuffleCommand}" CommandParameter="unshuffle" IsVisible="{Binding IsShuffle,Mode=TwoWay}" BackgroundColor="Transparent" HeightRequest="75" WidthRequest="175" Image="Icon/shuffleEn" Orientation="ImageToLeft" ImageHeightRequest="50"
+              ImageWidthRequest="50">
+            </controls:ImageButton>
+          </Grid>
+          <Grid Grid.Column="2">
+            <controls:ImageButton  Command="{Binding RepeatOneCommand}" CommandParameter="repeatone" IsVisible="{Binding IsRepeatOne,Mode=TwoWay,Converter={StaticResource True2FalseConverter}}" BackgroundColor="Transparent" HeightRequest="75" WidthRequest="175" Image="Icon/repeatOneDis" Orientation="ImageToLeft" ImageHeightRequest="50"
+              ImageWidthRequest="50">
+            </controls:ImageButton>
+            <controls:ImageButton  Command="{Binding RepeatOneCommand}" CommandParameter="unrepeatone" IsVisible="{Binding IsRepeatOne,Mode=TwoWay}" BackgroundColor="Transparent" HeightRequest="75" WidthRequest="175" Image="Icon/repeatOneEn" Orientation="ImageToLeft" ImageHeightRequest="50"
+              ImageWidthRequest="50">
+            </controls:ImageButton>
+          </Grid>
         </Grid>
+
         <Grid Grid.Row="2">
           <Grid.RowDefinitions>
             <RowDefinition Height="1*">

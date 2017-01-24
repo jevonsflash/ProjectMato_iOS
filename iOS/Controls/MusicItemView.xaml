@@ -21,17 +21,17 @@
                  HorizontalOptions="Center"
                  Orientation="Horizontal">
       <Grid>
-        <controls:ImageButton Image="Icon/AddToQueue"
+        <controls:ImageButton Image="Icon/More"
                               Clicked="MoreButton_OnClicked">
 
         </controls:ImageButton>
       </Grid>
       <Grid>
 
-        <Image Source="Icon/FavouriteButton_Dis"
+        <Image Source="Icon/FavouriteDis"
                HeightRequest="40"
                IsVisible="{Binding IsFavourite,Converter={StaticResource True2FalseConverter}}"></Image>
-        <Image Source="Icon/FavouriteButton_En"
+        <Image Source="Icon/FavouriteEn"
                IsVisible="{Binding IsFavourite}"></Image>
         <controls:ImageButton Clicked="IsFavouriteButton_OnClicked"></controls:ImageButton>
       </Grid>

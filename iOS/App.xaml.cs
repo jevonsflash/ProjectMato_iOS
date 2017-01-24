@@ -14,8 +14,6 @@ namespace ProjectMato.iOS
         public App()
         {
             InitializeComponent();
-            MusicSystem.InitMusicInfoList();
-//			PlaylistPage = new NavigationPage (new PlaylistPage ());
             App.Current.Resources["Bound"]  = (UIScreen.MainScreen.Bounds.Width).ToString();
 			MainPage = App.MainMasterDetailPage;
 

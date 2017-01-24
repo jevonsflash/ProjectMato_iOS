@@ -49,6 +49,8 @@ namespace ProjectMato.iOS
             this.PlayCommand = new RelayCommand(c => true, PlayAction);
             this.PreCommand = new RelayCommand(c => true, PreAction);
             this.NextCommand = new RelayCommand(c => true, NextAction);
+            this.RepeatOneCommand = new RelayCommand(c => true, RepeatOneAction);
+            this.ShuffleCommand = new RelayCommand(c => true, ShuffleAction);
             this.PropertyChanged += DetailPageViewModel_PropertyChanged;
             MusicSystem.OnPlayFinished += MusicSystem_OnMusicChanged;
             InitCurrentMusic();
@@ -77,7 +79,7 @@ namespace ProjectMato.iOS
                 if (OnMusicChanged != null)
                     OnMusicChanged(this, EventArgs.Empty);
                 this.Duration = MusicSystem.CurrentPlayer.Duration;
-                SettingServer.Current.SetSetting(SettingServer.Properties.BreakPointMusicIndex,Musics.IndexOf(CurrentMusic).ToString());
+                SettingServer.Current.SetSetting(SettingServer.Properties.BreakPointMusicIndex, Musics.IndexOf(CurrentMusic).ToString());
             }
             else if (e.PropertyName == Properties.IsPlaying)
             {
@@ -117,7 +119,33 @@ namespace ProjectMato.iOS
 
 
         }
-        
+
+        private void ShuffleAction(object obj)
+        {
+            var actionType = obj as string;
+            if (actionType == "shuffle")
+            {
+                IsShuffle = true;
+            }
+            else if (actionType == "unshuffle")
+            {
+                IsShuffle = false;
+            }
+        }
+
+
+        private void RepeatOneAction(object obj)
+        {
+            var actionType = obj as string;
+            if (actionType == "repeatone")
+            {
+                IsRepeatOne = true;
+            }
+            else if (actionType == "unrepeatone")
+            {
+                IsRepeatOne = false;
+            }
+        }
         public void ChangeProgess(double progress)
         {
             if (Math.Abs(progress - MusicSystem.CurrentPlayer.CurrentTime) > 2.0)
@@ -136,7 +164,7 @@ namespace ProjectMato.iOS
         {
             this.CurrentMusic = Musics.FirstOrDefault(c => c.Title == title);
         }
-        
+
         private List<MusicInfo> musics;
 
         public List<MusicInfo> Musics
@@ -181,7 +209,7 @@ namespace ProjectMato.iOS
             var musicIndex = int.Parse(SettingServer.Current.GetSetting(SettingServer.Properties.BreakPointMusicIndex, true));
             if (Musics.Count > 0)
             {
-                if (musicIndex>=0 && musicIndex <= Musics.Count - 1)
+                if (musicIndex >= 0 && musicIndex <= Musics.Count - 1)
                 {
                     CurrentMusic = Musics[musicIndex];
                 }
@@ -213,7 +241,7 @@ namespace ProjectMato.iOS
             set
             {
                 SetObservableProperty(ref currentTime, value);
-                
+
             }
         }
 
@@ -264,6 +292,39 @@ namespace ProjectMato.iOS
                 SetObservableProperty(ref nextMusic, value);
             }
         }
+
+        private bool isShuffle;
+
+        public bool IsShuffle
+        {
+            get
+            {
+                return SettingServer.Current.GetSetting(SettingServer.Properties.IsShuffle);
+            }
+            set
+            {
+                SettingServer.Current.SetSetting(SettingServer.Properties.IsShuffle, value);
+                SetObservableProperty(ref isShuffle, value);
+
+            }
+        }
+
+
+        private bool isRepeatOne;
+
+        public bool IsRepeatOne
+        {
+            get
+            {
+                return SettingServer.Current.GetSetting(SettingServer.Properties.IsRepeatOne);
+            }
+            set
+            {
+                SettingServer.Current.SetSetting(SettingServer.Properties.IsRepeatOne, value);
+                SetObservableProperty(ref isRepeatOne, value);
+
+            }
+        }
         #endregion
 
         public RelayCommand PlayCommand { get; set; }
@@ -271,6 +332,10 @@ namespace ProjectMato.iOS
         public RelayCommand PreCommand { get; set; }
 
         public RelayCommand NextCommand { get; set; }
+
+        public RelayCommand ShuffleCommand { get; set; }
+
+        public RelayCommand RepeatOneCommand { get; set; }
 
 
     }

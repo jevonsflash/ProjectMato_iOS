@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Server;
@@ -18,21 +19,21 @@ namespace ProjectMato.iOS.ViewModel
         {
             MusicInfoServer.Current.DeleteMusicInfoFormQueueEntry(obj as MusicInfo);
             MusicSystem.RebuildMusicInfos();
+            Musics = new ObservableCollection<MusicInfo>(MusicSystem.MusicInfos);
         }
 
 
-        private List<MusicInfo> musics;
+        private ObservableCollection<MusicInfo> musics;
 
 
-        public List<MusicInfo> Musics
+        public ObservableCollection<MusicInfo> Musics
         {
             get
             {
-                if (musics == null || musics.Count == 0)
+                if (musics == null)
                 {
-                    musics = MusicSystem.MusicInfos;
+                    musics = new ObservableCollection<MusicInfo>(MusicSystem.MusicInfos);
                 }
-
                 return musics;
             }
             set
