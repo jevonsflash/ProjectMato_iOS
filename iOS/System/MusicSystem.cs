@@ -19,6 +19,20 @@ namespace ProjectMato.iOS
             OnPlayFinished?.Invoke(null, e.Status);
         }
 
+
+        private static int[] shuffleMap;
+
+        public static int[] ShuffleMap
+        {
+            get
+            {
+                if (shuffleMap == null || shuffleMap.Length == 0)
+                {
+                    shuffleMap = CommonServer.Current.GetRandomArry(0, LastIndex);
+                }
+                return shuffleMap;
+            }
+        }
         private static AVAudioPlayer currentPlayer;
 
         public static AVAudioPlayer CurrentPlayer
@@ -38,8 +52,8 @@ namespace ProjectMato.iOS
             {
                 //if (musicInfos == null || musicInfos.Count == 0)
                 //{
-                    RebuildMusicInfos();
-               // }
+                RebuildMusicInfos();
+                // }
                 return musicInfos;
             }
         }
@@ -51,19 +65,26 @@ namespace ProjectMato.iOS
 
         public static int LastIndex { get { return MusicInfos.FindLastIndex(c => true); } }
 
-        public static MusicInfo GetNextMusic(MusicInfo current)
+        public static MusicInfo GetNextMusic(MusicInfo current, bool isShuffle)
         {
             MusicInfo currentMusicInfo = null;
             var index = GetMusicIndex(current);
-            if (index + 1 > LastIndex)
+
+            if (isShuffle)
             {
-                index = 0;
+                if (index + 1 > LastIndex)
+                {
+                    index = 0;
+                }
+                else
+                {
+                    index++;
+                }
             }
             else
             {
-                index++;
+                index = GetShuffleMusicIndex(index, 1);
             }
-
 
             if (MusicInfos.Count != 0)
             {
@@ -72,17 +93,24 @@ namespace ProjectMato.iOS
             return currentMusicInfo;
         }
 
-        public static MusicInfo GetPreMusic(MusicInfo current)
+        public static MusicInfo GetPreMusic(MusicInfo current, bool isShuffle)
         {
             MusicInfo currentMusicInfo = null;
             var index = GetMusicIndex(current);
-            if (index - 1 < 0)
+            if (isShuffle)
             {
-                index = LastIndex;
+                if (index - 1 < 0)
+                {
+                    index = LastIndex;
+                }
+                else
+                {
+                    index--;
+                }
             }
             else
             {
-                index--;
+                index = GetShuffleMusicIndex(index, -1);
             }
 
             if (MusicInfos.Count != 0)
@@ -112,7 +140,7 @@ namespace ProjectMato.iOS
             CurrentPlayer.FinishedPlaying -= new EventHandler<AVStatusEventArgs>(OnFinishedPlaying);
             CurrentPlayer.FinishedPlaying += new EventHandler<AVStatusEventArgs>(OnFinishedPlaying);
 
-            
+
         }
 
         public static void Play(MusicInfo currentMusic)
@@ -153,6 +181,28 @@ namespace ProjectMato.iOS
             {
                 CurrentPlayer.Play();
             }
+        }
+
+        private static int GetShuffleMusicIndex(int originItem, int increment)
+        {
+            var originItemIndex = 0;
+
+            foreach (var item in ShuffleMap)
+            {
+                if (originItem == item)
+                {
+                    break;
+                }
+                originItemIndex++;
+            }
+            originItemIndex += increment;
+            var resultContent = ShuffleMap[originItemIndex];
+            return resultContent;
+        }
+
+        public static void UpdateShuffleMap()
+        {
+            shuffleMap = CommonServer.Current.GetRandomArry(0, LastIndex);
         }
     }
 }

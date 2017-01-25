@@ -89,19 +89,19 @@ namespace ProjectMato.iOS
 
         private void InitPreviewAndNextMusic()
         {
-            this.PreviewMusic = MusicSystem.GetPreMusic(this.CurrentMusic);
-            this.NextMusic = MusicSystem.GetNextMusic(this.CurrentMusic);
+            this.PreviewMusic = MusicSystem.GetPreMusic(this.CurrentMusic, false);
+            this.NextMusic = MusicSystem.GetNextMusic(this.CurrentMusic, false);
         }
 
         public void NextAction(object obj)
         {
-            var next = MusicSystem.GetNextMusic(this.CurrentMusic);
+            var next = MusicSystem.GetNextMusic(this.CurrentMusic, IsShuffle);
             this.CurrentMusic = next;
         }
 
         public void PreAction(object obj)
         {
-            var pre = MusicSystem.GetPreMusic(this.CurrentMusic);
+            var pre = MusicSystem.GetPreMusic(this.CurrentMusic, IsShuffle);
             this.CurrentMusic = pre;
         }
 
@@ -125,6 +125,7 @@ namespace ProjectMato.iOS
             var actionType = obj as string;
             if (actionType == "shuffle")
             {
+                MusicSystem.UpdateShuffleMap();
                 IsShuffle = true;
             }
             else if (actionType == "unshuffle")
