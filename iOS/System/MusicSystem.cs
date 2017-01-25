@@ -70,7 +70,7 @@ namespace ProjectMato.iOS
             MusicInfo currentMusicInfo = null;
             var index = GetMusicIndex(current);
 
-            if (isShuffle)
+            if (!isShuffle)
             {
                 if (index + 1 > LastIndex)
                 {
@@ -97,7 +97,7 @@ namespace ProjectMato.iOS
         {
             MusicInfo currentMusicInfo = null;
             var index = GetMusicIndex(current);
-            if (isShuffle)
+            if (!isShuffle)
             {
                 if (index - 1 < 0)
                 {
@@ -136,7 +136,7 @@ namespace ProjectMato.iOS
         public static void InitPlayer(MusicInfo CurrentMusic)
         {
             currentPlayer = new AVAudioPlayer(new NSUrl(CurrentMusic.Url), "", out nserror);
-            currentPlayer.NumberOfLoops = 2;
+            //注册完成播放事件
             CurrentPlayer.FinishedPlaying -= new EventHandler<AVStatusEventArgs>(OnFinishedPlaying);
             CurrentPlayer.FinishedPlaying += new EventHandler<AVStatusEventArgs>(OnFinishedPlaying);
 
@@ -195,14 +195,31 @@ namespace ProjectMato.iOS
                 }
                 originItemIndex++;
             }
-            originItemIndex += increment;
-            var resultContent = ShuffleMap[originItemIndex];
+            var newItemIndex = originItemIndex + increment;
+            if (newItemIndex  < 0)
+            {
+                newItemIndex = LastIndex;
+            }
+            if (newItemIndex  > LastIndex)
+            {
+                newItemIndex = 0;
+            }
+
+            var resultContent = ShuffleMap[newItemIndex];
             return resultContent;
         }
 
         public static void UpdateShuffleMap()
         {
             shuffleMap = CommonServer.Current.GetRandomArry(0, LastIndex);
+        }
+
+        public static void SetRepeatOneStatus(bool isRepeatOne)
+        {
+            if (CurrentPlayer != null)
+            {
+                CurrentPlayer.NumberOfLoops = isRepeatOne ? nint.MaxValue : 0;
+            }
         }
     }
 }

@@ -53,6 +53,8 @@ namespace ProjectMato.iOS
             this.ShuffleCommand = new RelayCommand(c => true, ShuffleAction);
             this.PropertyChanged += DetailPageViewModel_PropertyChanged;
             MusicSystem.OnPlayFinished += MusicSystem_OnMusicChanged;
+            MusicSystem.SetRepeatOneStatus(IsRepeatOne);
+            MusicSystem.UpdateShuffleMap();
             InitCurrentMusic();
 
         }
@@ -141,11 +143,14 @@ namespace ProjectMato.iOS
             if (actionType == "repeatone")
             {
                 IsRepeatOne = true;
+
             }
             else if (actionType == "unrepeatone")
             {
                 IsRepeatOne = false;
             }
+            MusicSystem.SetRepeatOneStatus(IsRepeatOne);
+
         }
         public void ChangeProgess(double progress)
         {

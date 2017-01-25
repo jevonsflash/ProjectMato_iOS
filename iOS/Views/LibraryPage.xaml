@@ -7,7 +7,7 @@
                              BarTintColor="{StaticResource PhoneBackgroundBrush}"
                              TintColor="{StaticResource PhoneForegroundBrush}">
     <ContentPage Title="歌曲"
-                 Icon="Icon/TabbedButton_Songs">
+                 Icon="Icon/music">
         <Grid>          
             <Grid>
                 <Grid.RowDefinitions>
@@ -78,7 +78,7 @@
 
     </ContentPage>
     <ContentPage Title="艺术家"
-                 Icon="Icon/TabbedButton_Songs">
+                 Icon="Icon/microphone">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto">
@@ -139,7 +139,7 @@
         </Grid>
     </ContentPage>
     <ContentPage Title="专辑"
-                 Icon="Icon/TabbedButton_Songs">
+                 Icon="Icon/cd">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto">
