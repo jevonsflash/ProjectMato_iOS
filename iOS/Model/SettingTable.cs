@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ProjectMato.iOS.Server;
 using SQLite.Net.Attributes;
 
 namespace ProjectMato.iOS.Model
@@ -15,8 +16,11 @@ namespace ProjectMato.iOS.Model
         public static class Properties
         {
             public const string SettingId = "SettingId";
-
             public const string Name = "Name";
+            public const string Key = "Key";
+            public const string Value = "Value";
+            public const string StrValue = "StrValue";
+            public const string IsHidden = "IsHidden";
         }
 
         public SettingTable()
@@ -39,6 +43,7 @@ namespace ProjectMato.iOS.Model
             StrValue = strValue;
 
         }
+
         public string Name { get; set; }
 
         public bool Value { get; set; }

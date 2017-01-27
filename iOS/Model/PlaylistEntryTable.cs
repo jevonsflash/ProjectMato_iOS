@@ -1,4 +1,5 @@
-﻿using SQLite.Net.Attributes;
+﻿using ProjectMato.iOS.Server;
+using SQLite.Net.Attributes;
 
 namespace ProjectMato.iOS.Model
 {
@@ -12,37 +13,26 @@ namespace ProjectMato.iOS.Model
     public class PlaylistEntryTable : BaseTable
     {
         [PrimaryKey, AutoIncrement]
-        public int RowId { get; set; }
+        public int PlaylistEntryId { get; set; }
 
         public static class Properties
         {
-            public const string RowId = "RowId";
-
+            public const string Rank = "Rank";
+            public const string PlaylistEntryId = "PlaylistEntryId";
             public const string PlaylistId = "PlaylistId";
-            public const string SongId = "SongId";
             public const string MusicTitle = "MusicTitle";
-   
         }
 
-        public PlaylistEntryTable()
-        {
-            PlaylistId = 0;
-            SongId = 0;
-            MusicTitle = string.Empty;
-        }
-
-        public PlaylistEntryTable(int playlistId, string musicTitle)
+        public PlaylistEntryTable(int playlistId, string musicTitle, int rank)
         {
             PlaylistId = playlistId;
-            SongId = 0;
             MusicTitle = musicTitle;
-
+            Rank = rank;
         }
+        public int Rank { get; set; }
 
-        [Indexed]
         public int PlaylistId { get; set; }
 
-        public int SongId { get; set; }
         public string MusicTitle { get; set; }
 
     }

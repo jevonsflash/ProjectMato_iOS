@@ -163,6 +163,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AlphaGroupedObserveableCollection.cs" />
+    <Compile Include="Common\IObservableCollectionEx.cs" />
+    <Compile Include="Common\MovableCellGestureRecognizer.cs" />
+    <Compile Include="Common\ObservableCollectionEx.cs" />
+    <Compile Include="Common\ReorderCommandParam.cs" />
     <Compile Include="Common\SleepModeDispatcher.cs" />
     <Compile Include="Controls\BackgroundFliperView.xaml.cs">
       <DependentUpon>BackgroundFliperView.xaml</DependentUpon>
@@ -170,6 +174,7 @@
     <Compile Include="Controls\CarouselView.cs" />
     <Compile Include="Controls\GeneralListView.cs" />
     <Compile Include="Controls\LibraryGridView.cs" />
+    <Compile Include="Controls\MovableViewCell.cs" />
     <Compile Include="Controls\PopupView.xaml.cs">
       <DependentUpon>PopupView.xaml</DependentUpon>
     </Compile>
@@ -192,6 +197,7 @@
     <Compile Include="Model\QueueEntryTable.cs" />
     <Compile Include="Model\SettingTable.cs" />
     <Compile Include="Renders\GeneralListViewRenderer.cs" />
+    <Compile Include="Renders\MovableViewCellRenderer.cs" />
     <Compile Include="Server\CommonServer.cs" />
     <Compile Include="Server\DatabaseManager.cs" />
     <Compile Include="Server\SettingServer.cs" />

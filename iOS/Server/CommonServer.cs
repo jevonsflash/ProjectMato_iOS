@@ -44,5 +44,10 @@ namespace ProjectMato.iOS.Server
             }
             return arr;
         }
+
+        public string GetGuid()
+        {
+            return Guid.NewGuid().ToString("N");
+        }
     }
 }

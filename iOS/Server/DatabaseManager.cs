@@ -131,7 +131,7 @@ namespace ProjectMato.iOS.Server
         internal int AddQueueEntryTable(QueueEntryTable queueEntry)
         {
             SqlConnection.Insert(queueEntry);
-            return queueEntry.RowId;
+            return queueEntry.QueueId;
         }
 
         internal int AddQueueEntryTables(IEnumerable<QueueEntryTable> queueEntrys)
@@ -143,7 +143,7 @@ namespace ProjectMato.iOS.Server
         internal int AddPlaylistEntry(PlaylistEntryTable newPlaylistEntry)
         {
             SqlConnection.Insert(newPlaylistEntry);
-            return newPlaylistEntry.RowId;
+            return newPlaylistEntry.PlaylistEntryId;
         }
 
         internal int AddPlaylist(PlaylistTable newPlaylist)
@@ -174,12 +174,17 @@ namespace ProjectMato.iOS.Server
             return '%' + query.ToLower() + '%';
         }
 
-        #region LOOKUP
+        #region QUERY
 
 
-        internal BackgroundTable LookupSelectedBackground()
+        internal BackgroundTable QuerySelectedBackground()
         {
             return SqlConnection.Query<BackgroundTable>("SELECT * FROM BackgroundTable WHERE IsSel =  '1'").FirstOrDefault();
+        }
+
+        internal QueueEntryTable QueryQueueEntryByMusicTitle(string musicTitle)
+        {
+            return SqlConnection.Query<QueueEntryTable>(string.Format("SELECT * FROM QueueEntryTable WHERE MusicTitle = {0}", musicTitle)).FirstOrDefault();
         }
 
         #endregion
@@ -236,6 +241,13 @@ namespace ProjectMato.iOS.Server
             SqlConnection.Update(entry);
         }
 
+        internal void InterchangeQueueTable(string firstMusicTitle, string secondMusicTitle)
+        {
+            SqlConnection.Execute(String.Format(@"update QueueTable set id=((select id from QueueTable where name='{0}')+(select id from QueueTable where name='{1}')) where name='{0}';
+update QueueTable set id = ((select id from QueueTable where name = '{0}') - (select id from QueueTable where name = '{1}')) where name = '{1}';
+            update QueueTable set id = ((select id from QueueTable where name = '{0}')-(select id from QueueTable where name = '{1}')) where name = '{0}';
+            ",firstMusicTitle,secondMusicTitle),null);
+        }
         #endregion
     }
 }

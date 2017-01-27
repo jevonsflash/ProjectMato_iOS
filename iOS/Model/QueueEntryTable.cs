@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ProjectMato.iOS.Server;
 using SQLite.Net.Attributes;
 
 namespace ProjectMato.iOS.Model
@@ -10,35 +11,20 @@ namespace ProjectMato.iOS.Model
     public class QueueEntryTable : BaseTable
     {
         [PrimaryKey, AutoIncrement]
-        public int RowId { get; set; }
+        public int QueueId { get; set; }
 
         public static class Properties
         {
-            public const string RowId = "RowId";
-
             public const string Rank = "Rank";
-            public const string SongId = "SongId";
+            public const string QueueId = "QueueId";
             public const string MusicTitle = "MusicTitle";
-
         }
 
-        public QueueEntryTable()
+        public QueueEntryTable(string musicTitle,int rank)
         {
-
-            SongId = 0;
-            MusicTitle = string.Empty;
-        }
-
-        public QueueEntryTable(string musicTitle)
-        {
-
-            SongId = 0;
             MusicTitle = musicTitle;
-
+            Rank = rank;
         }
-
-        [Indexed]
-        public int SongId { get; set; }
 
         public int Rank { get; set; }
 

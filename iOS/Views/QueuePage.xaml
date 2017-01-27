@@ -26,7 +26,7 @@
                     ItemSelected="ListView_OnItemSelected">
             <controls:GeneralListView.ItemTemplate>
               <DataTemplate>
-                <ViewCell>
+                <controls:MovableViewCell>
                   <Grid>
 
                     <Grid.ColumnDefinitions>
@@ -62,7 +62,7 @@
                       </Grid>
                     </StackLayout>
                   </Grid>
-                </ViewCell>
+                </controls:MovableViewCell>
               </DataTemplate>
             </controls:GeneralListView.ItemTemplate>
           </controls:GeneralListView>

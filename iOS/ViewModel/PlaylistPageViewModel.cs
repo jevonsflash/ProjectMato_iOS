@@ -19,20 +19,19 @@ namespace ProjectMato.iOS
 
         private void RenameAction(object obj)
         {
-            
+
         }
 
         private void DeleteAction(object obj)
         {
-            
+
         }
 
         private void CreateAction(object obj)
         {
-            
-           MusicInfoServer.Current.CreatePlaylist(new PlaylistTable("测试列表"));
-           
-            
+
+
+
         }
 
         private List<PlaylistTable> _playlists;
@@ -61,13 +60,13 @@ namespace ProjectMato.iOS
         {
 
             Playlists = MusicInfoServer.Current.GetPlaylist();
-            if (Playlists.Count==0)
+            if (Playlists.Count == 0)
             {
-                MusicInfoServer.Current.CreatePlaylist(new PlaylistTable("我最喜爱"));
+                MusicInfoServer.Current.CreatePlaylist(new PlaylistTable("我最喜爱", false, false));
 
             }
             var aa = MusicInfoServer.Current.GetPlaylistEntryFormMyFavourite();
-            
+
         }
 
         public RelayCommand CreateCommand { get; set; }

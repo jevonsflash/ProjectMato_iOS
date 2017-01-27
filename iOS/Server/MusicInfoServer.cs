@@ -129,17 +129,17 @@ namespace ProjectMato.iOS.Server
             var status = MPMediaLibrary.AuthorizationStatus;
             switch (status)
             {
-                    case MPMediaLibraryAuthorizationStatus.Authorized:
+                case MPMediaLibraryAuthorizationStatus.Authorized:
                     result = true;
                     break;
-                    case MPMediaLibraryAuthorizationStatus.NotDetermined:
-                        MPMediaLibrary.RequestAuthorization((c) =>
-                        {
-                            result = c == MPMediaLibraryAuthorizationStatus.Authorized;
-                        });
+                case MPMediaLibraryAuthorizationStatus.NotDetermined:
+                    MPMediaLibrary.RequestAuthorization((c) =>
+                    {
+                        result = c == MPMediaLibraryAuthorizationStatus.Authorized;
+                    });
                     break;
                 case MPMediaLibraryAuthorizationStatus.Denied:
-                 case   MPMediaLibraryAuthorizationStatus.Restricted:
+                case MPMediaLibraryAuthorizationStatus.Restricted:
                     result = false;
                     break;
             }
@@ -153,7 +153,7 @@ namespace ProjectMato.iOS.Server
         /// <returns></returns>
         public List<MusicInfo> GetMusicInfos()
         {
-            if (_musicInfosresult == null&&MediaLibraryAuthorization())
+            if (_musicInfosresult == null && MediaLibraryAuthorization())
             {
 
 
@@ -256,20 +256,20 @@ namespace ProjectMato.iOS.Server
         /// <returns></returns>
         public bool CreateQueueEntry(MusicInfo musicInfo)
         {
-            var entry = new QueueEntryTable(musicInfo.Title);
+            var entry = new QueueEntryTable(musicInfo.Title, 0);
             var result = DatabaseManager.Current.AddQueueEntryTable(entry);
             return result > 0;
         }
 
         /// <summary>
-        /// 将MusicInfo插入到列队
+        /// 将MusicInfo集合插入到列队
         /// </summary>
         /// <param name="musicInfos"></param>
         /// <returns></returns>
         public bool CreateQueueEntrys(List<MusicInfo> musicInfos)
         {
-            var rankValue = 0;
-            var entrys = musicInfos.Select(c => new QueueEntryTable() { MusicTitle = c.Title, Rank = rankValue++ });
+            //var rankValue = 0;
+            var entrys = musicInfos.Select(c => new QueueEntryTable(c.Title, 0));
             var result = DatabaseManager.Current.AddQueueEntryTables(entrys);
             return result > 0;
         }
@@ -287,23 +287,35 @@ namespace ProjectMato.iOS.Server
                 from musicInfo in musicInfos
                 join queueEntryTable in queueEntrys
                     on musicInfo.Title equals queueEntryTable.MusicTitle
+                orderby queueEntryTable.Rank
                 select musicInfo;
             return result.ToList();
 
         }
 
-        //public List<MusicInfo> RandomQueueEntry()
-        //{
-        //    DatabaseManager.Current.FetchQueueEntryTables()
-        //}
-
+        /// <summary>
+        /// 从列队中删除指定MusicInfo
+        /// </summary>
+        /// <param name="musicInfo"></param>
+        /// <returns></returns>
         public bool DeleteMusicInfoFormQueueEntry(MusicInfo musicInfo)
         {
             var entry =
                 DatabaseManager.Current.FetchQueueEntryTables().FirstOrDefault(c => c.MusicTitle == musicInfo.Title);
-            var result = DatabaseManager.Current.DeleteQueueItem(entry.RowId);
+            var result = DatabaseManager.Current.DeleteQueueItem(entry.QueueId);
             return result > 0;
         }
+
+        /// <summary>
+        /// 交换列队中两个MusicInfo的位置
+        /// </summary>
+        /// <param name="oldMusicInfo"></param>
+        /// <param name="newMusicInfo"></param>
+        public void ReorderQueue(MusicInfo oldMusicInfo, MusicInfo newMusicInfo)
+        {
+            DatabaseManager.Current.InterchangeQueueTable(oldMusicInfo.Title, newMusicInfo.Title);
+        }
+
         /// <summary>
         /// 从列队中清除所有MusicInfo
         /// </summary>
@@ -320,7 +332,7 @@ namespace ProjectMato.iOS.Server
         /// <returns></returns>
         public bool CreatePlaylistEntry(MusicInfo musicInfo, int playlistId)
         {
-            var entry = new PlaylistEntryTable(playlistId, musicInfo.Title);
+            var entry = new PlaylistEntryTable(playlistId, musicInfo.Title, 0);
             var result = DatabaseManager.Current.AddPlaylistEntry(entry);
             return result > 0;
         }
@@ -336,7 +348,7 @@ namespace ProjectMato.iOS.Server
             var entry = DatabaseManager.Current.FetchPlaylistEntriesForPlaylistAndSongTitle(playlistId, musicInfo.Title).FirstOrDefault();
             if (entry != null)
             {
-                var result = DatabaseManager.Current.DeletePlaylistEntry(entry.RowId);
+                var result = DatabaseManager.Current.DeletePlaylistEntry(entry.PlaylistEntryId);
                 return result > 0;
             }
             else
@@ -439,24 +451,42 @@ namespace ProjectMato.iOS.Server
 
         }
 
-
+        /// <summary>
+        /// 获取Playlist
+        /// </summary>
+        /// <returns></returns>
         public List<PlaylistTable> GetPlaylist()
         {
             return DatabaseManager.Current.FetchPlaylists();
         }
 
+        /// <summary>
+        /// 创建Playlist
+        /// </summary>
+        /// <param name="playlist"></param>
+        /// <returns></returns>
         public bool CreatePlaylist(PlaylistTable playlist)
         {
             var result = DatabaseManager.Current.AddPlaylist(playlist);
             return result > 0;
         }
 
+        /// <summary>
+        /// 根据Id删除Playlist
+        /// </summary>
+        /// <param name="playlistId"></param>
+        /// <returns></returns>
         public bool DeletePlaylist(int playlistId)
         {
             var result = DatabaseManager.Current.DeletePlaylist(playlistId);
             return result > 0;
         }
 
+        /// <summary>
+        /// 获取一个字符串的标题头
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
         private string GetGroupHeader(string title)
         {
             string result = string.Empty;
@@ -486,6 +516,11 @@ namespace ProjectMato.iOS.Server
 
         }
 
+        /// <summary>
+        /// 获取专辑封面Source
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         private ImageSource GetAlbumArtSource(MPMediaItem item)
         {
             var _MPMediaItemArtwork = item.Artwork;
@@ -493,7 +528,7 @@ namespace ProjectMato.iOS.Server
             {
 
 
-                var _UIImage = _MPMediaItemArtwork.ImageWithSize(new CoreGraphics.CGSize(200,200));
+                var _UIImage = _MPMediaItemArtwork.ImageWithSize(new CoreGraphics.CGSize(200, 200));
                 return ImageSource.FromStream(() => _UIImage.AsPNG().AsStream());
             }
             else

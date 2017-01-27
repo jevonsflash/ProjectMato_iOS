@@ -181,7 +181,7 @@ namespace ProjectMato.iOS.Server
 
         public BackgroundTable GetSelectedBackground()
         {
-            return DatabaseManager.Current.LookupSelectedBackground();
+            return DatabaseManager.Current.QuerySelectedBackground();
 
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ProjectMato.iOS.Server;
 using SQLite.Net.Attributes;
 
 namespace ProjectMato.iOS.Model
@@ -17,19 +18,18 @@ namespace ProjectMato.iOS.Model
 
         public static class Properties
         {
+            public const string RowId = "RowId";
             public const string PlaylistId = "PlaylistId";
-
             public const string Name = "Name";
+            public const string IsHidden = "IsHidden";
+            public const string IsRemovable = "IsHidden";
         }
 
-        public PlaylistTable()
-        {
-            Name = string.Empty;
-        }
-
-        public PlaylistTable(string name)
+        public PlaylistTable(string name, bool isHidden, bool isRemovable)
         {
             Name = name;
+            IsHidden = isHidden;
+            IsRemovable = isRemovable;
         }
 
         public string Name { get; set; }
@@ -37,8 +37,5 @@ namespace ProjectMato.iOS.Model
         public bool IsHidden { get; set; }
 
         public bool IsRemovable { get; set; }
-
-        
-
     }
 }

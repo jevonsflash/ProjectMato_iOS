@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Text;
 using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Server;
@@ -13,26 +14,40 @@ namespace ProjectMato.iOS.ViewModel
         public QueuePageViewModel()
         {
             this.DeleteCommand = new RelayCommand(c => true, DeleteAction);
+            this.Musics.CollectionChanged += Musics_CollectionChanged;
+        }
+
+        private void Musics_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Move)
+            {
+                
+                var oldIndex = e.OldStartingIndex;
+                var newIndex = e.NewStartingIndex;
+                MusicInfoServer.Current.ReorderQueue(Musics[oldIndex], Musics[newIndex]);
+
+            }
+
         }
 
         public void DeleteAction(object obj)
         {
             MusicInfoServer.Current.DeleteMusicInfoFormQueueEntry(obj as MusicInfo);
             MusicSystem.RebuildMusicInfos();
-            Musics = new ObservableCollection<MusicInfo>(MusicSystem.MusicInfos);
+            Musics = new ObservableCollectionEx<MusicInfo>(MusicSystem.MusicInfos);
         }
 
 
-        private ObservableCollection<MusicInfo> musics;
+        private ObservableCollectionEx<MusicInfo> musics;
 
 
-        public ObservableCollection<MusicInfo> Musics
+        public ObservableCollectionEx<MusicInfo> Musics
         {
             get
             {
                 if (musics == null)
                 {
-                    musics = new ObservableCollection<MusicInfo>(MusicSystem.MusicInfos);
+                    musics = new ObservableCollectionEx<MusicInfo>(MusicSystem.MusicInfos);
                 }
                 return musics;
             }
@@ -43,8 +58,7 @@ namespace ProjectMato.iOS.ViewModel
                 SetObservableProperty(ref musics, value);
             }
         }
+
         public RelayCommand DeleteCommand { get; set; }
-
-
     }
 }

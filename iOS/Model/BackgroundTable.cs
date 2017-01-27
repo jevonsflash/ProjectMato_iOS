@@ -1,4 +1,5 @@
-﻿using SQLite.Net.Attributes;
+﻿using ProjectMato.iOS.Server;
+using SQLite.Net.Attributes;
 
 namespace ProjectMato.iOS.Model
 {
