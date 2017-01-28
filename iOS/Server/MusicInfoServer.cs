@@ -287,7 +287,7 @@ namespace ProjectMato.iOS.Server
                 from musicInfo in musicInfos
                 join queueEntryTable in queueEntrys
                     on musicInfo.Title equals queueEntryTable.MusicTitle
-                orderby queueEntryTable.Rank
+                orderby queueEntryTable.QueueEntryId
                 select musicInfo;
             return result.ToList();
 
@@ -302,7 +302,7 @@ namespace ProjectMato.iOS.Server
         {
             var entry =
                 DatabaseManager.Current.FetchQueueEntryTables().FirstOrDefault(c => c.MusicTitle == musicInfo.Title);
-            var result = DatabaseManager.Current.DeleteQueueItem(entry.QueueId);
+            var result = DatabaseManager.Current.DeleteQueueItem(entry.QueueEntryId);
             return result > 0;
         }
 
@@ -313,7 +313,7 @@ namespace ProjectMato.iOS.Server
         /// <param name="newMusicInfo"></param>
         public void ReorderQueue(MusicInfo oldMusicInfo, MusicInfo newMusicInfo)
         {
-            DatabaseManager.Current.InterchangeQueueTable(oldMusicInfo.Title, newMusicInfo.Title);
+            DatabaseManager.Current.InterchangeQueueEntry(oldMusicInfo.Title, newMusicInfo.Title);
         }
 
         /// <summary>
@@ -334,6 +334,19 @@ namespace ProjectMato.iOS.Server
         {
             var entry = new PlaylistEntryTable(playlistId, musicInfo.Title, 0);
             var result = DatabaseManager.Current.AddPlaylistEntry(entry);
+            return result > 0;
+        }
+
+        /// <summary>
+        /// 将MusicInfo集合插入到歌单
+        /// </summary>
+        /// <param name="musicCollectionInfo"></param>
+        /// <param name="playlistId"></param>
+        /// <returns></returns>
+        public bool CreatePlaylistEntrys(MusicCollectionInfo musicCollectionInfo, int playlistId)
+        {
+            var entrys = musicCollectionInfo.Musics.Select(c => new PlaylistEntryTable(playlistId, c.Title, 0));
+            var result = DatabaseManager.Current.AddPlaylistEntryTables(entrys);
             return result > 0;
         }
 
@@ -430,7 +443,7 @@ namespace ProjectMato.iOS.Server
         }
 
         /// <summary>
-        /// 返回一个值表明一个Title是否包含在某个歌单中
+        /// 返回一个值表明一个Title是否包含在"我最喜爱"中
         /// </summary>
         /// <param name="musicTitle">music标题</param>
         /// <returns></returns>
@@ -441,7 +454,7 @@ namespace ProjectMato.iOS.Server
         }
 
         /// <summary>
-        ///  返回一个值表明一个MusicInfo是否包含在某个歌单中
+        ///  返回一个值表明一个MusicInfo是否包含在"我最喜爱"中
         /// </summary>
         /// <param name="musicInfo">musicInfo对象</param>
         /// <returns></returns>
@@ -452,12 +465,48 @@ namespace ProjectMato.iOS.Server
         }
 
         /// <summary>
+        /// 交换某歌单中两个MusicInfo的位置
+        /// </summary>
+        /// <param name="oldMusicInfo"></param>
+        /// <param name="newMusicInfo"></param>
+        /// <param name="playlistId"></param>
+        public void ReorderPlaylist(MusicInfo oldMusicInfo, MusicInfo newMusicInfo, int playlistId)
+        {
+            DatabaseManager.Current.InterchangePlaylistEntry(oldMusicInfo.Title, newMusicInfo.Title, playlistId);
+        }
+        /// <summary>
+        /// 交换"我最喜爱"中两个MusicInfo的位置
+        /// </summary>
+        /// <param name="oldMusicInfo"></param>
+        /// <param name="newMusicInfo"></param>
+        public void ReorderMyFavourite(MusicInfo oldMusicInfo, MusicInfo newMusicInfo)
+        {
+            ReorderPlaylist(oldMusicInfo, newMusicInfo, MyFavouriteIndex);
+        }
+        /// <summary>
         /// 获取Playlist
         /// </summary>
         /// <returns></returns>
         public List<PlaylistTable> GetPlaylist()
         {
             return DatabaseManager.Current.FetchPlaylists();
+        }
+        /// <summary>
+        /// 获取PlaylistInfo
+        /// </summary>
+        /// <returns></returns>
+        public List<PlaylistInfo> GetPlaylistInfo()
+        {
+            var playlistInfo = GetPlaylist().Select(c => new PlaylistInfo()
+            {
+                PlaylistId = c.PlaylistId,
+                GroupHeader = GetGroupHeader(c.Name),
+                Title = c.Name,
+                IsHidden = c.IsHidden,
+                IsRemovable = c.IsRemovable,
+                Musics = GetPlaylistEntry(c.PlaylistId)
+            }).ToList();
+            return playlistInfo;
         }
 
         /// <summary>

@@ -23,6 +23,13 @@ namespace ProjectMato.iOS.Model
             public const string MusicTitle = "MusicTitle";
         }
 
+        public PlaylistEntryTable()
+        {
+            Rank = 0;
+            PlaylistId = 0;
+            MusicTitle = string.Empty;
+        }
+
         public PlaylistEntryTable(int playlistId, string musicTitle, int rank)
         {
             PlaylistId = playlistId;

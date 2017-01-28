@@ -11,13 +11,19 @@ namespace ProjectMato.iOS.Model
     public class QueueEntryTable : BaseTable
     {
         [PrimaryKey, AutoIncrement]
-        public int QueueId { get; set; }
+        public int QueueEntryId { get; set; }
 
         public static class Properties
         {
             public const string Rank = "Rank";
-            public const string QueueId = "QueueId";
+            public const string QueueEntryId = "QueueEntryId";
             public const string MusicTitle = "MusicTitle";
+        }
+
+        public QueueEntryTable()
+        {
+            Rank = 0;
+            MusicTitle = string.Empty;
         }
 
         public QueueEntryTable(string musicTitle,int rank)

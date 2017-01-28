@@ -20,8 +20,7 @@ namespace ProjectMato.iOS
         {
             MusicInfoServer.Current.ClearQueue();
             MusicInfoServer.Current.CreateQueueEntrys(this.Musics);
-
-            MusicSystem.Play(MusicRelatedViewModel.Current.CurrentMusic);
+            MusicRelatedViewModel.Current.CurrentMusic = MusicInfoServer.Current.GetQueueEntry()[0];
         }
 
         private bool CanPlayAll(object obj)

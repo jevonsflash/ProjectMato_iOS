@@ -16,7 +16,7 @@ namespace ProjectMato.iOS
     {
         private MusicInfo _musicInfo;
         public event EventHandler<MusicFunctionEventArgs> OnFinished;
-        public MusicFunctionPage(MusicInfo musicInfo, FunctionMenuType type)
+        public MusicFunctionPage(MusicInfo musicInfo, MusicFunctionMenuType type)
         {
             InitializeComponent();
             this._musicInfo = musicInfo;
@@ -25,18 +25,23 @@ namespace ProjectMato.iOS
             this.BindingContext = new MusicFunctionPageViewModel(musicInfo);
 
 
-            if (type == FunctionMenuType.Artist)
+            if (type == MusicFunctionMenuType.Artist)
             {
                 this.GoArtistPageButton.IsVisible = false;
             }
-            else if (type == FunctionMenuType.Album)
+            else if (type == MusicFunctionMenuType.Album)
             {
                 this.GoAlbumPageButton.IsVisible = false;
             }
-            else if (type == FunctionMenuType.NowPlaying)
+            else if (type == MusicFunctionMenuType.NowPlaying)
             {
                 this.NextPlayButton.IsEnabled = false;
                 this.AddToQueueButton.IsEnabled = false;
+            }
+            else if (type == MusicFunctionMenuType.Playlist)
+            {
+                this.DeleteButton.IsVisible = true;
+
             }
 
             if (string.IsNullOrEmpty(musicInfo.Artist))
@@ -47,53 +52,72 @@ namespace ProjectMato.iOS
             {
                 this.GoAlbumPageButton.IsVisible = false;
             }
+
         }
 
         private void AddToPlaylistButton_OnClicked(object sender, EventArgs e)
         {
             if (OnFinished != null)
-                OnFinished(this, new MusicFunctionEventArgs(this._musicInfo, FunctionType.AddToPlaylist));
+                OnFinished(this, new MusicFunctionEventArgs(this._musicInfo, MusicFunctionType.AddToPlaylist));
         }
 
         private void GoArtistPageButton_OnClicked(object sender, EventArgs e)
         {
             if (OnFinished != null)
-                OnFinished(this, new MusicFunctionEventArgs(this._musicInfo, FunctionType.GoArtistPage));
+                OnFinished(this, new MusicFunctionEventArgs(this._musicInfo, MusicFunctionType.GoArtistPage));
 
         }
 
         private void GoAlbumPageButton_OnClicked(object sender, EventArgs e)
         {
             if (OnFinished != null)
-                OnFinished(this, new MusicFunctionEventArgs(this._musicInfo, FunctionType.GoAlbumPage));
+                OnFinished(this, new MusicFunctionEventArgs(this._musicInfo, MusicFunctionType.GoAlbumPage));
 
         }
 
         private void Button_OnClicked(object sender, EventArgs e)
         {
             if (OnFinished != null)
-                OnFinished(this, new MusicFunctionEventArgs(this._musicInfo, FunctionType.Cancel));
+                OnFinished(this, new MusicFunctionEventArgs(this._musicInfo, MusicFunctionType.Cancel));
+        }
+
+        private void AddToQueueButton_OnClicked(object sender, EventArgs e)
+        {
+            if (OnFinished != null)
+                OnFinished(this, new MusicFunctionEventArgs(this._musicInfo, MusicFunctionType.AddToQueue));
+        }
+
+        private void NextPlayButton_OnClicked(object sender, EventArgs e)
+        {
+            if (OnFinished != null)
+                OnFinished(this, new MusicFunctionEventArgs(this._musicInfo, MusicFunctionType.NextPlay));
+        }
+
+        private void DeleteButton_OnClicked(object sender, EventArgs e)
+        {
+            if (OnFinished != null)
+                OnFinished(this, new MusicFunctionEventArgs(this._musicInfo, MusicFunctionType.Delete));
         }
     }
     public class MusicFunctionEventArgs : EventArgs
     {
-        public MusicFunctionEventArgs(MusicInfo musicInfo, FunctionType functionType)
+        public MusicFunctionEventArgs(MusicInfo musicInfo, MusicFunctionType functionType)
         {
             this.MusicInfo = musicInfo;
             this.FunctionType = functionType;
         }
         public MusicInfo MusicInfo { get; set; }
-        public FunctionType FunctionType { get; set; }
+        public MusicFunctionType FunctionType { get; set; }
     }
-    public enum FunctionType
+    public enum MusicFunctionType
     {
-        AddToPlaylist, NextPlay, AddToQueue, GoArtistPage, GoAlbumPage, Cancel
+        AddToPlaylist, NextPlay, AddToQueue, GoArtistPage, GoAlbumPage, Cancel, Delete
     }
 
 
-    public enum FunctionMenuType
+    public enum MusicFunctionMenuType
     {
-        NowPlaying, Album, Artist, Full
+        NowPlaying, Album, Artist, Full, Playlist
     }
 
 

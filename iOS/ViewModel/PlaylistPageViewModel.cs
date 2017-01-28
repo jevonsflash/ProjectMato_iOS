@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using ProjectMato.iOS.Common;
@@ -15,6 +16,12 @@ namespace ProjectMato.iOS
             this.CreateCommand = new RelayCommand(c => true, CreateAction);
             this.DeleteCommand = new RelayCommand(c => true, DeleteAction);
             this.RenameCommand = new RelayCommand(c => true, RenameAction);
+
+            Playlists.CollectionChanged += Playlists_CollectionChanged;
+        }
+
+        private void Playlists_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
         }
 
         private void RenameAction(object obj)
@@ -34,16 +41,16 @@ namespace ProjectMato.iOS
 
         }
 
-        private List<PlaylistTable> _playlists;
+        private ObservableCollectionEx<PlaylistInfo> _playlists;
 
-        public List<PlaylistTable> Playlists
+        public ObservableCollectionEx<PlaylistInfo> Playlists
         {
             get
             {
                 if (_playlists == null)
                 {
 
-                    InitPlaylist();
+                    _playlists = new ObservableCollectionEx<PlaylistInfo>(InitPlaylist());
                 }
                 return _playlists;
 
@@ -56,17 +63,15 @@ namespace ProjectMato.iOS
             }
         }
 
-        private void InitPlaylist()
+        private List<PlaylistInfo> InitPlaylist()
         {
-
-            Playlists = MusicInfoServer.Current.GetPlaylist();
-            if (Playlists.Count == 0)
+            var restul = MusicInfoServer.Current.GetPlaylistInfo();
+            if (restul.Count == 0 || !restul.Any(c => c.Title == "我最喜爱"))
             {
                 MusicInfoServer.Current.CreatePlaylist(new PlaylistTable("我最喜爱", false, false));
-
+                restul = MusicInfoServer.Current.GetPlaylistInfo();
             }
-            var aa = MusicInfoServer.Current.GetPlaylistEntryFormMyFavourite();
-
+            return restul;
         }
 
         public RelayCommand CreateCommand { get; set; }

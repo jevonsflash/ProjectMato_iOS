@@ -1,23 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text;
 using CoreMedia;
+using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 
 namespace ProjectMato.iOS.ViewModel
 {
-   public class PlaylistEntryPageViewModel:BaseViewModel
+    public class PlaylistEntryPageViewModel : BaseViewModel
     {
-       public PlaylistEntryPageViewModel(PlaylistTable playlistTable)
-       {
-           Playlist = playlistTable;
-          
-       }
+        public PlaylistEntryPageViewModel(PlaylistInfo playlist)
+        {
+            Playlist = playlist;
+            Musics.CollectionChanged += Musics_CollectionChanged;
 
-        private PlaylistTable playlist;
+        }
 
-        public PlaylistTable Playlist
+
+        private void Musics_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Move)
+            {
+
+                var oldIndex = e.OldStartingIndex;
+                var newIndex = e.NewStartingIndex;
+                MusicInfoServer.Current.ReorderPlaylist(Musics[oldIndex], Musics[newIndex], Playlist.PlaylistId);
+
+            }
+
+        }
+
+        private PlaylistInfo playlist;
+
+        public PlaylistInfo Playlist
         {
             get
             {
@@ -28,15 +45,15 @@ namespace ProjectMato.iOS.ViewModel
                 SetObservableProperty(ref playlist, value);
             }
         }
-        private List<MusicInfo> musics;
+        private ObservableCollectionEx<MusicInfo> musics;
 
-        public List<MusicInfo> Musics
+        public ObservableCollectionEx<MusicInfo> Musics
         {
             get
             {
-                if (musics==null)
+                if (musics == null)
                 {
-                     musics = MusicInfoServer.Current.GetPlaylistEntry(this.Playlist.PlaylistId);
+                    musics = new ObservableCollectionEx<MusicInfo>(MusicInfoServer.Current.GetPlaylistEntry(this.Playlist.PlaylistId));
                 }
                 return musics;
             }

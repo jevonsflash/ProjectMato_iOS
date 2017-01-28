@@ -131,7 +131,7 @@ namespace ProjectMato.iOS.Server
         internal int AddQueueEntryTable(QueueEntryTable queueEntry)
         {
             SqlConnection.Insert(queueEntry);
-            return queueEntry.QueueId;
+            return queueEntry.QueueEntryId;
         }
 
         internal int AddQueueEntryTables(IEnumerable<QueueEntryTable> queueEntrys)
@@ -146,6 +146,12 @@ namespace ProjectMato.iOS.Server
             return newPlaylistEntry.PlaylistEntryId;
         }
 
+        internal int AddPlaylistEntryTables(IEnumerable<PlaylistEntryTable> newPlaylistEntrys)
+        {
+            var result = SqlConnection.InsertAll(newPlaylistEntrys);
+            return result;
+
+        }
         internal int AddPlaylist(PlaylistTable newPlaylist)
         {
             SqlConnection.Insert(newPlaylist);
@@ -184,7 +190,10 @@ namespace ProjectMato.iOS.Server
 
         internal QueueEntryTable QueryQueueEntryByMusicTitle(string musicTitle)
         {
-            return SqlConnection.Query<QueueEntryTable>(string.Format("SELECT * FROM QueueEntryTable WHERE MusicTitle = {0}", musicTitle)).FirstOrDefault();
+            var result =
+                SqlConnection.FindWithQuery<QueueEntryTable>(
+                    string.Format("SELECT * FROM QueueEntryTable WHERE MusicTitle = '{0}'", musicTitle));
+            return result;
         }
 
         #endregion
@@ -241,12 +250,54 @@ namespace ProjectMato.iOS.Server
             SqlConnection.Update(entry);
         }
 
-        internal void InterchangeQueueTable(string firstMusicTitle, string secondMusicTitle)
+        internal void InterchangeQueueEntry(string firstMusicTitle, string secondMusicTitle)
         {
-            SqlConnection.Execute(String.Format(@"update QueueTable set id=((select id from QueueTable where name='{0}')+(select id from QueueTable where name='{1}')) where name='{0}';
-update QueueTable set id = ((select id from QueueTable where name = '{0}') - (select id from QueueTable where name = '{1}')) where name = '{1}';
-            update QueueTable set id = ((select id from QueueTable where name = '{0}')-(select id from QueueTable where name = '{1}')) where name = '{0}';
-            ",firstMusicTitle,secondMusicTitle),null);
+            SqlConnection.BeginTransaction();
+            try
+            {
+                var tempQueueEntryTable = new QueueEntryTable("_temp_", 0);
+                SqlConnection.Insert(tempQueueEntryTable);
+                var list = FetchQueueEntryTables();
+                var tempId = list.FirstOrDefault(c => c.MusicTitle == "_temp_").QueueEntryId;
+                var firstId = list.FirstOrDefault(c => c.MusicTitle == firstMusicTitle).QueueEntryId;
+                var secondId = list.FirstOrDefault(c => c.MusicTitle == secondMusicTitle).QueueEntryId;
+                SqlConnection.Delete(tempQueueEntryTable);
+                SqlConnection.Execute(String.Format("update QueueEntryTable set QueueEntryId={0} where QueueEntryId={1};", tempId, secondId));
+                SqlConnection.Execute(String.Format("update QueueEntryTable set QueueEntryId={0} where QueueEntryId={1};", secondId, firstId));
+                SqlConnection.Execute(String.Format("update QueueEntryTable set QueueEntryId={0} where QueueEntryId={1};", firstId, tempId));
+                SqlConnection.Commit();
+
+            }
+            catch (Exception ex)
+            {
+                SqlConnection.Rollback();
+                throw ex;
+            }
+        }
+
+        internal void InterchangePlaylistEntry(string firstMusicTitle, string secondMusicTitle, int playlistId)
+        {
+            SqlConnection.BeginTransaction();
+            try
+            {
+                var tempPlaylistEntryTable = new PlaylistEntryTable(playlistId, "_temp_", 0);
+                SqlConnection.Insert(tempPlaylistEntryTable);
+                var list = FetchPlaylistEntriesForPlaylist(playlistId);
+                var tempId = list.FirstOrDefault(c => c.MusicTitle == "_temp_").PlaylistEntryId;
+                var firstId = list.FirstOrDefault(c => c.MusicTitle == firstMusicTitle).PlaylistEntryId;
+                var secondId = list.FirstOrDefault(c => c.MusicTitle == secondMusicTitle).PlaylistEntryId;
+                SqlConnection.Delete(tempPlaylistEntryTable);
+                SqlConnection.Execute(String.Format("update PlaylistEntryTable set PlaylistEntryId={0} where PlaylistEntryId={1};", tempId, secondId));
+                SqlConnection.Execute(String.Format("update PlaylistEntryTable set PlaylistEntryId={0} where PlaylistEntryId={1};", secondId, firstId));
+                SqlConnection.Execute(String.Format("update PlaylistEntryTable set PlaylistEntryId={0} where PlaylistEntryId={1};", firstId, tempId));
+                SqlConnection.Commit();
+
+            }
+            catch (Exception ex)
+            {
+                SqlConnection.Rollback();
+                throw ex;
+            }
         }
         #endregion
     }

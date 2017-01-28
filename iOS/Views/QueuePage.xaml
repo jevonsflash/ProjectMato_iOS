@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
-             xmlns:controls1="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="ProjectMato.iOS.QueuePage" BackgroundColor="{StaticResource PhoneBackgroundBrush}">
   <ContentPage.Content>
     <Grid>
@@ -27,41 +26,11 @@
             <controls:GeneralListView.ItemTemplate>
               <DataTemplate>
                 <controls:MovableViewCell>
-                  <Grid>
+                  <controls:MusicItemView  MenuType="Playlist"
+                                        BindingContext="{Binding}"
+                                        Popup="{x:Reference popup}"
+                                        OnJumptoOtherPage="MusicItemView_OnOnJumptoOtherPage"></controls:MusicItemView>
 
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="4*"></ColumnDefinition>
-                      <ColumnDefinition Width="1*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-
-
-                    <Label VerticalOptions="Center"
-                           Text="{Binding Title}"
-                           FontSize="Large">
-                    </Label>
-
-                    <StackLayout Grid.Column="1"
-                                 VerticalOptions="Center"
-                                 HorizontalOptions="Center"
-                                 Orientation="Horizontal">
-                      <Grid>
-                        <controls1:ImageButton Image="Icon/Remove"
-                                               Clicked="Button_OnClicked"
-                                              >
-
-                        </controls1:ImageButton>
-                      </Grid>
-                      <Grid>
-
-                        <Image Source="Icon/FavouriteDis"
-                               HeightRequest="40"
-                               IsVisible="{Binding IsFavourite,Converter={StaticResource True2FalseConverter}}"></Image>
-                        <Image Source="Icon/FavouriteEn"
-                               IsVisible="{Binding IsFavourite}"></Image>
-                        <controls1:ImageButton Clicked="IsFavouriteButton_OnClicked"></controls1:ImageButton>
-                      </Grid>
-                    </StackLayout>
-                  </Grid>
                 </controls:MovableViewCell>
               </DataTemplate>
             </controls:GeneralListView.ItemTemplate>

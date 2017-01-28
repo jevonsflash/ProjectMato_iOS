@@ -18,10 +18,10 @@ namespace ProjectMato.iOS.Controls
         private PlaylistChoosePage _playlistChoosePage;
         
         public PopupView Popup { get; set; }
-        public FunctionMenuType MenuType { get; set; }
+        public MusicFunctionMenuType MenuType { get; set; }
         public event EventHandler<MusicFunctionEventArgs> OnJumptoOtherPage;
 
-        public MusicItemView(FunctionMenuType menuType) : this()
+        public MusicItemView(MusicFunctionMenuType menuType) : this()
         {
 
             this.MenuType = menuType;
@@ -61,7 +61,7 @@ namespace ProjectMato.iOS.Controls
             this.Popup.HidePopup();
             switch (e.FunctionType)
             {
-                case FunctionType.AddToPlaylist:
+                case MusicFunctionType.AddToPlaylist:
                     _playlistChoosePage = new PlaylistChoosePage();
                     _playlistChoosePage.OnFinished += (o, c) =>
                     {
@@ -83,11 +83,11 @@ namespace ProjectMato.iOS.Controls
 
 
                     break;
-                case FunctionType.GoAlbumPage:
+                case MusicFunctionType.GoAlbumPage:
                     if (OnJumptoOtherPage != null) OnJumptoOtherPage(this, e);
                     
                     break;
-                case FunctionType.GoArtistPage:
+                case MusicFunctionType.GoArtistPage:
                     if (OnJumptoOtherPage != null) OnJumptoOtherPage(this, e);
                     
                     break;

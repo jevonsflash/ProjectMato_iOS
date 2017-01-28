@@ -8,7 +8,7 @@
                              TintColor="{StaticResource PhoneForegroundBrush}">
     <ContentPage Title="歌曲"
                  Icon="Icon/music">
-        <Grid>          
+        <Grid>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto">
@@ -72,175 +72,176 @@
                     </local:GeneralListView>
                 </Grid>
             </Grid>
-
-        <local:PopupView  x:Name="popup"></local:PopupView>
+            <local:PopupView  x:Name="popup"></local:PopupView>
         </Grid>
 
     </ContentPage>
     <ContentPage Title="艺术家"
                  Icon="Icon/microphone">
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto">
-                </RowDefinition>
-                <RowDefinition>
-                </RowDefinition>
-            </Grid.RowDefinitions>
-            <StackLayout Grid.Row="0"
-                         Padding="{StaticResource DefaultContentPadding}">
-                <Label Text="艺术家"
-                       FontSize="{StaticResource HeaderFontSize}" />
-            </StackLayout>
-            <Grid Padding="{StaticResource DefaultContentPadding}"
-                  Grid.Row="1">
-                <local:GeneralListView RowHeight="50"
-                                       IsGroupingEnabled="true"
-                                       GroupDisplayBinding="{Binding Title}"
-                                       GroupShortNameBinding="{Binding Title}"
-                                       ItemsSource="{Binding AGArtists.Root,Mode=TwoWay}"
-                                       ItemSelected="ListView_OnItemSelected">
-                    <local:GeneralListView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid BackgroundColor="{StaticResource PhoneBackgroundBrush}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto">
-                                        </ColumnDefinition>
-                                        <ColumnDefinition>
-                                        </ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <local:EllipseView Color="{StaticResource PhoneAccentBrush}"
-                                                       WidthRequest="50">
-                                    </local:EllipseView>
-                                    <Label YAlign="Center"
-                                           XAlign="Center"
-                                           Text="{Binding Title}"
-                                           TextColor="{StaticResource PhoneForegroundBrush}"
-                                           FontSize="Large">
-                                    </Label>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </local:GeneralListView.GroupHeaderTemplate>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto">
+                    </RowDefinition>
+                    <RowDefinition>
+                    </RowDefinition>
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0"
+                             Padding="{StaticResource DefaultContentPadding}">
+                    <Label Text="艺术家"
+                           FontSize="{StaticResource HeaderFontSize}" />
+                </StackLayout>
+                <Grid Padding="{StaticResource DefaultContentPadding}"
+                      Grid.Row="1">
+                    <local:GeneralListView RowHeight="50"
+                                           IsGroupingEnabled="true"
+                                           GroupDisplayBinding="{Binding Title}"
+                                           GroupShortNameBinding="{Binding Title}"
+                                           ItemsSource="{Binding AGArtists.Root,Mode=TwoWay}"
+                                           ItemSelected="ListView_OnItemSelected">
+                        <local:GeneralListView.GroupHeaderTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid BackgroundColor="{StaticResource PhoneBackgroundBrush}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition>
+                                            </ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <local:EllipseView Color="{StaticResource PhoneAccentBrush}"
+                                                           WidthRequest="50">
+                                        </local:EllipseView>
+                                        <Label YAlign="Center"
+                                               XAlign="Center"
+                                               Text="{Binding Title}"
+                                               TextColor="{StaticResource PhoneForegroundBrush}"
+                                               FontSize="Large">
+                                        </Label>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </local:GeneralListView.GroupHeaderTemplate>
 
-                    <local:GeneralListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout>
-                                    <Label Text="{Binding Title}"
-                                           FontSize="Large">
-                                    </Label>
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </local:GeneralListView.ItemTemplate>
-                </local:GeneralListView>
+                        <local:GeneralListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <local:MusicCollectionItemView MenuType="Artist"
+                                                                   BindingContext="{Binding}"
+                                                                   Popup="{x:Reference popup2}"></local:MusicCollectionItemView>
+                                </ViewCell>
+                            </DataTemplate>
+                        </local:GeneralListView.ItemTemplate>
+                    </local:GeneralListView>
+                </Grid>
             </Grid>
+            <local:PopupView  x:Name="popup2"></local:PopupView>
         </Grid>
+
     </ContentPage>
     <ContentPage Title="专辑"
                  Icon="Icon/cd">
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto">
-                </RowDefinition>
-                <RowDefinition>
-                </RowDefinition>
-            </Grid.RowDefinitions>
-            <StackLayout Grid.Row="0"
-                         Padding="{StaticResource DefaultContentPadding}">
-                <Label Text="专辑"
-                       FontSize="{StaticResource HeaderFontSize}" />
-                <Switch  IsToggled="{Binding IsShowGrid,Mode=TwoWay}"></Switch>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto">
+                    </RowDefinition>
+                    <RowDefinition>
+                    </RowDefinition>
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0"
+                             Padding="{StaticResource DefaultContentPadding}">
+                    <Label Text="专辑"
+                           FontSize="{StaticResource HeaderFontSize}" />
+                    <Switch  IsToggled="{Binding IsShowGrid,Mode=TwoWay}"></Switch>
 
-            </StackLayout>
-            <Grid Padding="{StaticResource DefaultContentPadding}"
-                  Grid.Row="1"
-                  IsVisible="{Binding IsShowGrid}"
-                  x:Name="AlbumGrid">
-                <local:LibraryGridView RowSpacing="0"
-                                       ColumnSpacing="0"
-                                       ItemWidth="{StaticResource Bound}"
-                                       ItemHeight="{StaticResource Bound}"
-                                       ItemsSource="{Binding Albums,Mode=TwoWay}"
-                                       ItemSelected="GridView_OnItemSelected">
-                    <local:LibraryGridView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid Padding="8,0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="120" />
-                                        <RowDefinition Height="15" />
-                                    </Grid.RowDefinitions>
+                </StackLayout>
+                <Grid Padding="{StaticResource DefaultContentPadding}"
+                      Grid.Row="1"
+                      IsVisible="{Binding IsShowGrid}"
+                      x:Name="AlbumGrid">
+                    <local:LibraryGridView RowSpacing="0"
+                                           ColumnSpacing="0"
+                                           ItemWidth="{StaticResource Bound}"
+                                           ItemHeight="{StaticResource Bound}"
+                                           ItemsSource="{Binding Albums,Mode=TwoWay}"
+                                           ItemSelected="GridView_OnItemSelected">
+                        <local:LibraryGridView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="8,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="120" />
+                                            <RowDefinition Height="15" />
+                                        </Grid.RowDefinitions>
 
-                                    <Image Grid.Row="0"
-                                           Grid.RowSpan="2"
-                                           HeightRequest="120"
-                                           Source="{Binding AlbumArt}" />
-                                    <Grid Grid.Row="1">
+                                        <Image Grid.Row="0"
+                                               Grid.RowSpan="2"
+                                               HeightRequest="120"
+                                               Source="{Binding AlbumArt}" />
+                                        <Grid Grid.Row="1">
 
-                                        <Label FontAttributes="Bold"
-                                               BackgroundColor="#55000000"
-                                               LineBreakMode="TailTruncation"
-                                               Text="{Binding Title}"
-                                               FontSize="{StaticResource BodyFontSize}" />
+                                            <Label FontAttributes="Bold"
+                                                   BackgroundColor="#55000000"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding Title}"
+                                                   FontSize="{StaticResource BodyFontSize}" />
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </local:LibraryGridView.ItemTemplate>
+                                </ViewCell>
+                            </DataTemplate>
+                        </local:LibraryGridView.ItemTemplate>
 
-                </local:LibraryGridView>
+                    </local:LibraryGridView>
+                </Grid>
+                <Grid Padding="{StaticResource DefaultContentPadding}"
+                      x:Name="AlbumAGList"
+                      IsVisible="{Binding IsShowGrid,Converter={StaticResource True2FalseConverter}}"
+                      Grid.Row="1">
+                    <local:GeneralListView RowHeight="50"
+                                           IsGroupingEnabled="true"
+                                           GroupDisplayBinding="{Binding Title}"
+                                           GroupShortNameBinding="{Binding Title}"
+                                           ItemsSource="{Binding AGAlbums.Root,Mode=TwoWay}"
+                                           ItemSelected="ListView_OnItemSelected">
+                        <local:GeneralListView.GroupHeaderTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid BackgroundColor="{StaticResource PhoneBackgroundBrush}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition>
+                                            </ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <local:EllipseView Color="{StaticResource PhoneAccentBrush}"
+                                                           WidthRequest="50">
+                                        </local:EllipseView>
+                                        <Label YAlign="Center"
+                                               XAlign="Center"
+                                               Text="{Binding Title}"
+                                               TextColor="{StaticResource PhoneForegroundBrush}"
+                                               FontSize="Large">
+                                        </Label>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </local:GeneralListView.GroupHeaderTemplate>
+
+                        <local:GeneralListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <local:MusicCollectionItemView MenuType="Artist"
+                                                                   BindingContext="{Binding}"
+                                                                   Popup="{x:Reference popup3}"></local:MusicCollectionItemView>
+                                </ViewCell>
+                            </DataTemplate>
+                        </local:GeneralListView.ItemTemplate>
+                    </local:GeneralListView>
+                </Grid>
+
             </Grid>
-            <Grid Padding="{StaticResource DefaultContentPadding}"
-                  x:Name="AlbumAGList"
-                  IsVisible="{Binding IsShowGrid,Converter={StaticResource True2FalseConverter}}"
-                  Grid.Row="1">
-                <local:GeneralListView RowHeight="50"
-                                       IsGroupingEnabled="true"
-                                       GroupDisplayBinding="{Binding Title}"
-                                       GroupShortNameBinding="{Binding Title}"
-                                       ItemsSource="{Binding AGAlbums.Root,Mode=TwoWay}"
-                                       ItemSelected="ListView_OnItemSelected">
-                    <local:GeneralListView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid BackgroundColor="{StaticResource PhoneBackgroundBrush}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto">
-                                        </ColumnDefinition>
-                                        <ColumnDefinition>
-                                        </ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <local:EllipseView Color="{StaticResource PhoneAccentBrush}"
-                                                       WidthRequest="50">
-                                    </local:EllipseView>
-                                    <Label YAlign="Center"
-                                           XAlign="Center"
-                                           Text="{Binding Title}"
-                                           TextColor="{StaticResource PhoneForegroundBrush}"
-                                           FontSize="Large">
-                                    </Label>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </local:GeneralListView.GroupHeaderTemplate>
-
-                    <local:GeneralListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout>
-                                    <Label Text="{Binding Title}"
-                                           FontSize="Large">
-                                    </Label>
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </local:GeneralListView.ItemTemplate>
-                </local:GeneralListView>
-            </Grid>
-
+            <local:PopupView  x:Name="popup3"></local:PopupView>
         </Grid>
-
     </ContentPage>
 </controls:ExtendedTabbedPage>

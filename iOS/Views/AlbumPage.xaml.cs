@@ -26,13 +26,13 @@ namespace ProjectMato.iOS
 
         private async void MusicItemView_OnOnJumptoOtherPage(object sender, MusicFunctionEventArgs e)
         {
-            if (e.FunctionType == FunctionType.GoAlbumPage)
+            if (e.FunctionType == MusicFunctionType.GoAlbumPage)
             {
                 var albumInfo = MusicInfoServer.Current.GetAlbumInfos().Find(c => c.Title == e.MusicInfo.AlbumTitle);
                 await Navigation.PushAsync(new AlbumPage(albumInfo));
 
             }
-            else if (e.FunctionType == FunctionType.GoArtistPage)
+            else if (e.FunctionType == MusicFunctionType.GoArtistPage)
             {
                 var artistInfo = MusicInfoServer.Current.GetArtistInfos().Find(c => c.Title == e.MusicInfo.Artist);
                 await Navigation.PushAsync(new ArtistPage(artistInfo));

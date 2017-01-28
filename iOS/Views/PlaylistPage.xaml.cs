@@ -18,7 +18,7 @@ namespace ProjectMato.iOS
 
         private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var playlist = e.SelectedItem as PlaylistTable;
+            var playlist = e.SelectedItem as PlaylistInfo;
 
             await Navigation.PushAsync(new PlaylistEntryPage(playlist));
         }

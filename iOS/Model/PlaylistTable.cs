@@ -25,6 +25,13 @@ namespace ProjectMato.iOS.Model
             public const string IsRemovable = "IsHidden";
         }
 
+        public PlaylistTable()
+        {
+            Name = string.Empty;
+            IsHidden = false;
+            IsRemovable = true;
+        }
+
         public PlaylistTable(string name, bool isHidden, bool isRemovable)
         {
             Name = name;
