@@ -19,40 +19,8 @@ namespace ProjectMato.iOS
         {
             // NSTimer nstimer = new NSTimer(new NSDate(), new TimeSpan(0, 0, 3), new Action<NSTimer>(DoUpdate), true);
             InitializeComponent();
-
-
             this.BindingContext = new QueuePageViewModel();
 
-
-        }
-
-
-
-
-        private void IsFavouriteButton_OnClicked(object sender, EventArgs e)
-        {
-            var imageButton = sender as ImageButton;
-            var musicInfo = imageButton.BindingContext as MusicInfo;
-            if (musicInfo != null)
-            {
-                if (!musicInfo.IsFavourite)
-                {
-
-                    if (MusicInfoServer.Current.CreatePlaylistEntryToMyFavourite(musicInfo))
-                    {
-                        musicInfo.IsFavourite = !musicInfo.IsFavourite;
-                    }
-
-                }
-                else
-                {
-                    if (MusicInfoServer.Current.DeletePlaylistEntryFromMyFavourite(musicInfo))
-                    {
-                        musicInfo.IsFavourite = !musicInfo.IsFavourite;
-                    }
-
-                }
-            }
         }
 
 
@@ -88,6 +56,14 @@ namespace ProjectMato.iOS
             {
                 var artistInfo = MusicInfoServer.Current.GetArtistInfos().Find(c => c.Title == e.MusicInfo.Artist);
                 await Navigation.PushAsync(new ArtistPage(artistInfo));
+            }
+
+            else if (e.FunctionType == MusicFunctionType.Delete)
+            {
+                var musicInfo = e.MusicInfo;
+                var queuePageViewModel = this.BindingContext as QueuePageViewModel;
+                if (queuePageViewModel != null)
+                    queuePageViewModel.DeleteAction(musicInfo);
             }
         }
 

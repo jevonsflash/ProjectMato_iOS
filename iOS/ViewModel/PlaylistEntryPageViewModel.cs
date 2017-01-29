@@ -23,12 +23,15 @@ namespace ProjectMato.iOS.ViewModel
         {
             if (e.Action == NotifyCollectionChangedAction.Move)
             {
-
                 var oldIndex = e.OldStartingIndex;
                 var newIndex = e.NewStartingIndex;
                 MusicInfoServer.Current.ReorderPlaylist(Musics[oldIndex], Musics[newIndex], Playlist.PlaylistId);
-
             }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                MusicInfoServer.Current.DeletePlaylistEntry(e.OldItems[0] as MusicInfo, Playlist.PlaylistId);
+            }
+
 
         }
 

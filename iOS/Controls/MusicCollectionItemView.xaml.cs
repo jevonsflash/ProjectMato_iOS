@@ -19,7 +19,7 @@ namespace ProjectMato.iOS.Controls
 
         public PopupView Popup { get; set; }
         public MusicCollectionFunctionMenuType MenuType { get; set; }
-        public event EventHandler<MusicCollectionFunctionEventArgs> OnJumptoOtherPage;
+        public event EventHandler<MusicCollectionFunctionEventArgs> OnFinishedChoice;
 
         public MusicCollectionItemView(MusicCollectionFunctionMenuType menuType) : this()
         {
@@ -41,7 +41,7 @@ namespace ProjectMato.iOS.Controls
 
             _musicCollectionFunctionPage = new MusicCollectionFunctionPage(musicInfo, MenuType);
             _musicCollectionFunctionPage.OnFinished += MusicCollectionFunctionPage_OnFinished;
-            
+
             this.Popup.ShowPopup(_musicCollectionFunctionPage);
 
 
@@ -59,33 +59,30 @@ namespace ProjectMato.iOS.Controls
                 return;
             }
             this.Popup.HidePopup();
-            switch (e.FunctionType)
+            if (e.FunctionType == MusicCollectionFunctionType.AddToPlaylist)
             {
-                case MusicCollectionFunctionType.AddToPlaylist:
-                    _playlistChoosePage = new PlaylistChoosePage();
-                    _playlistChoosePage.OnFinished += (o, c) =>
+
+                _playlistChoosePage = new PlaylistChoosePage();
+                _playlistChoosePage.OnFinished += (o, c) =>
+                {
+                    if (c != null)
                     {
-                        if (c != null)
-                        {
-                            MusicInfoServer.Current.CreatePlaylistEntrys(e.MusicCollectionInfo, c.PlaylistId);
+                        MusicInfoServer.Current.CreatePlaylistEntrys(e.MusicCollectionInfo, c.PlaylistId);
 
 
-                        }
-                        this.Popup.HidePopup();
-                    };
+                    }
+                    this.Popup.HidePopup();
+                };
 
-                    this.Popup.ShowPopup(
-                        _playlistChoosePage
+                this.Popup.ShowPopup(
+                    _playlistChoosePage
 
-                        );
-
-
-
-
-                    break;
-
-                default:
-                    break;
+                    );
+            }
+            else
+            {
+                if (OnFinishedChoice != null)
+                    OnFinishedChoice(sender, e);
             }
         }
     }

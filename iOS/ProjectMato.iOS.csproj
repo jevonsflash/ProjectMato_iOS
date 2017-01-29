@@ -206,6 +206,7 @@
     <Compile Include="Server\CommonServer.cs" />
     <Compile Include="Server\DatabaseManager.cs" />
     <Compile Include="Server\SettingServer.cs" />
+    <Compile Include="ViewModel\PlaylistFunctionPageViewModel.cs" />
     <Compile Include="ViewModel\MusicCollectionFunctionPageViewModel.cs" />
     <Compile Include="ViewModel\AlbumPageViewModel.cs" />
     <Compile Include="ViewModel\ArtistPageViewModel.cs" />
@@ -215,6 +216,9 @@
     <Compile Include="ViewModel\QueuePageViewModel.cs" />
     <Compile Include="ViewModel\SettingPageViewModel.cs" />
     <Compile Include="ViewModel\SleepModePageViewModel.cs" />
+    <Compile Include="Views\PlaylistFunctionPage.xaml.cs">
+      <DependentUpon>PlaylistFunctionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MusicCollectionFunctionPage.xaml.cs">
       <DependentUpon>MusicCollectionFunctionPage.xaml</DependentUpon>
     </Compile>
@@ -510,6 +514,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\MusicCollectionItemView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\PlaylistFunctionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

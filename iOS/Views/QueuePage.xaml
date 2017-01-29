@@ -29,7 +29,7 @@
                   <controls:MusicItemView  MenuType="Playlist"
                                         BindingContext="{Binding}"
                                         Popup="{x:Reference popup}"
-                                        OnJumptoOtherPage="MusicItemView_OnOnJumptoOtherPage"></controls:MusicItemView>
+                                        OnFinishedChoice="MusicItemView_OnOnJumptoOtherPage"></controls:MusicItemView>
 
                 </controls:MovableViewCell>
               </DataTemplate>

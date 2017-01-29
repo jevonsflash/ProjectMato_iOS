@@ -13,32 +13,25 @@ namespace ProjectMato.iOS
     {
         public PlaylistPageViewModel()
         {
-            this.CreateCommand = new RelayCommand(c => true, CreateAction);
             this.DeleteCommand = new RelayCommand(c => true, DeleteAction);
-            this.RenameCommand = new RelayCommand(c => true, RenameAction);
 
             Playlists.CollectionChanged += Playlists_CollectionChanged;
         }
 
         private void Playlists_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                MusicInfoServer.Current.DeletePlaylist(e.OldItems[0] as PlaylistInfo);
+            }
         }
 
-        private void RenameAction(object obj)
+
+        public void DeleteAction(object obj)
         {
-
-        }
-
-        private void DeleteAction(object obj)
-        {
-
-        }
-
-        private void CreateAction(object obj)
-        {
-
-
-
+            var playlistInfo = obj as PlaylistInfo;
+            if (playlistInfo.Title != "我最喜爱")
+                Playlists.Remove(obj as PlaylistInfo);
         }
 
         private ObservableCollectionEx<PlaylistInfo> _playlists;
@@ -59,7 +52,6 @@ namespace ProjectMato.iOS
             {
 
                 SetObservableProperty(ref _playlists, value);
-
             }
         }
 
@@ -74,10 +66,7 @@ namespace ProjectMato.iOS
             return restul;
         }
 
-        public RelayCommand CreateCommand { get; set; }
-
         public RelayCommand DeleteCommand { get; set; }
 
-        public RelayCommand RenameCommand { get; set; }
     }
 }

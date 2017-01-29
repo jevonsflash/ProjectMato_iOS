@@ -351,14 +351,14 @@ namespace ProjectMato.iOS.Server
         }
 
         /// <summary>
-        /// 从歌单中删除MusicInfo
+        /// 从歌单中删除MusicInfo根据指定的Title
         /// </summary>
-        /// <param name="musicInfo"></param>
+        /// <param name="musicTitle"></param>
         /// <param name="playlistId"></param>
         /// <returns></returns>
-        public bool DeletePlaylistEntry(MusicInfo musicInfo, int playlistId)
+        public bool DeletePlaylistEntry(string musicTitle, int playlistId)
         {
-            var entry = DatabaseManager.Current.FetchPlaylistEntriesForPlaylistAndSongTitle(playlistId, musicInfo.Title).FirstOrDefault();
+            var entry = DatabaseManager.Current.FetchPlaylistEntriesForPlaylistAndSongTitle(playlistId, musicTitle).FirstOrDefault();
             if (entry != null)
             {
                 var result = DatabaseManager.Current.DeletePlaylistEntry(entry.PlaylistEntryId);
@@ -369,6 +369,18 @@ namespace ProjectMato.iOS.Server
                 return false;
             }
         }
+
+        /// <summary>
+        /// 从歌单中删除MusicInfo
+        /// </summary>
+        /// <param name="musicInfo"></param>
+        /// <param name="playlistId"></param>
+        /// <returns></returns>
+        public bool DeletePlaylistEntry(MusicInfo musicInfo, int playlistId)
+        {
+            return DeletePlaylistEntry(musicInfo.Title, playlistId);
+        }
+
 
         /// <summary>
         /// 将MusicInfo插入到“我最喜爱”歌单
@@ -531,6 +543,16 @@ namespace ProjectMato.iOS.Server
             return result > 0;
         }
 
+        /// <summary>
+        /// 根据PlaylistInfo删除Playlist
+        /// </summary>
+        /// <param name="playlistInfo"></param>
+        /// <returns></returns>
+        public bool DeletePlaylist(PlaylistInfo playlistInfo)
+        {
+            return DeletePlaylist(playlistInfo.PlaylistId);
+
+        }
         /// <summary>
         /// 获取一个字符串的标题头
         /// </summary>

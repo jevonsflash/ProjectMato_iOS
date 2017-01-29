@@ -18,7 +18,7 @@
         <Label Text="歌单"
                FontSize="{StaticResource HeaderFontSize}" />
       </StackLayout>
-      <Button Grid.Row="0" Command="{Binding CreateCommand}" Text="新增歌单"></Button>
+      <Button x:Name="CreatePlaylist" Grid.Row="0"  Command="{Binding CreateCommand}" Clicked="CreatePlaylist_OnClicked" Text="新增歌单"></Button>
       <Grid Padding="{StaticResource DefaultContentPadding}"
             Grid.Row="1">
         <local:GeneralListView  RowHeight="50"
@@ -30,7 +30,9 @@
               <ViewCell>
                 <local:MusicCollectionItemView MenuType="Playlist"
                                                BindingContext="{Binding}"
-                                               Popup="{x:Reference popup3}"></local:MusicCollectionItemView>
+                                               Popup="{x:Reference popup3}"
+                                               OnFinishedChoice="MusicCollectionItemView_OnOnFinishedChoice"
+                                               ></local:MusicCollectionItemView>
 
               </ViewCell>
             </DataTemplate>

@@ -26,7 +26,7 @@
           <controls:GeneralListView.ItemTemplate>
             <DataTemplate>
               <ViewCell>
-                <controls:MusicItemView x:Name="MusicItem" BindingContext="{Binding}" MenuType="Artist" Popup="{x:Reference popup}" OnJumptoOtherPage="MusicItem_OnOnJumptoOtherPage"></controls:MusicItemView>
+                <controls:MusicItemView x:Name="MusicItem" BindingContext="{Binding}" MenuType="Artist" Popup="{x:Reference popup}" OnFinishedChoice="MusicItem_OnOnJumptoOtherPage"></controls:MusicItemView>
               </ViewCell>
             </DataTemplate>
           </controls:GeneralListView.ItemTemplate>

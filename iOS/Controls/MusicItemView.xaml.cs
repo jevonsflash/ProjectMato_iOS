@@ -16,10 +16,10 @@ namespace ProjectMato.iOS.Controls
 
         private MusicFunctionPage _musicFunctionPage;
         private PlaylistChoosePage _playlistChoosePage;
-        
+
         public PopupView Popup { get; set; }
         public MusicFunctionMenuType MenuType { get; set; }
-        public event EventHandler<MusicFunctionEventArgs> OnJumptoOtherPage;
+        public event EventHandler<MusicFunctionEventArgs> OnFinishedChoice;
 
         public MusicItemView(MusicFunctionMenuType menuType) : this()
         {
@@ -42,9 +42,9 @@ namespace ProjectMato.iOS.Controls
             _musicFunctionPage = new MusicFunctionPage(musicInfo, MenuType);
             _musicFunctionPage.OnFinished += MusicFunctionPage_OnFinished;
 
-                this.Popup.ShowPopup(_musicFunctionPage);
-                
-            
+            this.Popup.ShowPopup(_musicFunctionPage);
+
+
 
 
 
@@ -59,40 +59,29 @@ namespace ProjectMato.iOS.Controls
                 return;
             }
             this.Popup.HidePopup();
-            switch (e.FunctionType)
+            if (e.FunctionType == MusicFunctionType.AddToPlaylist)
             {
-                case MusicFunctionType.AddToPlaylist:
-                    _playlistChoosePage = new PlaylistChoosePage();
-                    _playlistChoosePage.OnFinished += (o, c) =>
+                _playlistChoosePage = new PlaylistChoosePage();
+                _playlistChoosePage.OnFinished += (o, c) =>
+                {
+                    if (c != null)
                     {
-                        if (c != null)
-                        {
-                            MusicInfoServer.Current.CreatePlaylistEntry(e.MusicInfo, c.PlaylistId);
+                        MusicInfoServer.Current.CreatePlaylistEntry(e.MusicInfo, c.PlaylistId);
 
 
-                        }
-                        this.Popup.HidePopup();
-                    };
+                    }
+                    this.Popup.HidePopup();
+                };
 
-                    this.Popup.ShowPopup(
-                        _playlistChoosePage
-                     
-                        );
-                  
+                this.Popup.ShowPopup(
+                    _playlistChoosePage
 
-
-
-                    break;
-                case MusicFunctionType.GoAlbumPage:
-                    if (OnJumptoOtherPage != null) OnJumptoOtherPage(this, e);
-                    
-                    break;
-                case MusicFunctionType.GoArtistPage:
-                    if (OnJumptoOtherPage != null) OnJumptoOtherPage(this, e);
-                    
-                    break;
-                default:
-                    break;
+                    );
+            }
+            else
+            {
+                if (OnFinishedChoice != null)
+                    OnFinishedChoice(sender, e);
             }
         }
         private void IsFavouriteButton_OnClicked(object sender, EventArgs e)

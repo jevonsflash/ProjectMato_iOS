@@ -11,10 +11,6 @@ namespace ProjectMato.iOS
 {
     public partial class MusicCollectionFunctionPage
     {
-        public MusicCollectionFunctionPage()
-        {
-            InitializeComponent();
-        }
         private MusicCollectionInfo _musicCollectionInfo;
         public event EventHandler<MusicCollectionFunctionEventArgs> OnFinished;
         public MusicCollectionFunctionPage(MusicCollectionInfo musicInfo, MusicCollectionFunctionMenuType type)

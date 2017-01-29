@@ -21,20 +21,22 @@ namespace ProjectMato.iOS.ViewModel
         {
             if (e.Action == NotifyCollectionChangedAction.Move)
             {
-                
+
                 var oldIndex = e.OldStartingIndex;
                 var newIndex = e.NewStartingIndex;
                 MusicInfoServer.Current.ReorderQueue(Musics[oldIndex], Musics[newIndex]);
 
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                MusicInfoServer.Current.DeleteMusicInfoFormQueueEntry(e.OldItems[0] as MusicInfo);
             }
 
         }
 
         public void DeleteAction(object obj)
         {
-            MusicInfoServer.Current.DeleteMusicInfoFormQueueEntry(obj as MusicInfo);
-            MusicSystem.RebuildMusicInfos();
-            Musics = new ObservableCollectionEx<MusicInfo>(MusicSystem.MusicInfos);
+            Musics.Remove(obj as MusicInfo);
         }
 
 
