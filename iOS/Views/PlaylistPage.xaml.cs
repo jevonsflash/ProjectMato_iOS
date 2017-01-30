@@ -10,10 +10,19 @@ namespace ProjectMato.iOS
 {
     public partial class PlaylistPage : ContentPage
     {
+        private PlaylistFunctionPage _playlistFunctionPage;
+
         public PlaylistPage()
         {
             InitializeComponent();
+            _playlistFunctionPage = new PlaylistFunctionPage(PlaylistFunctionMenuType.Create);
+            _playlistFunctionPage.OnFinished += _playlistFunctionPage_OnFinished;
             this.BindingContext = new PlaylistPageViewModel();
+        }
+
+        private void _playlistFunctionPage_OnFinished(object sender, PlaylistFunctionEventArgs e)
+        {
+            popup3.HidePopup();
         }
 
         private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -36,7 +45,7 @@ namespace ProjectMato.iOS
 
         private void CreatePlaylist_OnClicked(object sender, EventArgs e)
         {
-            popup3.ShowPopup(new PlaylistFunctionPage(PlaylistFunctionMenuType.Create));
+            popup3.ShowPopup(_playlistFunctionPage);
         }
     }
 }

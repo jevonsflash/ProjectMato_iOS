@@ -15,7 +15,7 @@
       <!--TitlePanel 包含应用程序的名称和页标题-->
       <StackLayout Grid.Row="0"
                    Padding="{StaticResource DefaultContentPadding}">
-        <Label Text="{Binding Playlist.Name}"
+        <Label Text="{Binding Playlist.Title}"
                FontSize="{StaticResource HeaderFontSize}" />
       </StackLayout>
       <Button Grid.Row="0" Command="{Binding CreateCommand}" Text="新增歌单"></Button>
