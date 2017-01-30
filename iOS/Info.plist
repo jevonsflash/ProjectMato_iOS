@@ -45,7 +45,7 @@
 	<array>
 		<string>audio</string>
 	</array>
-		<key>XSLaunchImageAssets</key>
-	<string>Resources/Media.xcassets/LaunchImages.launchimage</string>
+	<key>CFBundleName</key>
+	<string>ProjectMato</string>
 </dict>
 </plist>

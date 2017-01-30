@@ -324,6 +324,10 @@
     <BundleResource Include="Icon\rew.png" />
     <BundleResource Include="Icon\slideout.png" />
     <BundleResource Include="Img\AppRecommend\1.png" />
+    <BundleResource Include="Resources\headphones.png" />
+    <BundleResource Include="Resources\headphones%402x.png" />
+    <BundleResource Include="Resources\launchBg.png" />
+    <BundleResource Include="Resources\launchBg%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Img\AppRecommend\2.png" />
