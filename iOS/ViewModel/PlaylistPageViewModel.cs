@@ -11,6 +11,7 @@ namespace ProjectMato.iOS
 {
     public class PlaylistPageViewModel : BaseViewModel
     {
+
         public PlaylistPageViewModel()
         {
             this.DeleteCommand = new RelayCommand(c => true, DeleteAction);
@@ -24,9 +25,33 @@ namespace ProjectMato.iOS
             {
                 MusicInfoServer.Current.DeletePlaylist(e.OldItems[0] as PlaylistInfo);
             }
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                MusicInfoServer.Current.CreatePlaylist(e.NewItems[0] as PlaylistInfo);
+            }
+            if (e.Action == NotifyCollectionChangedAction.Replace)
+            {
+                MusicInfoServer.Current.CreatePlaylist(e.NewItems[0] as PlaylistInfo);
+            }
+
         }
 
 
+        public void CreateAction(object obj)
+        {
+            var playlistInfo = obj as PlaylistInfo;
+            if (playlistInfo != null)
+                Playlists.Add(playlistInfo);
+        }
+        public void EditAction(object obj)
+        {
+            var playlistInfo = obj as PlaylistInfo;
+            if (playlistInfo != null)
+            {
+                Playlists[Playlists.IndexOf(playlistInfo)] = playlistInfo;
+
+            }
+        }
         public void DeleteAction(object obj)
         {
             var playlistInfo = obj as PlaylistInfo;
@@ -60,7 +85,7 @@ namespace ProjectMato.iOS
             var restul = MusicInfoServer.Current.GetPlaylistInfo();
             if (restul.Count == 0 || !restul.Any(c => c.Title == "我最喜爱"))
             {
-                MusicInfoServer.Current.CreatePlaylist(new PlaylistTable("我最喜爱", false, false));
+                MusicInfoServer.Current.CreatePlaylist(new PlaylistInfo() { Title = "我最喜爱", IsHidden = false, IsRemovable = false });
                 restul = MusicInfoServer.Current.GetPlaylistInfo();
             }
             return restul;

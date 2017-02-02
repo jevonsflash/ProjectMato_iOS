@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 using Xamarin.Forms;
 using XLabs.Forms.Controls;
@@ -12,11 +13,10 @@ namespace ProjectMato.iOS.Controls
 
     public partial class MusicCollectionItemView
     {
-
-
-        private MusicCollectionFunctionPage _musicCollectionFunctionPage;
+        private PlaylistFunctionPage _playlistFunctionPage;
         private PlaylistChoosePage _playlistChoosePage;
 
+        private MusicCollectionFunctionPage _musicCollectionFunctionPage;
         public PopupView Popup { get; set; }
         public MusicCollectionFunctionMenuType MenuType { get; set; }
         public event EventHandler<MusicCollectionFunctionEventArgs> OnFinishedChoice;
@@ -25,6 +25,7 @@ namespace ProjectMato.iOS.Controls
         {
 
             this.MenuType = menuType;
+
         }
 
         public MusicCollectionItemView()
@@ -43,22 +44,16 @@ namespace ProjectMato.iOS.Controls
             _musicCollectionFunctionPage.OnFinished += MusicCollectionFunctionPage_OnFinished;
 
             this.Popup.ShowPopup(_musicCollectionFunctionPage);
-
-
-
-
-
-
         }
 
         private async void MusicCollectionFunctionPage_OnFinished(object sender, MusicCollectionFunctionEventArgs e)
         {
-            //var libraryPageViewModel = this.BindingContext as LibraryPageViewModel;
             if (e.MusicCollectionInfo == null)
             {
                 return;
             }
             this.Popup.HidePopup();
+
             if (e.FunctionType == MusicCollectionFunctionType.AddToPlaylist)
             {
 
@@ -68,8 +63,6 @@ namespace ProjectMato.iOS.Controls
                     if (c != null)
                     {
                         MusicInfoServer.Current.CreatePlaylistEntrys(e.MusicCollectionInfo, c.PlaylistId);
-
-
                     }
                     this.Popup.HidePopup();
                 };
@@ -79,6 +72,7 @@ namespace ProjectMato.iOS.Controls
 
                     );
             }
+
             else
             {
                 if (OnFinishedChoice != null)

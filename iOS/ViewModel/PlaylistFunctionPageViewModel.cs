@@ -10,17 +10,22 @@ namespace ProjectMato.iOS.ViewModel
         public PlaylistFunctionPageViewModel()
         {
             this.SubmitCommand = new RelayCommand(c => true, new Action<object>(SubmitAction));
-
+            this.PlaylistInfo = new PlaylistInfo() { IsHidden = false, IsRemovable = true, Title = "新建歌单" };
         }
-        private string _playlistTitle;
-        public string PlaylistTitle
+
+        public PlaylistFunctionPageViewModel(PlaylistInfo playlistInfo) : this()
         {
-            get { return _playlistTitle; }
-            set { base.SetObservableProperty(ref _playlistTitle, value); }
+            this.PlaylistInfo = playlistInfo;
+        }
+        private PlaylistInfo _playlistInfo;
+        public PlaylistInfo PlaylistInfo
+        {
+            get { return _playlistInfo; }
+            set { base.SetObservableProperty(ref _playlistInfo, value); }
         }
         private void SubmitAction(object obj)
         {
-            MusicInfoServer.Current.CreatePlaylist(new PlaylistTable(this.PlaylistTitle, false, true));
+            //MusicInfoServer.Current.CreatePlaylist(PlaylistInfo);
         }
 
         public RelayCommand SubmitCommand { get; set; }

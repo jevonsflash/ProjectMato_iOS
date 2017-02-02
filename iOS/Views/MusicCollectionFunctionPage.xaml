@@ -35,6 +35,16 @@
        FontSize="Large"
        Clicked="DeleteButton_OnClicked">
       </controls:ExtendedButton>
+       <controls:ExtendedButton
+       Text="重命名"
+       x:Name="RenameButton"
+       IsVisible="False"
+       TextColor="White"
+       HorizontalContentAlignment="Start"
+       FontSize="Large"
+       Clicked="RenameButton_OnClicked">
+      </controls:ExtendedButton>
+
       <controls:ExtendedButton
         x:Name="Play"
         Text="播放此专辑"

@@ -5,6 +5,12 @@ namespace ProjectMato.iOS
 {
     public abstract class MusicCollectionInfo
     {
+        public int Id
+        {
+            get;
+            set;
+        }
+
         public string Title
         {
             get;

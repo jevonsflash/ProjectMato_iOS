@@ -410,9 +410,15 @@ namespace ProjectMato.iOS.Server
         /// <returns></returns>
         public List<MusicInfo> GetPlaylistEntry(int playlistId)
         {
-            var currentPlaylistEntrie = DatabaseManager.Current.FetchPlaylistEntriesForPlaylist(playlistId);
-            var result = GetMusicInfos().Where(c => currentPlaylistEntrie.Select(p => p.MusicTitle).Contains(c.Title)).ToList();
-            return result;
+            var currentPlaylistEntrie = DatabaseManager.Current.FetchPlaylistEntriesForPlaylist(playlistId).OrderBy(c=>c.PlaylistEntryId);
+            var result = from item 
+                         in GetMusicInfos()
+                         where (from c 
+                                in currentPlaylistEntrie
+                                select c.MusicTitle).Contains(item.Title)
+                         orderby item.Id
+                         select item ;
+            return result.ToList();
 
         }
 
@@ -511,7 +517,7 @@ namespace ProjectMato.iOS.Server
         {
             var playlistInfo = GetPlaylist().Select(c => new PlaylistInfo()
             {
-                PlaylistId = c.PlaylistId,
+                Id = c.PlaylistId,
                 GroupHeader = GetGroupHeader(c.Name),
                 Title = c.Name,
                 IsHidden = c.IsHidden,
@@ -526,10 +532,31 @@ namespace ProjectMato.iOS.Server
         /// </summary>
         /// <param name="playlist"></param>
         /// <returns></returns>
-        public bool CreatePlaylist(PlaylistTable playlist)
+        public bool CreatePlaylist(PlaylistInfo playlist)
         {
-            var result = DatabaseManager.Current.AddPlaylist(playlist);
+            var result = DatabaseManager.Current.AddPlaylist(new PlaylistTable(playlist.Title, playlist.IsHidden, playlist.IsRemovable));
             return result > 0;
+        }
+
+        /// <summary>
+        /// 更新Playlist
+        /// </summary>
+        /// <param name="playlistInfo"></param>
+        /// <returns></returns>
+        public void UpdatePlaylist(PlaylistInfo playlistInfo)
+        {
+            var playList = DatabaseManager.Current.FetchPlaylists().FirstOrDefault(c => c.PlaylistId == playlistInfo.Id);
+            if (playList != null)
+            {
+                playList.Name = playlistInfo.Title;
+                playList.IsHidden = playlistInfo.IsHidden;
+                playList.IsRemovable = playlistInfo.IsRemovable;
+                DatabaseManager.Current.Update(playList);
+            }
+            else
+            {
+                CreatePlaylist(playlistInfo);
+            }
         }
 
         /// <summary>
@@ -550,7 +577,7 @@ namespace ProjectMato.iOS.Server
         /// <returns></returns>
         public bool DeletePlaylist(PlaylistInfo playlistInfo)
         {
-            return DeletePlaylist(playlistInfo.PlaylistId);
+            return DeletePlaylist(playlistInfo.Id);
 
         }
         /// <summary>

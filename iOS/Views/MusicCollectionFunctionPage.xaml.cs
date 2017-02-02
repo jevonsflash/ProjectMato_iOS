@@ -24,7 +24,7 @@ namespace ProjectMato.iOS
 
             if (type == MusicCollectionFunctionMenuType.Artist)
             {
-                this.Play.Text = "播放此艺术家曲目";
+                this.Play.Text = "播放此艺术家";
             }
             else if (type == MusicCollectionFunctionMenuType.Album)
             {
@@ -32,7 +32,9 @@ namespace ProjectMato.iOS
             }
             else if (type == MusicCollectionFunctionMenuType.Playlist || type == MusicCollectionFunctionMenuType.Queue)
             {
+                this.Play.Text = "播放此歌单";
                 this.DeleteButton.IsVisible = true;
+                this.RenameButton.IsVisible = true;
             }
         }
 
@@ -72,6 +74,12 @@ namespace ProjectMato.iOS
             if (OnFinished != null)
                 OnFinished(this, new MusicCollectionFunctionEventArgs(this._musicCollectionInfo, MusicCollectionFunctionType.Delete));
         }
+
+        private void RenameButton_OnClicked(object sender, EventArgs e)
+        {
+            if (OnFinished != null)
+                OnFinished(this, new MusicCollectionFunctionEventArgs(this._musicCollectionInfo, MusicCollectionFunctionType.Rename));
+        }
     }
 
     public class MusicCollectionFunctionEventArgs : EventArgs
@@ -87,7 +95,7 @@ namespace ProjectMato.iOS
 
     public enum MusicCollectionFunctionType
     {
-        AddToPlaylist, AddToQueue, Cancel, AddToFavourite, Play, Delete
+        AddToPlaylist, AddToQueue, Cancel, AddToFavourite, Play, Delete,Rename
     }
 
 

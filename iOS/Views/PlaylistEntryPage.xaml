@@ -18,7 +18,7 @@
         <Label Text="{Binding Playlist.Title}"
                FontSize="{StaticResource HeaderFontSize}" />
       </StackLayout>
-      <Button Grid.Row="0" Command="{Binding CreateCommand}" Text="新增歌单"></Button>
+      <Button x:Name="EditButton" Grid.Row="0" Command="{Binding EditCommand}" Text="编辑" Clicked="EditButton_OnClicked"></Button>
       <Grid Padding="{StaticResource DefaultContentPadding}"
             Grid.Row="1">
         <controls:GeneralListView  RowHeight="50"

@@ -17,7 +17,11 @@ namespace ProjectMato.iOS.ViewModel
             Musics.CollectionChanged += Musics_CollectionChanged;
 
         }
-
+        public void DeleteAction(object obj)
+        {
+            var musicInfo = obj as MusicInfo;
+            this.Musics.Remove(musicInfo);
+        }
 
         private void Musics_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -25,11 +29,11 @@ namespace ProjectMato.iOS.ViewModel
             {
                 var oldIndex = e.OldStartingIndex;
                 var newIndex = e.NewStartingIndex;
-                MusicInfoServer.Current.ReorderPlaylist(Musics[oldIndex], Musics[newIndex], Playlist.PlaylistId);
+                MusicInfoServer.Current.ReorderPlaylist(Musics[oldIndex], Musics[newIndex], Playlist.Id);
             }
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                MusicInfoServer.Current.DeletePlaylistEntry(e.OldItems[0] as MusicInfo, Playlist.PlaylistId);
+                MusicInfoServer.Current.DeletePlaylistEntry(e.OldItems[0] as MusicInfo, Playlist.Id);
             }
 
 
@@ -56,7 +60,7 @@ namespace ProjectMato.iOS.ViewModel
             {
                 if (musics == null)
                 {
-                    musics = new ObservableCollectionEx<MusicInfo>(MusicInfoServer.Current.GetPlaylistEntry(this.Playlist.PlaylistId));
+                    musics = new ObservableCollectionEx<MusicInfo>(MusicInfoServer.Current.GetPlaylistEntry(this.Playlist.Id));
                 }
                 return musics;
             }
