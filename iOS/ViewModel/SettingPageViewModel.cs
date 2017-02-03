@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 
@@ -14,14 +17,20 @@ namespace ProjectMato.iOS.ViewModel
         public SettingPageViewModel()
         {
             PropertyChanged += SettingPageViewModel_PropertyChanged;
+            BackgroundList.CollectionChanged += BackgroundList_CollectionChanged;
         }
 
+        private void BackgroundList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action==NotifyCollectionChangedAction.Replace)
+            {
+                SettingServer.Current.SetSelectedBackground(e.NewItems[0] as BackgroundTable);
+            }
+        }
+
+        //todo: 需要优化
         private void SettingPageViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == SettingServer.Properties.SelectedBackground)
-            {
-                SettingServer.Current.SetSelectedBackground(this.SelectedBackground);
-            }
 
         }
 
@@ -74,32 +83,24 @@ namespace ProjectMato.iOS.ViewModel
         }
 
 
+        private ObservableCollectionEx<BackgroundTable> _backgroundList;
 
-        public List<BackgroundTable> BackgroundList
+
+        public ObservableCollectionEx<BackgroundTable> BackgroundList
         {
             get
             {
-                var result= SettingServer.Current.GetAllBackgrounds();
-                return result;
-                
-            }
-        }
-
-        private BackgroundTable _selectedBackground;
-
-        public BackgroundTable SelectedBackground
-        {
-            get
-            {
-                if (_selectedBackground == null)
+                if (_backgroundList == null)
                 {
-                    _selectedBackground = SettingServer.Current.GetSelectedBackground();
+                    _backgroundList = new ObservableCollectionEx<BackgroundTable>(SettingServer.Current.GetAllBackgrounds());
                 }
-                return _selectedBackground;
+                return _backgroundList;
             }
             set
             {
-                base.SetObservableProperty(ref _selectedBackground, value);
+
+
+                SetObservableProperty(ref _backgroundList, value);
             }
         }
 

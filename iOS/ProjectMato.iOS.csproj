@@ -125,9 +125,6 @@
     <Reference Include="Acr.Support.iOS">
       <HintPath>..\packages\Acr.Support.2.1.0\lib\Xamarin.iOS10\Acr.Support.iOS.dll</HintPath>
     </Reference>
-    <Reference Include="BTProgressHUD">
-      <HintPath>..\packages\BTProgressHUD.1.2.0.3\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
-    </Reference>
     <Reference Include="Acr.UserDialogs">
       <HintPath>..\packages\Acr.UserDialogs.6.3.4\lib\Xamarin.iOS10\Acr.UserDialogs.dll</HintPath>
     </Reference>
@@ -180,14 +177,22 @@
     <Compile Include="Controls\CarouselView.cs" />
     <Compile Include="Controls\GeneralListView.cs" />
     <Compile Include="Controls\LibraryGridView.cs" />
+    <Compile Include="Controls\MenuCell.xaml.cs">
+      <DependentUpon>MenuCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MenuTableView.cs" />
     <Compile Include="Controls\MovableViewCell.cs" />
     <Compile Include="Controls\MusicCollectionItemView.xaml.cs">
       <DependentUpon>MusicCollectionItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MusicGroupHeaderView.xaml.cs">
+      <DependentUpon>MusicGroupHeaderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PopupView.xaml.cs">
       <DependentUpon>PopupView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\SecondsToTimeSpanConverter.cs" />
+    <Compile Include="Enums\MenuCode.cs" />
     <Compile Include="Helper\ColorHelper.cs" />
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Helper\IsolatedStorageFileHelper.cs" />
@@ -298,7 +303,6 @@
     <Compile Include="Controls\MusicFliperView.xaml.cs">
       <DependentUpon>MusicFliperView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MenuCell.cs" />
     <Compile Include="Converter\SliderMaxValueConverter.cs" />
     <Compile Include="Renders\MenuTableViewRenderer.cs" />
     <Compile Include="Renders\MainPageRenderer.cs" />
@@ -651,6 +655,40 @@
     <ImageAsset Include="Resources\Images.xcassets\LaunchImages.launchimage\Default%402x.png">
       <InProject>false</InProject>
     </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\MusicGroupHeaderView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\uncheck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\MenuCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\playlist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\headphone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\queue2.png" />
   </ItemGroup>
   <Import Project="..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
 </Project>

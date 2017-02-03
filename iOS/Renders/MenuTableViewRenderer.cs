@@ -1,9 +1,10 @@
 using System;
+using ProjectMato.iOS.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using UIKit;
 
-[assembly:ExportRenderer(typeof(ProjectMato.iOS.MenuTableView), typeof(ProjectMato.iOS.Renders.MenuTableViewRenderer))]
+[assembly:ExportRenderer(typeof(MenuTableView), typeof(ProjectMato.iOS.Renders.MenuTableViewRenderer))]
 namespace ProjectMato.iOS.Renders
 {
 	public class MenuTableViewRenderer : TableViewRenderer 
@@ -17,7 +18,7 @@ namespace ProjectMato.iOS.Renders
 
 			tableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 
-			tableView.BackgroundColor = App.MenuBackgroundColor.ToUIColor();
+			tableView.BackgroundColor =(Xamarin.Forms.Application.Current.Resources["PhoneContrastBackgroundBrush"] is Color ? (Color) Xamarin.Forms.Application.Current.Resources["PhoneContrastBackgroundBrush"] : Color.Black).ToUIColor();
 		}
 	}
 }

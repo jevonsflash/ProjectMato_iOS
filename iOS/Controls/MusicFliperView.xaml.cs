@@ -14,8 +14,8 @@ namespace ProjectMato.iOS
 
         private void AlbumArtBorder_SizeChanged(object sender, EventArgs e)
         {
-            AlbumArtImage.HeightRequest = AlbumArtBorder.Height - 10;
-            AlbumArtImage.WidthRequest = AlbumArtBorder.Width - 10;
+            AlbumArtImage.HeightRequest = AlbumArtBorder.Height - 5;
+            AlbumArtImage.WidthRequest = AlbumArtBorder.Width - 5;
 
         }
     }

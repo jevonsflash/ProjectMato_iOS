@@ -19,7 +19,7 @@ namespace ProjectMato.iOS.Server
             public const string IsAutoLrc = "IsAutoLrc";
             public const string IsAutoOffset = "IsAutoOffset";
             public const string IsAutoGA = "IsAutoGA";
-            public const string SelectedBackground = "SelectedBackground";
+            public const string BackgroundList = "BackgroundList";
             public const string IsShuffle = "IsShuffle";
             public const string IsRepeatOne = "IsRepeatOne";
             public const string IsRepeat = "IsRepeat";
@@ -187,28 +187,8 @@ namespace ProjectMato.iOS.Server
 
         public void SetSelectedBackground(BackgroundTable background)
         {
-
-            var oldObj = GetSelectedBackground();
-            oldObj.IsSel = false;
-
-            var newObj = GetAllBackgrounds().FirstOrDefault(c => c.BackgroundId == background.BackgroundId);
-            newObj.IsSel = true;
-            DatabaseManager.Current.Update(oldObj);
-            DatabaseManager.Current.Update(newObj);
+            DatabaseManager.Current.Update(background);
+            
         }
-
-        public void SetSelectedBackground(string name)
-        {
-
-            var oldObj = GetSelectedBackground();
-            oldObj.IsSel = false;
-
-            var newObj = GetAllBackgrounds().FirstOrDefault(c => c.Name == name);
-            newObj.IsSel = true;
-            DatabaseManager.Current.Update(oldObj);
-            DatabaseManager.Current.Update(newObj);
-        }
-
-
     }
 }

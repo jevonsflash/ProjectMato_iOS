@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectMato.iOS.Controls.MenuCell">
+  <Grid BackgroundColor="{StaticResource PhoneContrastBackgroundBrush}" Padding="15,18">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="2*"></ColumnDefinition>
+      <ColumnDefinition Width="10*"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+    <Image Grid.Column="0"
+           x:Name="ImageContentImage"></Image>
+    <Label Grid.Column="1"
+           x:Name="LabelContentText"
+           TextColor="White"
+           FontSize="Large"
+           VerticalTextAlignment="Center">
+    </Label>
+  </Grid>
+</ViewCell>

@@ -30,17 +30,6 @@ namespace ProjectMato.iOS
 			}
 			set	{  mainMasterDetailPage = value;}
 		}
-
-		public static Color NavTint {
-			get {
-				return Color.FromHex ("3498DB"); // Xamarin Blue
-			}
-		}
-		public static Color MenuBackgroundColor {
-			get {
-				return Color.FromHex ("2C3E50"); // Xamarin DarkBlue
-			}
-		}
     }
 }
 

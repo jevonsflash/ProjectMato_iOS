@@ -26,41 +26,35 @@
         Padding="{StaticResource DefaultContentPadding}"
             >
       <ScrollView>
-        <Grid>
-          <Grid.RowDefinitions>
-            <RowDefinition x:Name="Row0Title" Height="55"></RowDefinition>
-            <RowDefinition x:Name="Row1" Height="Auto"></RowDefinition>
-            <RowDefinition x:Name="Row2Title" Height="55"></RowDefinition>
-            <RowDefinition x:Name="Row3" Height="Auto"></RowDefinition>
-            <RowDefinition x:Name="Row4Title" Height="55"></RowDefinition>
-            <RowDefinition x:Name="Row5" Height="Auto"></RowDefinition>
+        <StackLayout>
+          <TableView Intent="Settings" RowHeight="48" HasUnevenRows="True">
+            <TableRoot>
+              <TableSection Title="个性化" >
+                <ViewCell Height="260">
 
-          </Grid.RowDefinitions>
-          <StackLayout Grid.Row="0" HeightRequest="55" BackgroundColor="{StaticResource PhoneChromeBrush}">
-            <Label  Text="个性化" FontSize="{StaticResource SubtitleFontSize}"/>
-          </StackLayout>
+                  <local:CarouselView
+                      
+                      IsScreenWidth="False"
+                      IsScrollToSelection="False"
+                      x:Name="BackgroundFliperView"
+                      ItemsSource="{Binding BackgroundList}">
+                  </local:CarouselView>
+                </ViewCell>
+              </TableSection>
+              <TableSection Title="睡眠模式">
+                <ViewCell>
+                  <Button Text="睡眠模式设置" Clicked="Button_OnClicked"></Button>
 
-          <local:CarouselView
-              x:Name="BackgroundFliperView"
-              Grid.Row="1"
-              ItemsSource="{Binding BackgroundList}">
-          </local:CarouselView>
-          <StackLayout Grid.Row="2" HeightRequest="55" BackgroundColor="{StaticResource PhoneChromeBrush}">
-            <Label  Text="睡眠模式" FontSize="{StaticResource SubtitleFontSize}"/>
-          </StackLayout>
-          <Button Grid.Row="3" Text="睡眠模式设置" Clicked="Button_OnClicked"></Button>
-          <StackLayout Grid.Row="4" HeightRequest="55" BackgroundColor="{StaticResource PhoneChromeBrush}">
-            <Label  Text="常规" FontSize="{StaticResource SubtitleFontSize}"/>
-          </StackLayout>
-          <TableView Grid.Row="5">
-            <TableSection>
-              <SwitchCell Text="自动下载歌词" On="{Binding IsAutoLrc,Mode=TwoWay}"/>
-              <SwitchCell Text="歌词自动滚动" On="{Binding IsAutoOffset,Mode=TwoWay}" />
-              <SwitchCell Text="协助改善产品" On="{Binding IsAutoGA,Mode=TwoWay}"  />
-
-            </TableSection>
+                </ViewCell>
+              </TableSection>
+              <TableSection Title="常规">
+                <SwitchCell Text="自动下载歌词" On="{Binding IsAutoLrc,Mode=TwoWay}"/>
+                <SwitchCell Text="歌词自动滚动" On="{Binding IsAutoOffset,Mode=TwoWay}" />
+                <SwitchCell Text="协助改善产品" On="{Binding IsAutoGA,Mode=TwoWay}"  />
+              </TableSection>
+            </TableRoot>
           </TableView>
-        </Grid>
+        </StackLayout>
       </ScrollView>
     </Grid>
   </Grid>

@@ -29,7 +29,6 @@
       <Grid>
 
         <Image Source="Icon/FavouriteDis"
-               HeightRequest="40"
                IsVisible="{Binding IsFavourite,Converter={StaticResource True2FalseConverter}}"></Image>
         <Image Source="Icon/FavouriteEn"
                IsVisible="{Binding IsFavourite}"></Image>

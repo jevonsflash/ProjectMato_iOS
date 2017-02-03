@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ProjectMato.iOS.Controls;
+using ProjectMato.iOS.Enums;
 using Xamarin.Forms;
 
 namespace ProjectMato.iOS
 {
 
-    public class MenuTableView : TableView
-    {
-    }
     public partial class MenuPage : ContentPage
     {
         MasterDetailPage master;

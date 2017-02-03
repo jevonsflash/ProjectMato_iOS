@@ -13,8 +13,10 @@ namespace ProjectMato.iOS
         public SettingPage()
         {
             InitializeComponent();
+            var template = new DataTemplate(typeof(BackgroundFliperView));
+            this.BackgroundFliperView.ItemTemplate = template;
             this.BindingContext = new SettingPageViewModel();
-           // this.BackgroundFliperView.ItemTemplate = new DataTemplate(typeof(BackgroundFliperView));
+            
 
         }
 

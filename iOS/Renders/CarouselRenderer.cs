@@ -9,7 +9,7 @@ using ProjectMato.iOS.Controls;
 using ProjectMato.iOS.Renders;
 using XLabs.Forms.Controls;
 
-[assembly:ExportRenderer(typeof(CarouselView), typeof(CarouselRenderer))]
+[assembly: ExportRenderer(typeof(CarouselView), typeof(CarouselRenderer))]
 
 namespace ProjectMato.iOS.Renders
 {
@@ -21,7 +21,7 @@ namespace ProjectMato.iOS.Renders
         {
             PagingEnabled = true;
             ShowsHorizontalScrollIndicator = false;
-            
+
         }
 
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
@@ -52,7 +52,8 @@ namespace ProjectMato.iOS.Renders
         {
             if (e.PropertyName == CarouselView.SelectedIndexProperty.PropertyName && !Dragging)
             {
-                ScrollToSelection(false);
+                if (CarouselView.IsScrollToSelection)
+                    ScrollToSelection(false);
             }
         }
 

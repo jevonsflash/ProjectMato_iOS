@@ -30,7 +30,7 @@
         <RowDefinition Height="1*">
         </RowDefinition>
       </Grid.RowDefinitions>
-      <Label Grid.Row="0" XAlign="Center" FontSize="28" YAlign="Center" Text="{Binding Title}"  LineBreakMode="TailTruncation" TextColor="{StaticResource PhoneForegroundBrush }">
+      <Label Grid.Row="0" XAlign="Center" FontSize="{StaticResource StandOutBodyFontSize}" YAlign="Center" Text="{Binding Title}"  LineBreakMode="TailTruncation" TextColor="{StaticResource PhoneForegroundBrush }">
       </Label>
       <Label Grid.Row="1" XAlign="Center" YAlign="Center" Text="{Binding Artist}" LineBreakMode="TailTruncation" TextColor="{StaticResource PhoneForegroundBrush}">
       </Label>

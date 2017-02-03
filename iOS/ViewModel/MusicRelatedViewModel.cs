@@ -136,7 +136,6 @@ namespace ProjectMato.iOS
             }
         }
 
-
         private void RepeatOneAction(object obj)
         {
             var actionType = obj as string;
@@ -186,8 +185,6 @@ namespace ProjectMato.iOS
             }
             set
             {
-
-
                 SetObservableProperty(ref musics, value);
             }
         }
@@ -221,7 +218,7 @@ namespace ProjectMato.iOS
                 }
                 else
                 {
-                    currentMusic = Musics[0];
+                    CurrentMusic = Musics[0];
                 }
             }
         }

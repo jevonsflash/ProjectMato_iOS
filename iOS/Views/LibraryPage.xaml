@@ -38,23 +38,7 @@
                         <local:GeneralListView.GroupHeaderTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Grid BackgroundColor="{StaticResource PhoneBackgroundBrush}">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto">
-                                            </ColumnDefinition>
-                                            <ColumnDefinition>
-                                            </ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <local:EllipseView Color="{StaticResource PhoneAccentBrush}"
-                                                           WidthRequest="50">
-                                        </local:EllipseView>
-                                        <Label YAlign="Center"
-                                               XAlign="Center"
-                                               Text="{Binding Title}"
-                                               TextColor="{StaticResource PhoneForegroundBrush}"
-                                               FontSize="Large">
-                                        </Label>
-                                    </Grid>
+                                    <local:MusicGroupHeaderView></local:MusicGroupHeaderView>
                                 </ViewCell>
                             </DataTemplate>
                         </local:GeneralListView.GroupHeaderTemplate>
@@ -102,23 +86,7 @@
                         <local:GeneralListView.GroupHeaderTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Grid BackgroundColor="{StaticResource PhoneBackgroundBrush}">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto">
-                                            </ColumnDefinition>
-                                            <ColumnDefinition>
-                                            </ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <local:EllipseView Color="{StaticResource PhoneAccentBrush}"
-                                                           WidthRequest="50">
-                                        </local:EllipseView>
-                                        <Label YAlign="Center"
-                                               XAlign="Center"
-                                               Text="{Binding Title}"
-                                               TextColor="{StaticResource PhoneForegroundBrush}"
-                                               FontSize="Large">
-                                        </Label>
-                                    </Grid>
+                                    <local:MusicGroupHeaderView></local:MusicGroupHeaderView>
                                 </ViewCell>
                             </DataTemplate>
                         </local:GeneralListView.GroupHeaderTemplate>
@@ -153,47 +121,7 @@
                              Padding="{StaticResource DefaultContentPadding}">
                     <Label Text="专辑"
                            FontSize="{StaticResource HeaderFontSize}" />
-                    <Switch  IsToggled="{Binding IsShowGrid,Mode=TwoWay}"></Switch>
-
                 </StackLayout>
-                <Grid Padding="{StaticResource DefaultContentPadding}"
-                      Grid.Row="1"
-                      IsVisible="{Binding IsShowGrid}"
-                      x:Name="AlbumGrid">
-                    <local:LibraryGridView RowSpacing="0"
-                                           ColumnSpacing="0"
-                                           ItemWidth="{StaticResource Bound}"
-                                           ItemHeight="{StaticResource Bound}"
-                                           ItemsSource="{Binding Albums,Mode=TwoWay}"
-                                           ItemSelected="GridView_OnItemSelected">
-                        <local:LibraryGridView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Grid Padding="8,0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="120" />
-                                            <RowDefinition Height="15" />
-                                        </Grid.RowDefinitions>
-
-                                        <Image Grid.Row="0"
-                                               Grid.RowSpan="2"
-                                               HeightRequest="120"
-                                               Source="{Binding AlbumArt}" />
-                                        <Grid Grid.Row="1">
-
-                                            <Label FontAttributes="Bold"
-                                                   BackgroundColor="#55000000"
-                                                   LineBreakMode="TailTruncation"
-                                                   Text="{Binding Title}"
-                                                   FontSize="{StaticResource BodyFontSize}" />
-                                        </Grid>
-                                    </Grid>
-                                </ViewCell>
-                            </DataTemplate>
-                        </local:LibraryGridView.ItemTemplate>
-
-                    </local:LibraryGridView>
-                </Grid>
                 <Grid Padding="{StaticResource DefaultContentPadding}"
                       x:Name="AlbumAGList"
                       IsVisible="{Binding IsShowGrid,Converter={StaticResource True2FalseConverter}}"
@@ -207,23 +135,7 @@
                         <local:GeneralListView.GroupHeaderTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Grid BackgroundColor="{StaticResource PhoneBackgroundBrush}">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto">
-                                            </ColumnDefinition>
-                                            <ColumnDefinition>
-                                            </ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <local:EllipseView Color="{StaticResource PhoneAccentBrush}"
-                                                           WidthRequest="50">
-                                        </local:EllipseView>
-                                        <Label YAlign="Center"
-                                               XAlign="Center"
-                                               Text="{Binding Title}"
-                                               TextColor="{StaticResource PhoneForegroundBrush}"
-                                               FontSize="Large">
-                                        </Label>
-                                    </Grid>
+                                    <local:MusicGroupHeaderView></local:MusicGroupHeaderView>
                                 </ViewCell>
                             </DataTemplate>
                         </local:GeneralListView.GroupHeaderTemplate>
