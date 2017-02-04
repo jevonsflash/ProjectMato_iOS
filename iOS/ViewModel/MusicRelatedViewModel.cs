@@ -38,6 +38,8 @@ namespace ProjectMato.iOS
             public const string CurrentTime = "CurrentTime";
             public const string Duration = "Duration";
             public const string Musics = "Musics";
+            public const string IsRepeatOne = "IsRepeatOne";
+            public const string IsShuffle = "IsShuffle";
         }
 
         private MusicRelatedViewModel()
@@ -52,6 +54,8 @@ namespace ProjectMato.iOS
             this.RepeatOneCommand = new RelayCommand(c => true, RepeatOneAction);
             this.ShuffleCommand = new RelayCommand(c => true, ShuffleAction);
             this.PropertyChanged += DetailPageViewModel_PropertyChanged;
+            this.IsRepeatOne = SettingServer.Current.GetSetting(SettingServer.Properties.IsRepeatOne);
+            this.isShuffle = SettingServer.Current.GetSetting(SettingServer.Properties.IsShuffle);
             MusicSystem.OnPlayFinished += MusicSystem_OnMusicChanged;
             MusicSystem.SetRepeatOneStatus(IsRepeatOne);
             MusicSystem.UpdateShuffleMap();
@@ -87,6 +91,17 @@ namespace ProjectMato.iOS
             {
                 MusicSystem.PauseOrResume(!IsPlaying);
             }
+
+            else if (e.PropertyName == Properties.IsShuffle)
+            {
+                SettingServer.Current.SetSetting(SettingServer.Properties.IsShuffle, this.IsShuffle);
+            }
+
+            else if (e.PropertyName == Properties.IsRepeatOne)
+            {
+                SettingServer.Current.SetSetting(SettingServer.Properties.IsRepeatOne, this.IsRepeatOne);
+                MusicSystem.SetRepeatOneStatus(this.IsRepeatOne);
+            }
         }
 
         private void InitPreviewAndNextMusic()
@@ -109,46 +124,22 @@ namespace ProjectMato.iOS
 
         private void PlayAction(object obj)
         {
-            var actionType = obj as string;
-            if (actionType == "play")
-            {
-                IsPlaying = true;
-            }
-            else if (actionType == "pause")
-            {
-                IsPlaying = false;
-            }
-
-
+            this.IsPlaying = !this.IsPlaying;
         }
 
         private void ShuffleAction(object obj)
         {
-            var actionType = obj as string;
-            if (actionType == "shuffle")
+            this.IsShuffle = !this.IsShuffle;
+            if (IsShuffle)
             {
                 MusicSystem.UpdateShuffleMap();
-                IsShuffle = true;
             }
-            else if (actionType == "unshuffle")
-            {
-                IsShuffle = false;
-            }
+
         }
 
         private void RepeatOneAction(object obj)
         {
-            var actionType = obj as string;
-            if (actionType == "repeatone")
-            {
-                IsRepeatOne = true;
-
-            }
-            else if (actionType == "unrepeatone")
-            {
-                IsRepeatOne = false;
-            }
-            MusicSystem.SetRepeatOneStatus(IsRepeatOne);
+            this.IsRepeatOne = !this.IsRepeatOne;
 
         }
         public void ChangeProgess(double progress)
@@ -302,13 +293,11 @@ namespace ProjectMato.iOS
         {
             get
             {
-                return SettingServer.Current.GetSetting(SettingServer.Properties.IsShuffle);
+                return isShuffle;
             }
             set
             {
-                SettingServer.Current.SetSetting(SettingServer.Properties.IsShuffle, value);
                 SetObservableProperty(ref isShuffle, value);
-
             }
         }
 
@@ -319,13 +308,11 @@ namespace ProjectMato.iOS
         {
             get
             {
-                return SettingServer.Current.GetSetting(SettingServer.Properties.IsRepeatOne);
+                return isRepeatOne;
             }
             set
             {
-                SettingServer.Current.SetSetting(SettingServer.Properties.IsRepeatOne, value);
                 SetObservableProperty(ref isRepeatOne, value);
-
             }
         }
         #endregion

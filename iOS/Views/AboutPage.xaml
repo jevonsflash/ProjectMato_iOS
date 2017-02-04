@@ -79,17 +79,17 @@
                   更新内容：
                 </Label>
 
-                <controls:GeneralItemView
+                <controls:GeneralListView
                   ItemsSource="{Binding StrUpdate}"
                   >
-                  <controls:GeneralItemView.ItemTemplate>
+                  <controls:GeneralListView>
                     <DataTemplate>
                       <ViewCell>
                         <Label Text="{Binding}"  FontSize="21" ></Label>
                       </ViewCell>
                     </DataTemplate>
-                  </controls:GeneralItemView.ItemTemplate>
-                </controls:GeneralItemView>
+                  </controls:GeneralListView>
+                </controls:GeneralListView>
 
                 <Label Text="{Binding Introduction}"></Label>
 

@@ -35,8 +35,8 @@ namespace ProjectMato.iOS
             }
             else if (type == MusicFunctionMenuType.NowPlaying)
             {
-                this.NextPlayButton.IsEnabled = false;
-                this.AddToQueueButton.IsEnabled = false;
+                this.NextPlayButton.IsVisible = false;
+                this.AddToQueueButton.IsVisible = false;
             }
             else if (type == MusicFunctionMenuType.Playlist)
             {

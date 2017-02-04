@@ -18,29 +18,14 @@ namespace ProjectMato.iOS
 
         public LibraryPage()
         {
-
             InitializeComponent();
             this.BindingContext = new LibraryPageViewModel();
-
-
-        }
-
-
-
-
-
-        private async void GridView_OnItemSelected(object sender, EventArgs<object> e)
-        {
-            var albumInfo = (e.Value as AlbumInfo);
-
-            await Navigation.PushAsync(new AlbumPage(albumInfo));
 
         }
 
         private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (e.SelectedItem is ArtistInfo
-)
+            if (e.SelectedItem is ArtistInfo)
             {
                 var artistInfo = e.SelectedItem as ArtistInfo;
 
@@ -58,7 +43,8 @@ namespace ProjectMato.iOS
         private void MusicListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             MusicRelatedViewModel.Current.ChangeMusic(e.SelectedItem as MusicInfo);
-            this.detailPage = new NavigationPage(new NowPlayingPage()) { BarBackgroundColor = Color.Black, BarTextColor = Color.White }; ;
+            this.detailPage = new NavigationPage(new NowPlayingPage()) { BarBackgroundColor = Color.Black, BarTextColor = Color.White };
+            ;
             App.MainMasterDetailPage.Detail = this.detailPage;
         }
 
