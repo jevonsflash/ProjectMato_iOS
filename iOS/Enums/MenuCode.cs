@@ -2,6 +2,6 @@
 {
     public enum MenuCode
     {
-        NowPlaying, Playlist, Queue, Library, Setting, About
+        Search, NowPlaying, Playlist, Queue, Library, Setting, About
     }
 }

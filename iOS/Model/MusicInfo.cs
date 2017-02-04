@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace ProjectMato.iOS
 {
-    public class MusicInfo:BaseViewModel
+    public class MusicInfo : BaseViewModel
     {
         public MusicInfo()
         {
@@ -33,13 +33,23 @@ namespace ProjectMato.iOS
         }
 
         public bool isFavourite;
-        public bool IsFavourite {
+        public bool IsFavourite
+        {
             get { return isFavourite; }
 
-            set { base.SetObservableProperty(ref isFavourite,value);}
+            set { base.SetObservableProperty(ref isFavourite, value); }
         }
         public string GroupHeader { get; set; }
         public ImageSource AlbumArt { get; set; }
+        /// <summary>
+        /// 提供搜索线索
+        /// </summary>
+        /// <returns>搜索线索字符串</returns>
+        public override string ToString()
+        {
+            return string.Format("{0} {1} {2}", Title, Artist, AlbumTitle);
+        }
     }
 }
+
 

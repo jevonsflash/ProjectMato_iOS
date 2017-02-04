@@ -18,6 +18,7 @@ namespace ProjectMato.iOS
         public MenuPage(MasterDetailPage m)
         {
             InitializeComponent();
+            this.Search.Host = this;
 			this.Queue.Host = this;
 			this.Library.Host = this;
 			this.NowPlaying.Host = this;
@@ -35,6 +36,13 @@ namespace ProjectMato.iOS
 
             switch (item)
             {
+                case MenuCode.Search:
+
+                    var searchPage = new NavigationPage(new SearchPage()) { BarBackgroundColor = Color.Black, BarTextColor = Color.White };
+                    master.Detail = searchPage;
+                    break;
+
+
                 case MenuCode.NowPlaying:
 
                     var nowPlayingPage = new NavigationPage(new NowPlayingPage()) { BarBackgroundColor = Color.Black, BarTextColor = Color.White };

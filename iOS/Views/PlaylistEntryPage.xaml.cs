@@ -14,6 +14,7 @@ namespace ProjectMato.iOS
     {
 
         private PlaylistFunctionPage _editPlaylistFunctionPage;
+        private NavigationPage detailPage;
 
         public PlaylistEntryPage(PlaylistInfo playlist)
         {
@@ -67,6 +68,13 @@ namespace ProjectMato.iOS
                 }
             }
             popup.HidePopup();
+        }
+
+        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            MusicRelatedViewModel.Current.ChangeMusic(e.SelectedItem as MusicInfo);
+            this.detailPage = new NavigationPage(new NowPlayingPage()) { BarBackgroundColor = Color.Black, BarTextColor = Color.White };
+            App.MainMasterDetailPage.Detail = this.detailPage;
         }
     }
 }

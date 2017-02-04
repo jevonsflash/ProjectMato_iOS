@@ -23,6 +23,7 @@
             Grid.Row="1">
         <controls:GeneralListView  RowHeight="50"
                                ItemsSource="{Binding Musics,Mode=TwoWay}"
+                                   ItemSelected="ListView_OnItemSelected"
                               >
           <controls:GeneralListView.ItemTemplate>
             <DataTemplate>
