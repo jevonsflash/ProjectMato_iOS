@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectMato.iOS.Helper;
 using ProjectMato.iOS.Server;
 using Xamarin.Forms;
 using XLabs;
@@ -43,9 +44,7 @@ namespace ProjectMato.iOS
         private void MusicListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             MusicRelatedViewModel.Current.ChangeMusic(e.SelectedItem as MusicInfo);
-            this.detailPage = new NavigationPage(new NowPlayingPage()) { BarBackgroundColor = Color.Black, BarTextColor = Color.White };
-            ;
-            App.MainMasterDetailPage.Detail = this.detailPage;
+            CommonHelper.GoPage("NowPlayingPage");
         }
 
         private async void MusicItemView_OnOnJumptoOtherPage(object sender, MusicFunctionEventArgs e)

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using AVFoundation;
 using Foundation;
+using ProjectMato.iOS.Helper;
 using ProjectMato.iOS.Model;
 
 namespace ProjectMato.iOS
@@ -28,7 +29,7 @@ namespace ProjectMato.iOS
             {
                 if (shuffleMap == null || shuffleMap.Length == 0)
                 {
-                    shuffleMap = CommonServer.Current.GetRandomArry(0, LastIndex);
+                    shuffleMap = CommonHelper.GetRandomArry(0, LastIndex);
                 }
                 return shuffleMap;
             }
@@ -211,7 +212,7 @@ namespace ProjectMato.iOS
 
         public static void UpdateShuffleMap()
         {
-            shuffleMap = CommonServer.Current.GetRandomArry(0, LastIndex);
+            shuffleMap = CommonHelper.GetRandomArry(0, LastIndex);
         }
 
         public static void SetRepeatOneStatus(bool isRepeatOne)

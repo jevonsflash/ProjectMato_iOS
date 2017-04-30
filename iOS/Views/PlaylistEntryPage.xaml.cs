@@ -25,25 +25,15 @@ namespace ProjectMato.iOS
 
         private async void MusicItemView_OnOnJumptoOtherPage(object sender, MusicFunctionEventArgs e)
         {
-            //if (e.FunctionType == MusicFunctionType.GoAlbumPage)
-            //{
-            //    var albumInfo = MusicInfoServer.Current.GetAlbumInfos().Find(c => c.Title == e.MusicInfo.AlbumTitle);
-            //    await Navigation.PushAsync(new AlbumPage(albumInfo));
 
-            //}
-            //else if (e.FunctionType == MusicFunctionType.GoArtistPage)
-            //{
-            //    var artistInfo = MusicInfoServer.Current.GetArtistInfos().Find(c => c.Title == e.MusicInfo.Artist);
-            //    await Navigation.PushAsync(new ArtistPage(artistInfo));
-            //}
-            //else if (e.FunctionType == MusicFunctionType.Delete)
-            //{
-            //    var playlistEntryViewModel = this.BindingContext as PlaylistEntryPageViewModel;
-            //    if (playlistEntryViewModel != null)
-            //    {
-            //        playlistEntryViewModel.DeleteAction(e.MusicInfo);
-            //    }
-            //}
+            if (e.MenuCellInfo.Code == "Delete")
+            {
+                var playlistEntryViewModel = this.BindingContext as PlaylistEntryPageViewModel;
+                if (playlistEntryViewModel != null)
+                {
+                    playlistEntryViewModel.DeleteAction(e.MusicInfo);
+                }
+            }
         }
 
         private void EditButton_OnClicked(object sender, EventArgs e)

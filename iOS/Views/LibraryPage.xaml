@@ -141,8 +141,8 @@
                         <local:GeneralListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <local:MusicItemViewBindingContext="{Binding}"
-                                                         Popup="{x:Reference popup3}"></local:MusicItemViewBindingContext>
+                                    <local:MusicItemView BindingContext="{Binding}"
+                                                         Popup="{x:Reference popup3}"></local:MusicItemView>
                                 </ViewCell>
                             </DataTemplate>
                         </local:GeneralListView.ItemTemplate>
