@@ -15,8 +15,6 @@ namespace ProjectMato.iOS.Controls
             InitializeComponent();
         }
 
-        public MenuPage Host { get; set; }
-
         public MenuCode Code { get; set; }
 
         public static readonly BindableProperty ContentTextProperty =
@@ -54,7 +52,6 @@ namespace ProjectMato.iOS.Controls
         {
             base.OnTapped();
 
-            Host.Selected(this.Code);
         }
     }
 }

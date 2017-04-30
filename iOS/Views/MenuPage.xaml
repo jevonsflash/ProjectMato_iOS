@@ -2,24 +2,66 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
-             x:Class="ProjectMato.iOS.MenuPage" Title="Mato" Icon="Icon/slideout.png">
-  <StackLayout VerticalOptions="FillAndExpand">
-    <controls:MenuTableView Intent="Menu" HasUnevenRows="True" RowHeight="58">
+             BindingContext="{Binding Source={StaticResource Locator},Path=MenuPage}"
+             x:Class="ProjectMato.iOS.MenuPage"
+             Title="Mato"
+             Icon="Icon/slideout.png">
+    <StackLayout VerticalOptions="FillAndExpand">
+        <controls:GeneralListView ItemsSource="{Binding  MainMenuCellInfos }"
+                                  RowHeight="58">
+            <controls:GeneralListView.ItemTemplate>
+                <DataTemplate>
+                    <controls:MenuCell ContentText="{Binding Title}"
+                                       ContentImage="{Binding Icon}"
+                                       Code="{Binding Code}"></controls:MenuCell>
+
+                </DataTemplate>
+            </controls:GeneralListView.ItemTemplate>
+        </controls:GeneralListView>
+        <!--<controls:MenuTableView Intent="Menu" HasUnevenRows="True" RowHeight="58">
       <TableRoot>
         <TableSection>
-          <controls:MenuCell ContentText="搜索" ContentImage="Icon/search" Code="Search"  x:Name="Search" ></controls:MenuCell>
-          <controls:MenuCell ContentText="正在播放" ContentImage="Icon/headphone" Code="NowPlaying"  x:Name="NowPlaying" ></controls:MenuCell>
-          <controls:MenuCell ContentText="列队" ContentImage="Icon/queue2" Code="Queue" x:Name="Queue" ></controls:MenuCell>
-          <controls:MenuCell ContentText="音乐库" ContentImage="Icon/folder" Code="Library" x:Name="Library" ></controls:MenuCell>
-          <controls:MenuCell ContentText="歌单" ContentImage="Icon/playlist" Code="Playlist"  x:Name="Playlist"></controls:MenuCell>
-          <controls:MenuCell ContentText="设置" ContentImage="Icon/setting" Code="Setting"  x:Name="Setting"></controls:MenuCell>
-          <controls:MenuCell ContentText="关于" ContentImage="Icon/help" Code="About" x:Name="About"></controls:MenuCell>
+
+                    <controls:MenuCell ContentText="搜索"
+                                       ContentImage="Icon/search"
+                                       Code="Search"
+                                       Tapped="Cell_OnTapped"  x:Name="Search" ></controls:MenuCell>
+                    <controls:MenuCell ContentText="正在播放"
+                                       ContentImage="Icon/headphone"
+                                       Code="NowPlaying"
+                                       x:Name="NowPlaying"
+                                       Tapped="Cell_OnTapped"></controls:MenuCell>
+                    <controls:MenuCell ContentText="列队"
+                                       ContentImage="Icon/queue2"
+                                       Code="Queue"
+                                       x:Name="Queue"
+                                       Tapped="Cell_OnTapped"></controls:MenuCell>
+                    <controls:MenuCell ContentText="音乐库"
+                                       ContentImage="Icon/folder"
+                                       Code="Library"
+                                       x:Name="Library"
+                                       Tapped="Cell_OnTapped"></controls:MenuCell>
+                    <controls:MenuCell ContentText="歌单"
+                                       ContentImage="Icon/playlist"
+                                       Code="Playlist"
+                                       x:Name="Playlist"
+                                       Tapped="Cell_OnTapped"></controls:MenuCell>
+                    <controls:MenuCell ContentText="设置"
+                                       ContentImage="Icon/setting"
+                                       Code="Setting"
+                                       x:Name="Setting"
+                                       Tapped="Cell_OnTapped"></controls:MenuCell>
+                    <controls:MenuCell ContentText="关于"
+                                       ContentImage="Icon/help"
+                                       Code="About"
+                                       x:Name="About"
+                                       Tapped="Cell_OnTapped"></controls:MenuCell>
         </TableSection>
       </TableRoot>
 
-    </controls:MenuTableView>
+    </controls:MenuTableView>-->
 
-  </StackLayout>
+    </StackLayout>
 
 
 </ContentPage>
