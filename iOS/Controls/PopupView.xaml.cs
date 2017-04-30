@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace ProjectMato.iOS.Controls
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PopupView : ContentView
     {
         public PopupView()
@@ -21,7 +23,7 @@ namespace ProjectMato.iOS.Controls
             Popup.InputTransparent = false;
             this.IsVisible = true;
         }
-        public void HidePopup( )
+        public void HidePopup()
         {
             Popup.Children.Clear();
             Popup.InputTransparent = true;

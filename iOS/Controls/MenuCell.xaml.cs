@@ -15,8 +15,6 @@ namespace ProjectMato.iOS.Controls
             InitializeComponent();
         }
 
-        public MenuCode Code { get; set; }
-
         public static readonly BindableProperty ContentTextProperty =
     BindableProperty.Create(
         nameof(ContentText),
@@ -48,10 +46,19 @@ namespace ProjectMato.iOS.Controls
         });
         public ImageSource ContentImage { get; set; }
 
-        protected override void OnTapped()
-        {
-            base.OnTapped();
 
-        }
+        public static readonly BindableProperty ContentBackgroundProperty =
+    BindableProperty.Create(
+        nameof(ContentBackground),
+        typeof(Color),
+        typeof(MenuCell),
+        Color.Transparent,
+        BindingMode.TwoWay,
+        propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            ((MenuCell)bindable).Layout.BackgroundColor = (Color)newValue;
+        });
+        public Color ContentBackground { get; set; }
+
     }
 }

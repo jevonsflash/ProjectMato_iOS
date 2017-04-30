@@ -201,6 +201,7 @@
     <Compile Include="Converter\SecondsToTimeSpanConverter.cs" />
     <Compile Include="Enums\MenuCode.cs" />
     <Compile Include="Helper\ColorHelper.cs" />
+    <Compile Include="Helper\CommonHelper.cs" />
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Helper\IsolatedStorageFileHelper.cs" />
     <Compile Include="Helper\HttpHelper.cs" />
@@ -505,11 +506,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\PopupView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Icon\FavouriteDis.png" />
   </ItemGroup>
   <ItemGroup>
@@ -724,6 +720,11 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Icon\queue3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\PopupView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

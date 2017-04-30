@@ -17,7 +17,6 @@ namespace ProjectMato.iOS.Controls
         private PlaylistChoosePage _playlistChoosePage;
 
         private MusicCollectionFunctionPage _musicCollectionFunctionPage;
-        public PopupView Popup { get; set; }
         public MusicCollectionFunctionMenuType MenuType { get; set; }
         public event EventHandler<MusicCollectionFunctionEventArgs> OnFinishedChoice;
 
@@ -43,7 +42,7 @@ namespace ProjectMato.iOS.Controls
             _musicCollectionFunctionPage = new MusicCollectionFunctionPage(musicInfo, MenuType);
             _musicCollectionFunctionPage.OnFinished += MusicCollectionFunctionPage_OnFinished;
 
-            this.Popup.ShowPopup(_musicCollectionFunctionPage);
+            //this.Popup.ShowPopup(_musicCollectionFunctionPage);
         }
 
         private async void MusicCollectionFunctionPage_OnFinished(object sender, MusicCollectionFunctionEventArgs e)
@@ -52,7 +51,7 @@ namespace ProjectMato.iOS.Controls
             {
                 return;
             }
-            this.Popup.HidePopup();
+            //this.Popup.HidePopup();
 
             if (e.FunctionType == MusicCollectionFunctionType.AddToPlaylist)
             {
@@ -64,13 +63,13 @@ namespace ProjectMato.iOS.Controls
                     {
                         MusicInfoServer.Current.CreatePlaylistEntrys(e.MusicCollectionInfo, c.PlaylistId);
                     }
-                    this.Popup.HidePopup();
+                    //this.Popup.HidePopup();
                 };
 
-                this.Popup.ShowPopup(
-                    _playlistChoosePage
+                ////this.Popup.ShowPopup(
+                //    _playlistChoosePage
 
-                    );
+                //    );
             }
 
             else

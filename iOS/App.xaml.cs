@@ -11,13 +11,13 @@ using Xamarin.Forms.Xaml;
 
 namespace ProjectMato.iOS
 {
-    public partial class App 
+    public partial class App
     {
         public App()
         {
             InitializeComponent();
-            App.Current.Resources["Bound"]  = (UIScreen.MainScreen.Bounds.Width).ToString();
-			MainPage = App.MainMasterDetailPage;
+            App.Current.Resources["Bound"] = (UIScreen.MainScreen.Bounds.Width).ToString();
+            MainPage = App.MainMasterDetailPage;
 
             Messenger.Default.Register<string>(this, TokenHelper.WindowToken, HandleWindowResult);
 
@@ -26,30 +26,40 @@ namespace ProjectMato.iOS
 
         private void HandleWindowResult(string obj)
         {
-            Type pageType = Type.GetType("ProjectMato.iOS."+obj, false);
+            MainMasterDetailPage.Detail = GetPageInstance(obj);
+        }
+
+        private static Page GetPageInstance(string obj)
+        {
+            Page result = null;
+            Type pageType = Type.GetType("ProjectMato.iOS." + obj, false);
             if (pageType != null)
             {
                 var pageObj = Activator.CreateInstance(pageType);
-               
-            
-                MainMasterDetailPage.Detail = new NavigationPage(pageObj as Page);
+
+
+                result = new NavigationPage(pageObj as Page);
 
 
             }
+            return result;
         }
 
         private static MasterDetailPage mainMasterDetailPage;
-		public static MasterDetailPage MainMasterDetailPage {
-			get {
-				if (mainMasterDetailPage==null) {
-					mainMasterDetailPage = new MasterDetailPage ();
-					mainMasterDetailPage.Master = new MenuPage();
-					mainMasterDetailPage.Detail = new NavigationPage(new NowPlayingPage ()) { BarBackgroundColor = Color.Black, BarTextColor = Color.White };
-				}
-				return mainMasterDetailPage;
-			}
-			set	{  mainMasterDetailPage = value;}
-		}
+        public static MasterDetailPage MainMasterDetailPage
+        {
+            get
+            {
+                if (mainMasterDetailPage == null)
+                {
+                    mainMasterDetailPage = new MasterDetailPage();
+                    mainMasterDetailPage.Master = new MenuPage();
+                    mainMasterDetailPage.Detail = GetPageInstance("NowPlayingPage");
+                }
+                return mainMasterDetailPage;
+            }
+            set { mainMasterDetailPage = value; }
+        }
     }
 }
 
