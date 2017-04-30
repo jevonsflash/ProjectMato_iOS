@@ -178,6 +178,7 @@
     <Compile Include="Common\ObservableCollectionEx.cs" />
     <Compile Include="Common\ReorderCommandParam.cs" />
     <Compile Include="Common\SleepModeDispatcher.cs" />
+    <Compile Include="Common\WindowArg.cs" />
     <Compile Include="Controls\BackgroundFliperView.xaml.cs">
       <DependentUpon>BackgroundFliperView.xaml</DependentUpon>
     </Compile>
@@ -189,9 +190,6 @@
     </Compile>
     <Compile Include="Controls\MenuTableView.cs" />
     <Compile Include="Controls\MovableViewCell.cs" />
-    <Compile Include="Controls\MusicCollectionItemView.xaml.cs">
-      <DependentUpon>MusicCollectionItemView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\MusicGroupHeaderView.xaml.cs">
       <DependentUpon>MusicGroupHeaderView.xaml</DependentUpon>
     </Compile>
@@ -213,6 +211,7 @@
     <Compile Include="Model\BaseTable.cs" />
     <Compile Include="Model\Gecime_Artist.cs" />
     <Compile Include="Model\Gecime_Lyric.cs" />
+    <Compile Include="Model\IBasicInfo.cs" />
     <Compile Include="Model\LRCItem.cs" />
     <Compile Include="Model\MenuCellInfo.cs" />
     <Compile Include="Model\MenuFunction.cs" />
@@ -230,7 +229,6 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuPageViewModel.cs" />
     <Compile Include="ViewModel\PlaylistFunctionPageViewModel.cs" />
-    <Compile Include="ViewModel\MusicCollectionFunctionPageViewModel.cs" />
     <Compile Include="ViewModel\AlbumPageViewModel.cs" />
     <Compile Include="ViewModel\ArtistPageViewModel.cs" />
     <Compile Include="ViewModel\MusicFunctionPageViewModel.cs" />
@@ -243,9 +241,6 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\PlaylistFunctionPage.xaml.cs">
       <DependentUpon>PlaylistFunctionPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MusicCollectionFunctionPage.xaml.cs">
-      <DependentUpon>MusicCollectionFunctionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AlbumPage.xaml.cs">
       <DependentUpon>AlbumPage.xaml</DependentUpon>
@@ -531,16 +526,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Icon\cd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\MusicCollectionFunctionPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Controls\MusicCollectionItemView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\PlaylistFunctionPage.xaml">

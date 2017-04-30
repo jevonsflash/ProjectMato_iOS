@@ -4,42 +4,43 @@
              xmlns:local="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
              BackgroundColor="{StaticResource PhoneBackgroundBrush}"
              x:Class="ProjectMato.iOS.PlaylistPage">
-  <Grid>
     <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto">
-        </RowDefinition>
-        <RowDefinition>
-        </RowDefinition>
-      </Grid.RowDefinitions>
-      <!--TitlePanel 包含应用程序的名称和页标题-->
-      <StackLayout Grid.Row="0"
-                   Padding="{StaticResource DefaultContentPadding}">
-        <Label Text="歌单"
-               FontSize="{StaticResource HeaderFontSize}" />
-      </StackLayout>
-      <Button x:Name="CreatePlaylist" Grid.Row="0"  Command="{Binding CreateCommand}" Clicked="CreatePlaylist_OnClicked" Text="新增歌单"></Button>
-      <Grid Padding="{StaticResource DefaultContentPadding}"
-            Grid.Row="1">
-        <local:GeneralListView  RowHeight="50"
-                               ItemsSource="{Binding Playlists,Mode=TwoWay}"
-                                   ItemSelected="ListView_OnItemSelected"
-                              >
-          <local:GeneralListView.ItemTemplate>
-            <DataTemplate>
-              <ViewCell>
-                <local:MusicCollectionItemView MenuType="Playlist"
-                                               BindingContext="{Binding}"
-                                               Popup="{x:Reference popup3}"
-                                               OnFinishedChoice="MusicCollectionItemView_OnOnFinishedChoice"
-                                               ></local:MusicCollectionItemView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto">
+                </RowDefinition>
+                <RowDefinition>
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <!--TitlePanel 包含应用程序的名称和页标题-->
+            <StackLayout Grid.Row="0"
+                         Padding="{StaticResource DefaultContentPadding}">
+                <Label Text="歌单"
+                       FontSize="{StaticResource HeaderFontSize}" />
+            </StackLayout>
+            <Button x:Name="CreatePlaylist"
+                    Grid.Row="0"
+                    Command="{Binding CreateCommand}"
+                    Clicked="CreatePlaylist_OnClicked"
+                    Text="新增歌单"></Button>
+            <Grid Padding="{StaticResource DefaultContentPadding}"
+                  Grid.Row="1">
+                <local:GeneralListView  RowHeight="50"
+                                        ItemsSource="{Binding Playlists,Mode=TwoWay}"
+                                        ItemSelected="ListView_OnItemSelected">
+                    <local:GeneralListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <local:MusicItemView BindingContext="{Binding}"
+                                                     Popup="{x:Reference popup3}"
+                                                     OnFinishedChoice="MusicCollectionItemView_OnOnFinishedChoice"></local:MusicItemView>
 
-              </ViewCell>
-            </DataTemplate>
-          </local:GeneralListView.ItemTemplate>
-        </local:GeneralListView>
-      </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </local:GeneralListView.ItemTemplate>
+                </local:GeneralListView>
+            </Grid>
+        </Grid>
+        <local:PopupView  x:Name="popup3"></local:PopupView>
     </Grid>
-    <local:PopupView  x:Name="popup3"></local:PopupView>
-  </Grid>
 </ContentPage>

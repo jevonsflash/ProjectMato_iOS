@@ -46,10 +46,9 @@
 
                             <DataTemplate>
                                 <ViewCell>
-                                    <local:MusicItemView  MenuType="Full"
-                                                          BindingContext="{Binding}"
-                                                          Popup="{x:Reference popup}"
-                                                          OnFinishedChoice="MusicItemView_OnOnJumptoOtherPage"></local:MusicItemView>
+                                    <local:MusicItemView BindingContext="{Binding}"
+                                                         Popup="{x:Reference popup}"
+                                                         OnFinishedChoice="MusicItemView_OnOnJumptoOtherPage"></local:MusicItemView>
                                 </ViewCell>
                             </DataTemplate>
                         </local:GeneralListView.ItemTemplate>
@@ -94,9 +93,8 @@
                         <local:GeneralListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <local:MusicCollectionItemView MenuType="Artist"
-                                                                   BindingContext="{Binding}"
-                                                                   Popup="{x:Reference popup2}"></local:MusicCollectionItemView>
+                                    <local:MusicItemView BindingContext="{Binding}"
+                                                         Popup="{x:Reference popup2}"></local:MusicItemView>
                                 </ViewCell>
                             </DataTemplate>
                         </local:GeneralListView.ItemTemplate>
@@ -143,9 +141,8 @@
                         <local:GeneralListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <local:MusicCollectionItemView MenuType="Album"
-                                                                   BindingContext="{Binding}"
-                                                                   Popup="{x:Reference popup3}"></local:MusicCollectionItemView>
+                                    <local:MusicItemViewBindingContext="{Binding}"
+                                                         Popup="{x:Reference popup3}"></local:MusicItemViewBindingContext>
                                 </ViewCell>
                             </DataTemplate>
                         </local:GeneralListView.ItemTemplate>

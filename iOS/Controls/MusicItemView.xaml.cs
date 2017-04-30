@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectMato.iOS.Helper;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 using Xamarin.Forms;
@@ -46,17 +47,10 @@ namespace ProjectMato.iOS.Controls
             _musicFunctionPage.OnFinished += MusicFunctionPage_OnFinished;
 
             this.Popup.ShowPopup(_musicFunctionPage);
-
-
-
-
-
-
         }
 
         private async void MusicFunctionPage_OnFinished(object sender, MusicFunctionEventArgs e)
         {
-            //var libraryPageViewModel = this.BindingContext as LibraryPageViewModel;
             if (e.MusicInfo == null)
             {
                 return;
@@ -69,7 +63,7 @@ namespace ProjectMato.iOS.Controls
                 {
                     if (c != null)
                     {
-                        MusicInfoServer.Current.CreatePlaylistEntry(e.MusicInfo, c.PlaylistId);
+                        MusicInfoServer.Current.CreatePlaylistEntry((e.MusicInfo as MusicInfo), c.PlaylistId);
 
 
                     }
@@ -81,11 +75,18 @@ namespace ProjectMato.iOS.Controls
 
                     );
             }
-            else
+            else if (e.MenuCellInfo.Code == "GoAlbumPage")
             {
-                if (OnFinishedChoice != null)
-                    OnFinishedChoice(sender, e);
+                var albumInfo = MusicInfoServer.Current.GetAlbumInfos().Find(c => c.Title == (e.MusicInfo as MusicInfo).AlbumTitle);
+                CommonHelper.GoNavigate("ArtistPage", new object[] { albumInfo });
             }
+            else if (e.MenuCellInfo.Code == "GoArtistPage")
+            {
+                var artistInfo = MusicInfoServer.Current.GetArtistInfos().Find(c => c.Title == (e.MusicInfo as MusicInfo).Artist);
+                CommonHelper.GoNavigate("ArtistPage", new object[] { artistInfo });
+            }
+            OnFinishedChoice?.Invoke(sender, e);
+
         }
         private void IsFavouriteButton_OnClicked(object sender, EventArgs e)
         {

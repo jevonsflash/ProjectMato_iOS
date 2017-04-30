@@ -3,14 +3,14 @@ using Xamarin.Forms;
 
 namespace ProjectMato.iOS
 {
-    public class MusicInfo : BaseViewModel
+    public class MusicInfo : BaseViewModel, IBasicInfo
     {
         public MusicInfo()
         {
 
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Title
         {
             get;

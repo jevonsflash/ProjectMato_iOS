@@ -27,22 +27,22 @@ namespace ProjectMato.iOS
             await Navigation.PushAsync(new PlaylistEntryPage(playlist));
         }
 
-        private void MusicCollectionItemView_OnOnFinishedChoice(object sender, MusicCollectionFunctionEventArgs e)
+        private void MusicCollectionItemView_OnOnFinishedChoice(object sender, MusicFunctionEventArgs e)
         {
-            var musicCollectionInfo = e.MusicCollectionInfo;
+            var musicCollectionInfo = e.MusicInfo;
             var playlistViewModel = this.BindingContext as PlaylistPageViewModel;
 
-            if (e.FunctionType == MusicCollectionFunctionType.Delete)
+            if (e.MenuCellInfo.Code == "Delete")
             {
                 if (playlistViewModel != null)
                     playlistViewModel.DeleteAction(musicCollectionInfo);
             }
-            else if (e.FunctionType == MusicCollectionFunctionType.Rename)
+            else if (e.MenuCellInfo.Code == "Rename")
             {
                 if (playlistViewModel != null)
                 {
                     _editPlaylistFunctionPage = new PlaylistFunctionPage(PlaylistFunctionMenuType.Edit,
-                        playlistViewModel.Playlists.FirstOrDefault(c => c.Id == e.MusicCollectionInfo.Id));
+                        playlistViewModel.Playlists.FirstOrDefault(c => c.Id == (e.MusicInfo as MusicCollectionInfo).Id));
                     _editPlaylistFunctionPage.OnFinished += _editPlaylistFunctionPage_OnFinished;
                     popup3.ShowPopup(_editPlaylistFunctionPage);
                 }

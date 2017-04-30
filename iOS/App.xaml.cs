@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Messaging;
+using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Helper;
+using ProjectMato.iOS.Server;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -19,31 +21,39 @@ namespace ProjectMato.iOS
             App.Current.Resources["Bound"] = (UIScreen.MainScreen.Bounds.Width).ToString();
             MainPage = App.MainMasterDetailPage;
 
-            Messenger.Default.Register<string>(this, TokenHelper.WindowToken, HandleWindowResult);
+            Messenger.Default.Register<WindowArg>(this, TokenHelper.WindowToken, HandleWindowResult);
 
 
         }
 
-        private void HandleWindowResult(string obj)
+        private async void HandleWindowResult(WindowArg obj)
         {
-            MainMasterDetailPage.Detail = GetPageInstance(obj);
+            if (obj.IsNavigate)
+            {
+                await MainMasterDetailPage.Detail.Navigation.PushAsync(GetPageInstance(obj.Name, obj.Args));
+            }
+            else
+            {
+                MainMasterDetailPage.Detail = GetPageInstance(obj.Name, obj.Args);
+
+            }
         }
 
-        private static Page GetPageInstance(string obj)
+
+
+        private static Page GetPageInstance(string obj, object[] args)
         {
             Page result = null;
             Type pageType = Type.GetType("ProjectMato.iOS." + obj, false);
             if (pageType != null)
             {
-                var pageObj = Activator.CreateInstance(pageType);
-
-
+                var pageObj = Activator.CreateInstance(pageType, args);
                 result = new NavigationPage(pageObj as Page);
-
-
             }
             return result;
         }
+
+
 
         private static MasterDetailPage mainMasterDetailPage;
         public static MasterDetailPage MainMasterDetailPage
@@ -54,7 +64,7 @@ namespace ProjectMato.iOS
                 {
                     mainMasterDetailPage = new MasterDetailPage();
                     mainMasterDetailPage.Master = new MenuPage();
-                    mainMasterDetailPage.Detail = GetPageInstance("NowPlayingPage");
+                    mainMasterDetailPage.Detail = GetPageInstance("NowPlayingPage", null);
                 }
                 return mainMasterDetailPage;
             }

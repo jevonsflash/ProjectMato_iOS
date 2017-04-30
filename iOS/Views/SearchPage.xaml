@@ -3,56 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              xmlns:local="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
-             x:Class="ProjectMato.iOS.SearchPage" 
+             x:Class="ProjectMato.iOS.SearchPage"
              BackgroundColor="{StaticResource PhoneBackgroundBrush}">
-  <Grid>
     <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto">
-        </RowDefinition>
-        <RowDefinition>
-        </RowDefinition>
-      </Grid.RowDefinitions>
-      <!--TitlePanel 包含应用程序的名称和页标题-->
-      <StackLayout Grid.Row="0"
-                   Padding="{StaticResource DefaultContentPadding}">
-        <Label Text="搜索"
-               FontSize="{StaticResource HeaderFontSize}" />
-      </StackLayout>
-      <Grid Padding="{StaticResource DefaultContentPadding}"
-            Grid.Row="1">
-        <controls:AutoCompleteView                            
-          Placeholder="请输入歌曲、艺术家、或专辑的名称" 
-          SearchTextColor="{StaticResource PhoneForegroundBrush}"
-          TextColor="{StaticResource PhoneBackgroundBrush}"
-          TextBackgroundColor="{StaticResource PhoneForegroundBrush}"
-          SearchBackgroundColor="{StaticResource PhoneBackgroundBrush}"
-          SearchBorderRadius="5"
-          SelectedCommand="{Binding ItemSelectedCommand}"
-          SelectedItem="{Binding SelectedItem}"
-          ShowSearchButton="False"
-          SuggestionBackgroundColor="{StaticResource PhoneBackgroundBrush}"
-           SelectedItemChanged="AutoCompleteView_OnSelectedItemChanged"
-          Suggestions="{Binding Musics,Mode=TwoWay}" >
-          
-          <controls:AutoCompleteView.SuggestionItemDataTemplate>
-            <DataTemplate>
-              <ViewCell>
-                <local:MusicItemView  MenuType="Full"
-                                      BindingContext="{Binding}"
-                                      Popup="{x:Reference popup}"
-                                      OnFinishedChoice="MusicItemView_OnOnFinishedChoice">
-                  
-                </local:MusicItemView>
-              </ViewCell>
-            </DataTemplate>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto">
+                </RowDefinition>
+                <RowDefinition>
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <!--TitlePanel 包含应用程序的名称和页标题-->
+            <StackLayout Grid.Row="0"
+                         Padding="{StaticResource DefaultContentPadding}">
+                <Label Text="搜索"
+                       FontSize="{StaticResource HeaderFontSize}" />
+            </StackLayout>
+            <Grid Padding="{StaticResource DefaultContentPadding}"
+                  Grid.Row="1">
+                <controls:AutoCompleteView Placeholder="请输入歌曲、艺术家、或专辑的名称"
+                                           SearchTextColor="{StaticResource PhoneForegroundBrush}"
+                                           TextColor="{StaticResource PhoneBackgroundBrush}"
+                                           TextBackgroundColor="{StaticResource PhoneForegroundBrush}"
+                                           SearchBackgroundColor="{StaticResource PhoneBackgroundBrush}"
+                                           SearchBorderRadius="5"
+                                           SelectedCommand="{Binding ItemSelectedCommand}"
+                                           SelectedItem="{Binding SelectedItem}"
+                                           ShowSearchButton="False"
+                                           SuggestionBackgroundColor="{StaticResource PhoneBackgroundBrush}"
+                                           SelectedItemChanged="AutoCompleteView_OnSelectedItemChanged"
+                                           Suggestions="{Binding Musics,Mode=TwoWay}">
 
-          </controls:AutoCompleteView.SuggestionItemDataTemplate>
-        </controls:AutoCompleteView>
+                    <controls:AutoCompleteView.SuggestionItemDataTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <local:MusicItemView BindingContext="{Binding}"
+                                                     Popup="{x:Reference popup}"
+                                                     OnFinishedChoice="MusicItemView_OnOnFinishedChoice">
 
-      </Grid>
+                                </local:MusicItemView>
+                            </ViewCell>
+                        </DataTemplate>
+
+                    </controls:AutoCompleteView.SuggestionItemDataTemplate>
+                </controls:AutoCompleteView>
+
+            </Grid>
+        </Grid>
+        <local:PopupView  x:Name="popup"></local:PopupView>
     </Grid>
-    <local:PopupView  x:Name="popup"></local:PopupView>
-  </Grid>
 
 </ContentPage>

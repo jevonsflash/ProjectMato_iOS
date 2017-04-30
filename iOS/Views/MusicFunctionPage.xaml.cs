@@ -15,14 +15,14 @@ namespace ProjectMato.iOS
 {
     public partial class MusicFunctionPage
     {
-        private MusicInfo _musicInfo;
+        private IBasicInfo _objInfo;
         public event EventHandler<MusicFunctionEventArgs> OnFinished;
-        public MusicFunctionPage(MusicInfo musicInfo, IList<MenuCellInfo> menus)
+        public MusicFunctionPage(IBasicInfo objInfo, IList<MenuCellInfo> menus)
         {
             InitializeComponent();
-            this._musicInfo = musicInfo;
+            this._objInfo = objInfo;
             this.WidthRequest = UIScreen.MainScreen.Bounds.Width;
-            this.BindingContext = new MusicFunctionPageViewModel(musicInfo, menus);
+            this.BindingContext = new MusicFunctionPageViewModel(objInfo, menus);
 
 
 
@@ -31,17 +31,17 @@ namespace ProjectMato.iOS
         private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
 
-                OnFinished?.Invoke(this,new MusicFunctionEventArgs(_musicInfo, e.SelectedItem as MenuCellInfo));
+                OnFinished?.Invoke(this,new MusicFunctionEventArgs(_objInfo, e.SelectedItem as MenuCellInfo));
         }
     }
     public class MusicFunctionEventArgs : EventArgs
     {
-        public MusicFunctionEventArgs(MusicInfo musicInfo, MenuCellInfo menuCellInfo)
+        public MusicFunctionEventArgs(IBasicInfo musicInfo, MenuCellInfo menuCellInfo)
         {
             this.MusicInfo = musicInfo;
             this.MenuCellInfo = menuCellInfo;
         }
-        public MusicInfo MusicInfo { get; set; }
+        public IBasicInfo MusicInfo { get; set; }
         public MenuCellInfo MenuCellInfo { get; set; }
     }
 

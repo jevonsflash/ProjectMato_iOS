@@ -102,7 +102,7 @@ namespace ProjectMato.iOS
                 {
                     if (c != null)
                     {
-                        MusicInfoServer.Current.CreatePlaylistEntry(e.MusicInfo, c.PlaylistId);
+                        MusicInfoServer.Current.CreatePlaylistEntry(e.MusicInfo as MusicInfo, c.PlaylistId);
 
 
                     }
@@ -117,13 +117,13 @@ namespace ProjectMato.iOS
 
             else if (e.MenuCellInfo.Code == "GoAlbumPage")
             {
-                var albumInfo = MusicInfoServer.Current.GetAlbumInfos().Find(c => c.Title == e.MusicInfo.AlbumTitle);
+                var albumInfo = MusicInfoServer.Current.GetAlbumInfos().Find(c => c.Title == (e.MusicInfo as MusicInfo).AlbumTitle);
                 await Navigation.PushAsync(new AlbumPage(albumInfo));
 
             }
             else if (e.MenuCellInfo.Code == "GoArtistPage")
             {
-                var artistInfo = MusicInfoServer.Current.GetArtistInfos().Find(c => c.Title == e.MusicInfo.Artist);
+                var artistInfo = MusicInfoServer.Current.GetArtistInfos().Find(c => c.Title == (e.MusicInfo as MusicInfo).Artist);
                 await Navigation.PushAsync(new ArtistPage(artistInfo));
             }
 

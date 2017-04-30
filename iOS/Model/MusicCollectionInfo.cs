@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace ProjectMato.iOS
 {
-    public abstract class MusicCollectionInfo
+    public abstract class MusicCollectionInfo : IBasicInfo
     {
         public int Id
         {

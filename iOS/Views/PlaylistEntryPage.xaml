@@ -4,41 +4,43 @@
              xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
              x:Class="ProjectMato.iOS.PlaylistEntryPage"
              BackgroundColor="{StaticResource PhoneBackgroundBrush}">
-  <Grid>
     <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto">
-        </RowDefinition>
-        <RowDefinition>
-        </RowDefinition>
-      </Grid.RowDefinitions>
-      <!--TitlePanel 包含应用程序的名称和页标题-->
-      <StackLayout Grid.Row="0"
-                   Padding="{StaticResource DefaultContentPadding}">
-        <Label Text="{Binding Playlist.Title}"
-               FontSize="{StaticResource SubtitleFontSize}" />
-      </StackLayout>
-      <Button x:Name="EditButton" Grid.Row="0" Command="{Binding EditCommand}" Text="编辑" Clicked="EditButton_OnClicked"></Button>
-      <Grid Padding="{StaticResource DefaultContentPadding}"
-            Grid.Row="1">
-        <controls:GeneralListView  RowHeight="50"
-                               ItemsSource="{Binding Musics,Mode=TwoWay}"
-                                   ItemSelected="ListView_OnItemSelected"
-                              >
-          <controls:GeneralListView.ItemTemplate>
-            <DataTemplate>
-              <controls:MovableViewCell>
-                <controls:MusicItemView  MenuType="Playlist"
-                                      BindingContext="{Binding}"
-                                      Popup="{x:Reference popup}"
-                                      OnFinishedChoice="MusicItemView_OnOnJumptoOtherPage"></controls:MusicItemView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto">
+                </RowDefinition>
+                <RowDefinition>
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <!--TitlePanel 包含应用程序的名称和页标题-->
+            <StackLayout Grid.Row="0"
+                         Padding="{StaticResource DefaultContentPadding}">
+                <Label Text="{Binding Playlist.Title}"
+                       FontSize="{StaticResource SubtitleFontSize}" />
+            </StackLayout>
+            <Button x:Name="EditButton"
+                    Grid.Row="0"
+                    Command="{Binding EditCommand}"
+                    Text="编辑"
+                    Clicked="EditButton_OnClicked"></Button>
+            <Grid Padding="{StaticResource DefaultContentPadding}"
+                  Grid.Row="1">
+                <controls:GeneralListView  RowHeight="50"
+                                           ItemsSource="{Binding Musics,Mode=TwoWay}"
+                                           ItemSelected="ListView_OnItemSelected">
+                    <controls:GeneralListView.ItemTemplate>
+                        <DataTemplate>
+                            <controls:MovableViewCell>
+                                <controls:MusicItemView BindingContext="{Binding}"
+                                                        Popup="{x:Reference popup}"
+                                                        OnFinishedChoice="MusicItemView_OnOnJumptoOtherPage"></controls:MusicItemView>
 
-              </controls:MovableViewCell>
-            </DataTemplate>
-          </controls:GeneralListView.ItemTemplate>
-        </controls:GeneralListView>
-      </Grid>
+                            </controls:MovableViewCell>
+                        </DataTemplate>
+                    </controls:GeneralListView.ItemTemplate>
+                </controls:GeneralListView>
+            </Grid>
+        </Grid>
+        <controls:PopupView  x:Name="popup"></controls:PopupView>
     </Grid>
-    <controls:PopupView  x:Name="popup"></controls:PopupView>
-  </Grid>
 </ContentPage>

@@ -11,7 +11,7 @@ namespace ProjectMato.iOS.ViewModel
 {
     public class MusicFunctionPageViewModel : ViewModelBase
     {
-        public MusicFunctionPageViewModel(MusicInfo musicInfo, IList<MenuCellInfo> mainMenuCellInfos)
+        public MusicFunctionPageViewModel(IBasicInfo musicInfo, IList<MenuCellInfo> mainMenuCellInfos)
         {
             this.MusicInfo = musicInfo;
             this.MainMenuCellInfos = mainMenuCellInfos;
@@ -26,18 +26,8 @@ namespace ProjectMato.iOS.ViewModel
             }
         }
 
-        private void AddToQueueAction(object obj)
-        {
-            MusicInfoServer.Current.CreateQueueEntry(this.MusicInfo);
-        }
-
-        private void NextPlayAction(object obj)
-        {
-
-        }
-
-        private MusicInfo _musicInfo;
-        public MusicInfo MusicInfo
+        private IBasicInfo _musicInfo;
+        public IBasicInfo MusicInfo
         {
             get { return _musicInfo; }
             set

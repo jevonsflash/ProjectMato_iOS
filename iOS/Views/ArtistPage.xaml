@@ -2,37 +2,40 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
-             x:Class="ProjectMato.iOS.ArtistPage" BackgroundColor="{StaticResource PhoneBackgroundBrush}">
-  <Grid>
+             x:Class="ProjectMato.iOS.ArtistPage"
+             BackgroundColor="{StaticResource PhoneBackgroundBrush}">
     <Grid>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto">
-        </RowDefinition>
-        <RowDefinition>
-        </RowDefinition>
-      </Grid.RowDefinitions>
-      <!--TitlePanel 包含应用程序的名称和页标题-->
-      <StackLayout Grid.Row="0"
-                   Padding="{StaticResource DefaultContentPadding}">
-        <Label Text="{Binding Title}"
-               FontSize="{StaticResource SubtitleFontSize}" />
-      </StackLayout>
-      <Grid Padding="{StaticResource DefaultContentPadding}"
-            Grid.Row="1">
-        <controls:GeneralListView  RowHeight="50"
-                                   ItemsSource="{Binding Musics,Mode=TwoWay}"
-                                   ItemSelected="MusicListView_OnItemSelected"
-                              >
-          <controls:GeneralListView.ItemTemplate>
-            <DataTemplate>
-              <ViewCell>
-                <controls:MusicItemView x:Name="MusicItem" BindingContext="{Binding}" MenuType="Artist" Popup="{x:Reference popup}" OnFinishedChoice="MusicItem_OnOnJumptoOtherPage"></controls:MusicItemView>
-              </ViewCell>
-            </DataTemplate>
-          </controls:GeneralListView.ItemTemplate>
-        </controls:GeneralListView>
-      </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto">
+                </RowDefinition>
+                <RowDefinition>
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <!--TitlePanel 包含应用程序的名称和页标题-->
+            <StackLayout Grid.Row="0"
+                         Padding="{StaticResource DefaultContentPadding}">
+                <Label Text="{Binding Title}"
+                       FontSize="{StaticResource SubtitleFontSize}" />
+            </StackLayout>
+            <Grid Padding="{StaticResource DefaultContentPadding}"
+                  Grid.Row="1">
+                <controls:GeneralListView  RowHeight="50"
+                                           ItemsSource="{Binding Musics,Mode=TwoWay}"
+                                           ItemSelected="MusicListView_OnItemSelected">
+                    <controls:GeneralListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <controls:MusicItemView x:Name="MusicItem"
+                                                        BindingContext="{Binding}"
+                                                        Popup="{x:Reference popup}"
+                                                        OnFinishedChoice="MusicItem_OnOnJumptoOtherPage"></controls:MusicItemView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </controls:GeneralListView.ItemTemplate>
+                </controls:GeneralListView>
+            </Grid>
+        </Grid>
+        <controls:PopupView  x:Name="popup"></controls:PopupView>
     </Grid>
-    <controls:PopupView  x:Name="popup"></controls:PopupView>
-  </Grid>
 </ContentPage>

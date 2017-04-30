@@ -11,6 +11,7 @@ using Foundation;
 using Microsoft.International.Converters.PinYinConverter;
 using System.Text.RegularExpressions;
 using GameKit;
+using ProjectMato.iOS.Helper;
 using ProjectMato.iOS.Model;
 
 namespace ProjectMato.iOS.Server
@@ -161,7 +162,7 @@ namespace ProjectMato.iOS.Server
                                      where item.MediaType == MPMediaType.Music
                                      select new MusicInfo()
                                      {
-                                         Id = Guid.NewGuid().ToString("N"),
+                                         Id = CommonHelper.GetRamdonNum(),
                                          Title = item.Title,
                                          Url = item.AssetURL.ToString(),
                                          AlbumTitle = item.AlbumTitle,
@@ -199,7 +200,7 @@ namespace ProjectMato.iOS.Server
                                         AlbumArt = GetAlbumArtSource(c.FirstOrDefault()),
                                         Musics = c.Select(d => new MusicInfo()
                                         {
-                                            Id = Guid.NewGuid().ToString("N"),
+                                            Id = CommonHelper.GetRamdonNum(),
                                             Title = d.Title,
                                             Url = d.AssetURL.ToString(),
                                             AlbumTitle = d.AlbumTitle,
@@ -234,7 +235,7 @@ namespace ProjectMato.iOS.Server
                                          GroupHeader = GetGroupHeader(c.Key),
                                          Musics = c.Select(d => new MusicInfo()
                                          {
-                                             Id = Guid.NewGuid().ToString("N"),
+                                             Id = CommonHelper.GetRamdonNum(),
                                              Title = d.Title,
                                              Url = d.AssetURL.ToString(),
                                              AlbumTitle = d.AlbumTitle,
@@ -410,14 +411,14 @@ namespace ProjectMato.iOS.Server
         /// <returns></returns>
         public List<MusicInfo> GetPlaylistEntry(int playlistId)
         {
-            var currentPlaylistEntrie = DatabaseManager.Current.FetchPlaylistEntriesForPlaylist(playlistId).OrderBy(c=>c.PlaylistEntryId);
-            var result = from item 
+            var currentPlaylistEntrie = DatabaseManager.Current.FetchPlaylistEntriesForPlaylist(playlistId).OrderBy(c => c.PlaylistEntryId);
+            var result = from item
                          in GetMusicInfos()
-                         where (from c 
+                         where (from c
                                 in currentPlaylistEntrie
                                 select c.MusicTitle).Contains(item.Title)
                          orderby item.Id
-                         select item ;
+                         select item;
             return result.ToList();
 
         }
