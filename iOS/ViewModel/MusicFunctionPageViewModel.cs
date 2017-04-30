@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
+using GalaSoft.MvvmLight;
 using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 
 namespace ProjectMato.iOS.ViewModel
 {
-    public class MusicFunctionPageViewModel : BaseViewModel
+    public class MusicFunctionPageViewModel : ViewModelBase
     {
-        public MusicFunctionPageViewModel(MusicInfo musicInfo)
+        public MusicFunctionPageViewModel(MusicInfo musicInfo, IList<MenuCellInfo> mainMenuCellInfos)
         {
             this.MusicInfo = musicInfo;
-            this.NextPlayCommand = new RelayCommand(c => true, new Action<object>(NextPlayAction));
-            this.AddToQueueCommand = new RelayCommand(c => true, new Action<object>(AddToQueueAction));
+            this.MainMenuCellInfos = mainMenuCellInfos;
+            this.PropertyChanged += MusicFunctionPageViewModel_PropertyChanged;
+        }
+
+        private void MusicFunctionPageViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CurrentMenuCellInfo))
+            {
+                //
+            }
         }
 
         private void AddToQueueAction(object obj)
@@ -30,11 +40,53 @@ namespace ProjectMato.iOS.ViewModel
         public MusicInfo MusicInfo
         {
             get { return _musicInfo; }
-            set { base.SetObservableProperty(ref _musicInfo, value); }
+            set
+            {
+                _musicInfo = value;
+                base.RaisePropertyChanged();
+            }
         }
 
-        public RelayCommand NextPlayCommand { get; set; }
-        public RelayCommand AddToQueueCommand { get; set; }
+
+        private IList<MenuCellInfo> _mainMenuCellInfos;
+
+        public IList<MenuCellInfo> MainMenuCellInfos
+        {
+            get
+            {
+                if (_mainMenuCellInfos == null)
+                {
+                    _mainMenuCellInfos = new List<MenuCellInfo>();
+                }
+                return _mainMenuCellInfos;
+            }
+            set
+            {
+                _mainMenuCellInfos = value;
+                base.RaisePropertyChanged();
+
+
+            }
+        }
+
+        private MenuCellInfo _currentMenuCellInfo;
+
+        public MenuCellInfo CurrentMenuCellInfo
+        {
+            get
+            {
+                if (_currentMenuCellInfo == null)
+                {
+                    _currentMenuCellInfo = MainMenuCellInfos[1];
+                }
+                return _currentMenuCellInfo;
+            }
+            set
+            {
+                _currentMenuCellInfo = value;
+                base.RaisePropertyChanged();
+            }
+        }
 
     }
 }

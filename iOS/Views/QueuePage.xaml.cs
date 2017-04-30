@@ -46,25 +46,25 @@ namespace ProjectMato.iOS
 
         private async void MusicItemView_OnOnJumptoOtherPage(object sender, MusicFunctionEventArgs e)
         {
-            if (e.FunctionType == MusicFunctionType.GoAlbumPage)
-            {
-                var albumInfo = MusicInfoServer.Current.GetAlbumInfos().Find(c => c.Title == e.MusicInfo.AlbumTitle);
-                await Navigation.PushAsync(new AlbumPage(albumInfo));
+            //if (e.FunctionType == MusicFunctionType.GoAlbumPage)
+            //{
+            //    var albumInfo = MusicInfoServer.Current.GetAlbumInfos().Find(c => c.Title == e.MusicInfo.AlbumTitle);
+            //    await Navigation.PushAsync(new AlbumPage(albumInfo));
 
-            }
-            else if (e.FunctionType == MusicFunctionType.GoArtistPage)
-            {
-                var artistInfo = MusicInfoServer.Current.GetArtistInfos().Find(c => c.Title == e.MusicInfo.Artist);
-                await Navigation.PushAsync(new ArtistPage(artistInfo));
-            }
+            //}
+            //else if (e.FunctionType == MusicFunctionType.GoArtistPage)
+            //{
+            //    var artistInfo = MusicInfoServer.Current.GetArtistInfos().Find(c => c.Title == e.MusicInfo.Artist);
+            //    await Navigation.PushAsync(new ArtistPage(artistInfo));
+            //}
 
-            else if (e.FunctionType == MusicFunctionType.Delete)
-            {
-                var musicInfo = e.MusicInfo;
-                var queuePageViewModel = this.BindingContext as QueuePageViewModel;
-                if (queuePageViewModel != null)
-                    queuePageViewModel.DeleteAction(musicInfo);
-            }
+            //else if (e.FunctionType == MusicFunctionType.Delete)
+            //{
+            //    var musicInfo = e.MusicInfo;
+            //    var queuePageViewModel = this.BindingContext as QueuePageViewModel;
+            //    if (queuePageViewModel != null)
+            //        queuePageViewModel.DeleteAction(musicInfo);
+            //}
         }
 
     }

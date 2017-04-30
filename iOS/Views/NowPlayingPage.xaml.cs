@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProjectMato.iOS.Controls;
+using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 using UIKit;
 using Xamarin.Forms;
@@ -70,8 +71,16 @@ namespace ProjectMato.iOS
 
             var imageButton = sender as ImageButton;
             var musicInfo = (imageButton.BindingContext as MusicRelatedViewModel).CurrentMusic;
-
-            _musicFunctionPage = new MusicFunctionPage(musicInfo, MusicFunctionMenuType.NowPlaying);
+            var _mainMenuCellInfos = new List<MenuCellInfo>()
+            {
+                new MenuCellInfo() {Title = "删除" ,Code = "Delete",Icon = "Icon/search" },
+                new MenuCellInfo() {Title = "添加到.." ,Code = "AddToPlaylist",Icon = "Icon/headphone" },
+                new MenuCellInfo() {Title = "下一首播放" ,Code = "NextPlay",Icon = "Icon/queue2" },
+                new MenuCellInfo() {Title = "追加到列队" ,Code = "AddToQueue",Icon = "Icon/folder" },
+                new MenuCellInfo() {Title = musicInfo.Artist ,Code = "GoArtistPage",Icon = "Icon/playlist" },
+                new MenuCellInfo() {Title = musicInfo.AlbumTitle ,Code = "GoAlbumPage",Icon = "Icon/setting" },
+            };
+            _musicFunctionPage = new MusicFunctionPage(musicInfo, _mainMenuCellInfos);
             _musicFunctionPage.OnFinished += MusicFunctionPage_OnFinished;
 
             this.popup.ShowPopup(_musicFunctionPage);
@@ -86,7 +95,7 @@ namespace ProjectMato.iOS
                 return;
             }
             this.popup.HidePopup();
-            if (e.FunctionType == MusicFunctionType.AddToPlaylist)
+            if (e.MenuCellInfo.Code == "AddToPlaylist")
             {
                 _playlistChoosePage = new PlaylistChoosePage();
                 _playlistChoosePage.OnFinished += (o, c) =>
@@ -106,13 +115,13 @@ namespace ProjectMato.iOS
                     );
             }
 
-            else if (e.FunctionType == MusicFunctionType.GoAlbumPage)
+            else if (e.MenuCellInfo.Code == "GoAlbumPage")
             {
                 var albumInfo = MusicInfoServer.Current.GetAlbumInfos().Find(c => c.Title == e.MusicInfo.AlbumTitle);
                 await Navigation.PushAsync(new AlbumPage(albumInfo));
 
             }
-            else if (e.FunctionType == MusicFunctionType.GoArtistPage)
+            else if (e.MenuCellInfo.Code == "GoArtistPage")
             {
                 var artistInfo = MusicInfoServer.Current.GetArtistInfos().Find(c => c.Title == e.MusicInfo.Artist);
                 await Navigation.PushAsync(new ArtistPage(artistInfo));

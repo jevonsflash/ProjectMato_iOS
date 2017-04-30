@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 using Xamarin.Forms;
 using XLabs.Forms.Controls;
@@ -18,14 +19,8 @@ namespace ProjectMato.iOS.Controls
         private PlaylistChoosePage _playlistChoosePage;
 
         public PopupView Popup { get; set; }
-        public MusicFunctionMenuType MenuType { get; set; }
         public event EventHandler<MusicFunctionEventArgs> OnFinishedChoice;
 
-        public MusicItemView(MusicFunctionMenuType menuType) : this()
-        {
-
-            this.MenuType = menuType;
-        }
 
         public MusicItemView()
         {
@@ -38,8 +33,16 @@ namespace ProjectMato.iOS.Controls
 
             var imageButton = sender as ImageButton;
             var musicInfo = imageButton.BindingContext as MusicInfo;
-
-            _musicFunctionPage = new MusicFunctionPage(musicInfo, MenuType);
+            var _mainMenuCellInfos = new List<MenuCellInfo>()
+            {
+                new MenuCellInfo() {Title = "删除" ,Code = "Delete",Icon = "Icon/search" },
+                new MenuCellInfo() {Title = "添加到.." ,Code = "AddToPlaylist",Icon = "Icon/headphone" },
+                new MenuCellInfo() {Title = "下一首播放" ,Code = "NextPlay",Icon = "Icon/queue2" },
+                new MenuCellInfo() {Title = "追加到列队" ,Code = "AddToQueue",Icon = "Icon/folder" },
+                new MenuCellInfo() {Title = musicInfo.Artist ,Code = "GoArtistPage",Icon = "Icon/playlist" },
+                new MenuCellInfo() {Title = musicInfo.AlbumTitle ,Code = "GoAlbumPage",Icon = "Icon/setting" },
+            };
+            _musicFunctionPage = new MusicFunctionPage(musicInfo, _mainMenuCellInfos);
             _musicFunctionPage.OnFinished += MusicFunctionPage_OnFinished;
 
             this.Popup.ShowPopup(_musicFunctionPage);
@@ -59,7 +62,7 @@ namespace ProjectMato.iOS.Controls
                 return;
             }
             this.Popup.HidePopup();
-            if (e.FunctionType == MusicFunctionType.AddToPlaylist)
+            if (e.MenuCellInfo.Code == "AddToPlaylist")
             {
                 _playlistChoosePage = new PlaylistChoosePage();
                 _playlistChoosePage.OnFinished += (o, c) =>
