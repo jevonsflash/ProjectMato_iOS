@@ -47,8 +47,7 @@
                             <DataTemplate>
                                 <ViewCell>
                                     <local:MusicItemView BindingContext="{Binding}"
-                                                         Popup="{x:Reference popup}"
-                                                         OnFinishedChoice="MusicItemView_OnOnJumptoOtherPage"></local:MusicItemView>
+                                                         Popup="{x:Reference popup}"></local:MusicItemView>
                                 </ViewCell>
                             </DataTemplate>
                         </local:GeneralListView.ItemTemplate>

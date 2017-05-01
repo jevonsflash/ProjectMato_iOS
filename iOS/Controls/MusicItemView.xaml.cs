@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Helper;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
@@ -104,7 +105,7 @@ namespace ProjectMato.iOS.Controls
             }
             else if (e.MenuCellInfo.Code == "NextPlay")
             {
-                MusicInfoServer.Current.InsertQueueEntry(e.MusicInfo as MusicInfo);
+                MusicInfoServer.Current.InsertToNextQueueEntry(e.MusicInfo as MusicInfo);
 
             }
             else if (e.MenuCellInfo.Code == "AddToQueue")

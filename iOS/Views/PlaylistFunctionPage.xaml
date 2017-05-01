@@ -10,12 +10,9 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto">
       </RowDefinition>
-      <RowDefinition>
-      </RowDefinition>
-      <RowDefinition Height="Auto">
-      </RowDefinition>
-
-    </Grid.RowDefinitions>
+            <RowDefinition>
+            </RowDefinition>
+        </Grid.RowDefinitions>
 
     <!--TitlePanel 包含应用程序的名称和页标题-->
     <StackLayout Grid.Row="0"
@@ -31,23 +28,13 @@
       <controls:ExtendedButton
              Text="提交"
              x:Name="SubmitButton"
-             TextColor="White"
+             TextColor="{StaticResource PhoneForegroundBrush}"
              HorizontalContentAlignment="Start"
              FontSize="Large"
              Command="{Binding SubmitCommand}"
              Clicked="SubmitButtonButton_OnClicked">
       </controls:ExtendedButton>
     </StackLayout>
-    <Grid
-      Grid.Row="2"
-      BackgroundColor="{StaticResource PhoneAccentBrush}">
-      <Button Text="取消"
-              x:Name="CancelButton"
-              TextColor="White"
-              FontSize="Large"
-              HorizontalOptions="Center"
-              Clicked="Button_OnClicked"></Button>
-    </Grid>
   </Grid>
 
 </ContentView>

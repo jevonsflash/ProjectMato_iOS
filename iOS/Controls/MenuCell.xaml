@@ -12,7 +12,7 @@
                x:Name="ImageContentImage"></Image>
         <Label Grid.Column="1"
                x:Name="LabelContentText"
-               TextColor="White"
+               TextColor="{StaticResource PhoneForegroundBrush}"
                FontSize="Large"
                VerticalTextAlignment="Center">
         </Label>

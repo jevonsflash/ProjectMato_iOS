@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 using Xamarin.Forms;
@@ -11,7 +12,6 @@ namespace ProjectMato.iOS
 {
     public partial class PlaylistPage : ContentPage
     {
-        private PlaylistFunctionPage _playlistFunctionPage;
         private PlaylistFunctionPage _editPlaylistFunctionPage;
         public PlaylistPage()
         {
@@ -41,7 +41,7 @@ namespace ProjectMato.iOS
             {
                 if (playlistViewModel != null)
                 {
-                    _editPlaylistFunctionPage = new PlaylistFunctionPage(PlaylistFunctionMenuType.Edit,
+                    _editPlaylistFunctionPage = new PlaylistFunctionPage(
                         playlistViewModel.Playlists.FirstOrDefault(c => c.Id == (e.MusicInfo as MusicCollectionInfo).Id));
                     _editPlaylistFunctionPage.OnFinished += _editPlaylistFunctionPage_OnFinished;
                     popup3.ShowPopup(_editPlaylistFunctionPage);
@@ -50,39 +50,27 @@ namespace ProjectMato.iOS
             }
         }
 
-        private void _editPlaylistFunctionPage_OnFinished(object sender, PlaylistFunctionEventArgs e)
+        private void _editPlaylistFunctionPage_OnFinished(object sender, CommonFunctionEventArgs e)
         {
-            if (e.FunctionType == PlaylistFunctionType.Submit)
-            {
-                var playlistInfo = e.PlaylistInfo;
-                var playlistPageViewModel = this.BindingContext as PlaylistPageViewModel;
-                if (playlistPageViewModel != null)
-                {
-                    playlistPageViewModel.EditAction(playlistInfo);
-                }
-            }
-            popup3.HidePopup();
-        }
-        private void _playlistFunctionPage_OnFinished(object sender, PlaylistFunctionEventArgs e)
-        {
-            if (e.FunctionType == PlaylistFunctionType.Submit)
-            {
-                var playlistInfo = e.PlaylistInfo;
-                var playlistPageViewModel = this.BindingContext as PlaylistPageViewModel;
-                if (playlistPageViewModel != null)
-                {
-                    playlistPageViewModel.CreateAction(playlistInfo);
-                }
-            }
-            popup3.HidePopup();
 
+            var playlistInfo = e.Info as PlaylistInfo;
+            var playlistPageViewModel = this.BindingContext as PlaylistPageViewModel;
+            if (playlistPageViewModel != null)
+            {
+                if (e.Code == "Edit")
+                    playlistPageViewModel.EditAction(playlistInfo);
+                else
+                    playlistPageViewModel.CreateAction(playlistInfo);
+            }
+            
+            popup3.HidePopup();
         }
 
         private void CreatePlaylist_OnClicked(object sender, EventArgs e)
         {
-            _playlistFunctionPage = new PlaylistFunctionPage(PlaylistFunctionMenuType.Create, null);
-            _playlistFunctionPage.OnFinished += _playlistFunctionPage_OnFinished;
-            popup3.ShowPopup(_playlistFunctionPage);
+            _editPlaylistFunctionPage = new PlaylistFunctionPage(null);
+            _editPlaylistFunctionPage.OnFinished += _editPlaylistFunctionPage_OnFinished;
+            popup3.ShowPopup(_editPlaylistFunctionPage);
         }
     }
 }

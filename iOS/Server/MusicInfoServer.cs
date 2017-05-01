@@ -308,7 +308,7 @@ namespace ProjectMato.iOS.Server
         /// </summary>
         /// <param name="musicInfo">musicInfo对象</param>
         /// <returns></returns>
-        public bool InsertQueueEntry(MusicInfo musicInfo)
+        public bool InsertToNextQueueEntry(MusicInfo musicInfo)
         {
             var result = false;
             var isSuccessCreate = false;
@@ -348,7 +348,7 @@ namespace ProjectMato.iOS.Server
             var isSuccessCreate = false;
             //如果没有则先创建    
             var queueEntrys = DatabaseManager.Current.FetchQueueEntryTables();
-            var queueEntry = queueEntrys.First(c => c.MusicTitle == musicInfo.Title);
+            var queueEntry = queueEntrys.FirstOrDefault(c => c.MusicTitle == musicInfo.Title);
 
             if (queueEntry == null)
             {

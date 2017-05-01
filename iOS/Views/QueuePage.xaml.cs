@@ -6,6 +6,7 @@ using MediaPlayer;
 using AVFoundation;
 using Foundation;
 using ProjectMato.iOS;
+using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Helper;
 using ProjectMato.iOS.Server;
 using ProjectMato.iOS.ViewModel;

@@ -173,8 +173,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AlphaGroupedObserveableCollection.cs" />
+    <Compile Include="Common\CommonFunctionEventArgs.cs" />
     <Compile Include="Common\IObservableCollectionEx.cs" />
     <Compile Include="Common\MovableCellGestureRecognizer.cs" />
+    <Compile Include="Common\MusicFunctionEventArgs.cs" />
     <Compile Include="Common\ObservableCollectionEx.cs" />
     <Compile Include="Common\ReorderCommandParam.cs" />
     <Compile Include="Common\SleepModeDispatcher.cs" />

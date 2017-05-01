@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.ViewModel;
 using UIKit;
@@ -65,17 +66,4 @@ namespace ProjectMato.iOS
         }
 
     }
-    public class MusicFunctionEventArgs : EventArgs
-    {
-        public MusicFunctionEventArgs(IBasicInfo musicInfo, MenuCellInfo menuCellInfo)
-        {
-            this.MusicInfo = musicInfo;
-            this.MenuCellInfo = menuCellInfo;
-        }
-        public IBasicInfo MusicInfo { get; set; }
-        public MenuCellInfo MenuCellInfo { get; set; }
-    }
-
-
-
 }

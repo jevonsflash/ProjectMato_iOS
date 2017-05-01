@@ -28,8 +28,7 @@
                             <ViewCell>
                                 <controls:MusicItemView x:Name="MusicItem"
                                                         BindingContext="{Binding}"
-                                                        Popup="{x:Reference popup}"
-                                                        OnFinishedChoice="MusicItem_OnOnJumptoOtherPage"></controls:MusicItemView>
+                                                        Popup="{x:Reference popup}"></controls:MusicItemView>
                             </ViewCell>
                         </DataTemplate>
                     </controls:GeneralListView.ItemTemplate>

@@ -38,9 +38,7 @@
                         <DataTemplate>
                             <ViewCell>
                                 <local:MusicItemView BindingContext="{Binding}"
-                                                     Popup="{x:Reference popup}"
-                                                     OnFinishedChoice="MusicItemView_OnOnFinishedChoice">
-
+                                                     Popup="{x:Reference popup}">
                                 </local:MusicItemView>
                             </ViewCell>
                         </DataTemplate>
