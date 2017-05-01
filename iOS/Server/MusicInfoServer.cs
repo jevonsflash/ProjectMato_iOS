@@ -685,7 +685,7 @@ namespace ProjectMato.iOS.Server
         private string GetGroupHeader(string title)
         {
             string result = string.Empty;
-            if (title != string.Empty)
+            if (!string.IsNullOrEmpty(title))
             {
 
 

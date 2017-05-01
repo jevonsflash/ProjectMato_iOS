@@ -197,17 +197,24 @@ namespace ProjectMato.iOS
                 originItemIndex++;
             }
             var newItemIndex = originItemIndex + increment;
-            if (newItemIndex  < 0)
+            if (newItemIndex < 0)
             {
                 newItemIndex = LastIndex;
             }
-            if (newItemIndex  > LastIndex)
+            if (newItemIndex > LastIndex)
             {
                 newItemIndex = 0;
             }
+            try
+            {
+                var resultContent = ShuffleMap[newItemIndex];
+                return resultContent;
 
-            var resultContent = ShuffleMap[newItemIndex];
-            return resultContent;
+            }
+            catch (Exception e)
+            {
+                return ShuffleMap[0];
+            }
         }
 
         public static void UpdateShuffleMap()
