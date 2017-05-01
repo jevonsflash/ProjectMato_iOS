@@ -1,125 +1,147 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              xmlns:local="clr-namespace:ProjectMato.iOS;assembly=ProjectMatoiOS"
              xmlns:Controls="clr-namespace:ProjectMato.iOS.Controls"
              BackgroundColor="{StaticResource PhoneBackgroundBrush}"
              x:Class="ProjectMato.iOS.NowPlayingPage">
-  <ContentPage.Content>
-    <Grid>
-      <Image x:Name="NowPlayingBackgroundImage" Source="Img/Violet" Aspect="AspectFill"></Image>
-      <Grid>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="2*" />
-          <RowDefinition Height="4*" />
-          <RowDefinition Height="3*" />
-          <RowDefinition Height="3*" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-          <local:MusicFliperView BindingContext="{Binding CurrentMusic}" WidthRequest="{StaticResource Bound}"></local:MusicFliperView>
+    <ContentPage.Content>
+        <Grid>
+            <Image x:Name="NowPlayingBackgroundImage"
+                   Source="Img/Violet"
+                   Aspect="AspectFill"></Image>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="3*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <local:MusicFliperView BindingContext="{Binding CurrentMusic}"
+                                           WidthRequest="{StaticResource Bound}"></local:MusicFliperView>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*">
+                        </RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+
+                        <Image Source="Icon/FavouriteDis2"
+                               IsVisible="{Binding CurrentMusic.IsFavourite,Mode=TwoWay,Converter={StaticResource True2FalseConverter}}"></Image>
+                        <Image Source="Icon/FavouriteEn2"
+                               IsVisible="{Binding CurrentMusic.IsFavourite,Mode=TwoWay}"></Image>
+                        <controls:ImageButton Clicked="IsFavouriteButton_OnClicked"></controls:ImageButton>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Image IsVisible="{Binding IsShuffle,Mode=TwoWay,Converter={StaticResource True2FalseConverter}}"
+                               Source="Icon/shuffleDis"></Image>
+                        <Image IsVisible="{Binding IsShuffle,Mode=TwoWay}"
+                               Source="Icon/shuffleEn"></Image>
+                        <controls:ImageButton  Command="{Binding ShuffleCommand}"
+                                               BackgroundColor="Transparent">
+                        </controls:ImageButton>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Image IsVisible="{Binding IsRepeatOne,Mode=TwoWay,Converter={StaticResource True2FalseConverter}}"
+                               Source="Icon/repeatOneDis"></Image>
+                        <Image IsVisible="{Binding IsRepeatOne,Mode=TwoWay}"
+                               Source="Icon/repeatOneEn"></Image>
+                        <controls:ImageButton  Command="{Binding RepeatOneCommand}"
+                                               BackgroundColor="Transparent">
+                        </controls:ImageButton>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <controls:ImageButton x:Name="MoreButton"
+                                              Image="Icon/More2"
+                                              Clicked="MoreButton_OnClicked">
+                        </controls:ImageButton>
+                    </Grid>
+
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*">
+                        </RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding CurrentTime,Converter={StaticResource SecondsToTimeSpanConverter}}">
+                        </Label>
+                        <Label Text="/">
+                        </Label>
+                        <Label Text="{Binding Duration,Converter={StaticResource SecondsToTimeSpanConverter}}">
+                        </Label>
+                    </StackLayout>
+                    <Slider Maximum="{Binding Duration,Converter={StaticResource SliderMaxValueConverter}}"
+                            Minimum="0.0"
+                            ValueChanged="OnValueChanged"
+                            Value="{Binding CurrentTime,Mode=TwoWay} ">
+                    </Slider>
+                </Grid>
+                <!--播放控制按钮-->
+                <Grid Grid.Row="3"
+                      x:Name="GDR">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*">
+                        </RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <controls:ImageButton Text="pre"
+                                              Command="{Binding PreCommand}"
+                                              BackgroundColor="Transparent"
+                                              Image="Icon/rew">
+                        </controls:ImageButton>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Image IsVisible="{Binding IsPlaying,Mode=TwoWay,Converter={StaticResource True2FalseConverter}}"
+                               Source="Icon/play"></Image>
+                        <Image IsVisible="{Binding IsPlaying,Mode=TwoWay}"
+                               Source="Icon/pause"></Image>
+                        <controls:ImageButton  Command="{Binding PlayCommand}"
+                                               BackgroundColor="Transparent">
+                        </controls:ImageButton>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <controls:ImageButton Text="next"
+                                              Command="{Binding NextCommand}"
+                                              BackgroundColor="Transparent"
+                                              Image="Icon/ff">
+                        </controls:ImageButton>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="4">
+                    <controls:ImageButton  Clicked="Button_OnClicked"
+                                           BackgroundColor="Transparent"
+                                           Image="Icon/queue3">
+                    </controls:ImageButton>
+                </Grid>
+
+            </Grid>
+            <Controls:PopupView  x:Name="popup"></Controls:PopupView>
+
         </Grid>
-        <Grid Grid.Row="1">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="1*">
-            </RowDefinition>
-          </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition>
-            </ColumnDefinition>
-            <ColumnDefinition>
-            </ColumnDefinition>
-            <ColumnDefinition>
-            </ColumnDefinition>
-            <ColumnDefinition>
-            </ColumnDefinition>
-          </Grid.ColumnDefinitions>
-          <Grid Grid.Column="0">
-
-            <Image Source="Icon/FavouriteDis2"
-                   IsVisible="{Binding IsFavourite,Mode=TwoWay,Converter={StaticResource True2FalseConverter}}"></Image>
-            <Image Source="Icon/FavouriteEn2"
-                   IsVisible="{Binding IsFavourite,Mode=TwoWay}"></Image>
-            <controls:ImageButton Clicked="IsFavouriteButton_OnClicked"></controls:ImageButton>
-          </Grid>
-
-          <Grid Grid.Column="1">
-            <Image IsVisible="{Binding IsShuffle,Mode=TwoWay,Converter={StaticResource True2FalseConverter}}"  
-                   Source="Icon/shuffleDis"></Image>
-            <Image IsVisible="{Binding IsShuffle,Mode=TwoWay}"  
-                   Source="Icon/shuffleEn"></Image>
-            <controls:ImageButton  Command="{Binding ShuffleCommand}" BackgroundColor="Transparent">
-            </controls:ImageButton>
-          </Grid>
-          <Grid Grid.Column="2">
-            <Image IsVisible="{Binding IsRepeatOne,Mode=TwoWay,Converter={StaticResource True2FalseConverter}}"  
-                   Source="Icon/repeatOneDis"></Image>
-            <Image IsVisible="{Binding IsRepeatOne,Mode=TwoWay}" 
-                   Source="Icon/repeatOneEn"></Image>
-            <controls:ImageButton  Command="{Binding RepeatOneCommand}" BackgroundColor="Transparent">
-            </controls:ImageButton>
-          </Grid>
-          <Grid Grid.Column="3">
-            <controls:ImageButton x:Name="MoreButton" Image="Icon/More2" Clicked="MoreButton_OnClicked">
-            </controls:ImageButton>
-          </Grid>
-
-        </Grid>
-
-        <Grid Grid.Row="2">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="1*">
-            </RowDefinition>
-          </Grid.RowDefinitions>
-          <StackLayout Orientation="Horizontal">
-            <Label Text="{Binding CurrentTime,Converter={StaticResource SecondsToTimeSpanConverter}}">
-            </Label>
-            <Label Text="/">
-            </Label>
-            <Label Text="{Binding Duration,Converter={StaticResource SecondsToTimeSpanConverter}}">
-            </Label>
-          </StackLayout>
-          <Slider Maximum="{Binding Duration,Converter={StaticResource SliderMaxValueConverter}}" Minimum="0.0" ValueChanged="OnValueChanged" Value="{Binding CurrentTime,Mode=TwoWay} ">
-          </Slider>
-        </Grid>
-        <!--播放控制按钮-->
-        <Grid Grid.Row="3" x:Name="GDR">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="1*">
-            </RowDefinition>
-          </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition>
-            </ColumnDefinition>
-            <ColumnDefinition>
-            </ColumnDefinition>
-            <ColumnDefinition>
-            </ColumnDefinition>
-          </Grid.ColumnDefinitions>
-          <Grid Grid.Column="0">
-            <controls:ImageButton Text="pre" Command="{Binding PreCommand}" BackgroundColor="Transparent" Image="Icon/rew">
-            </controls:ImageButton>
-          </Grid>
-          <Grid Grid.Column="1">
-            <Image IsVisible="{Binding IsPlaying,Mode=TwoWay,Converter={StaticResource True2FalseConverter}}"
-                   Source="Icon/play"></Image>
-            <Image IsVisible="{Binding IsPlaying,Mode=TwoWay}"
-                   Source="Icon/pause"></Image>
-            <controls:ImageButton  Command="{Binding PlayCommand}" BackgroundColor="Transparent">
-            </controls:ImageButton>          
-          </Grid>
-          <Grid Grid.Column="2">
-            <controls:ImageButton Text="next" Command="{Binding NextCommand}" BackgroundColor="Transparent" Image="Icon/ff">
-            </controls:ImageButton>
-          </Grid>
-        </Grid>
-        <Grid Grid.Row="4">
-          <controls:ImageButton  Clicked="Button_OnClicked" BackgroundColor="Transparent" Image="Icon/queue3">
-          </controls:ImageButton>
-        </Grid>
-
-      </Grid>
-      <Controls:PopupView  x:Name="popup"></Controls:PopupView>
-
-    </Grid>
-  </ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>

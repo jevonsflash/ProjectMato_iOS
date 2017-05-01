@@ -20,9 +20,18 @@
                 <ColumnDefinition Width="8*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid x:Name="Popup"
-                  Grid.Column="1"
-                  Grid.Row="1"></Grid>
+            <StackLayout  Grid.Column="1"
+                          Grid.Row="1">
+                <Grid x:Name="Popup"></Grid>
+                <Grid BackgroundColor="{StaticResource PhoneAccentBrush}">
+                    <Button Text="取消"
+                            x:Name="CancelButton"
+                            TextColor="White"
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            Clicked="Button_OnClicked"></Button>
+                </Grid>
+            </StackLayout>
         </Grid>
     </Grid>
 

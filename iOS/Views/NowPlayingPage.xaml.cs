@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProjectMato.iOS.Controls;
+using ProjectMato.iOS.Helper;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 using UIKit;
@@ -34,9 +35,7 @@ namespace ProjectMato.iOS
 
         private void Button_OnClicked(object sender, EventArgs e)
         {
-            this.detailPage = new NavigationPage(new QueuePage()) { BarBackgroundColor = Color.Black, BarTextColor = Color.White };
-            ;
-            App.MainMasterDetailPage.Detail = this.detailPage;
+            CommonHelper.GoPage("QueuePage");
         }
 
         private void IsFavouriteButton_OnClicked(object sender, EventArgs e)
@@ -51,7 +50,7 @@ namespace ProjectMato.iOS
 
                     if (MusicInfoServer.Current.CreatePlaylistEntryToMyFavourite(musicInfo))
                     {
-                        musicInfo.IsFavourite = !musicInfo.IsFavourite;
+                        musicInfo.IsFavourite = true;
                     }
 
                 }
@@ -59,7 +58,7 @@ namespace ProjectMato.iOS
                 {
                     if (MusicInfoServer.Current.DeletePlaylistEntryFromMyFavourite(musicInfo))
                     {
-                        musicInfo.IsFavourite = !musicInfo.IsFavourite;
+                        musicInfo.IsFavourite = false;
                     }
 
                 }

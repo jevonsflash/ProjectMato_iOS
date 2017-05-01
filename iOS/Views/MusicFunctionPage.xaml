@@ -12,18 +12,28 @@
             </RowDefinition>
             <RowDefinition>
             </RowDefinition>
-            <RowDefinition Height="Auto">
-            </RowDefinition>
-
         </Grid.RowDefinitions>
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
-        <StackLayout Grid.Row="0"
-                     Padding="{StaticResource DefaultContentPadding}">
+        <Grid Grid.Row="0"
+              Padding="{StaticResource DefaultContentPadding}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="80"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
             <Label Text="{Binding MusicInfo.Title}"
                    FontSize="{StaticResource SubtitleFontSize}"
                    LineBreakMode="NoWrap" />
-        </StackLayout>
+            <Grid Grid.Column="1"
+                  IsVisible="False"
+                  x:Name="FavouritLayout">
+                <Image Source="Icon/FavouriteDis"
+                       IsVisible="{Binding MusicInfo.IsFavourite,Converter={StaticResource True2FalseConverter}}"></Image>
+                <Image Source="Icon/FavouriteEn"
+                       IsVisible="{Binding MusicInfo.IsFavourite}"></Image>
+                <controls:ImageButton Clicked="IsFavouriteButton_OnClicked"></controls:ImageButton>
+            </Grid>
+        </Grid>
         <StackLayout Grid.Row="1"
                      VerticalOptions="FillAndExpand">
             <controls1:GeneralListView ItemsSource="{Binding  MainMenuCellInfos}"

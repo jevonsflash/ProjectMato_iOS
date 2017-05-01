@@ -17,8 +17,6 @@ namespace ProjectMato.iOS
         {
             InitializeComponent();
             this.BindingContext = MusicInfoServer.Current.GetPlaylist();
-            this.CancelButton.WidthRequest = UIScreen.MainScreen.Bounds.Width;
-
         }
 
         private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -33,9 +31,5 @@ namespace ProjectMato.iOS
            
         }
 
-        private void Button_OnClicked(object sender, EventArgs e)
-        {
-            this.OnFinished?.Invoke(this, null);
-        }
     }
 }

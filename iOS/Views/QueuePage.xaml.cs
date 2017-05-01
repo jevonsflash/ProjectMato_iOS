@@ -6,6 +6,7 @@ using MediaPlayer;
 using AVFoundation;
 using Foundation;
 using ProjectMato.iOS;
+using ProjectMato.iOS.Helper;
 using ProjectMato.iOS.Server;
 using ProjectMato.iOS.ViewModel;
 using XLabs.Forms.Controls;
@@ -24,47 +25,22 @@ namespace ProjectMato.iOS
         }
 
 
-        private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             MusicRelatedViewModel.Current.ChangeMusic(e.SelectedItem as MusicInfo);
-            this.detailPage = new NavigationPage(new NowPlayingPage()) { BarBackgroundColor = Color.Black, BarTextColor = Color.White }; 
-            App.MainMasterDetailPage.Detail = this.detailPage;
+            CommonHelper.GoPage("NowPlayingPage");
 
         }
 
-        private void Button_OnClicked(object sender, EventArgs e)
+        private void MusicItemView_OnOnJumptoOtherPage(object sender, MusicFunctionEventArgs e)
         {
-            var button = sender as Button;
-            if (button != null)
+            if (e.MenuCellInfo.Code == "Delete")
             {
-                var musicInfo = (button.BindingContext as MusicInfo);
+                var musicInfo = e.MusicInfo;
                 var queuePageViewModel = this.BindingContext as QueuePageViewModel;
                 if (queuePageViewModel != null)
                     queuePageViewModel.DeleteAction(musicInfo);
             }
-        }
-
-        private async void MusicItemView_OnOnJumptoOtherPage(object sender, MusicFunctionEventArgs e)
-        {
-            //if (e.FunctionType == MusicFunctionType.GoAlbumPage)
-            //{
-            //    var albumInfo = MusicInfoServer.Current.GetAlbumInfos().Find(c => c.Title == e.MusicInfo.AlbumTitle);
-            //    await Navigation.PushAsync(new AlbumPage(albumInfo));
-
-            //}
-            //else if (e.FunctionType == MusicFunctionType.GoArtistPage)
-            //{
-            //    var artistInfo = MusicInfoServer.Current.GetArtistInfos().Find(c => c.Title == e.MusicInfo.Artist);
-            //    await Navigation.PushAsync(new ArtistPage(artistInfo));
-            //}
-
-            //else if (e.FunctionType == MusicFunctionType.Delete)
-            //{
-            //    var musicInfo = e.MusicInfo;
-            //    var queuePageViewModel = this.BindingContext as QueuePageViewModel;
-            //    if (queuePageViewModel != null)
-            //        queuePageViewModel.DeleteAction(musicInfo);
-            //}
         }
 
     }

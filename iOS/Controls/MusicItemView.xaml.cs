@@ -28,15 +28,16 @@ namespace ProjectMato.iOS.Controls
             InitializeComponent();
         }
 
+        public bool IsMusicInfo => this.BindingContext is MusicInfo;
+
         private void MoreButton_OnClicked(object sender, EventArgs e)
         {
 
             List<MenuCellInfo> _mainMenuCellInfos;
-            var imageButton = sender as ImageButton;
-            var IsMusicInfo = imageButton.BindingContext is MusicInfo;
+
             if (IsMusicInfo)
             {
-                var musicInfo = imageButton.BindingContext;
+                var musicInfo = BindingContext;
                 _mainMenuCellInfos = new List<MenuCellInfo>()
                 {
                     new MenuCellInfo() {Title = "删除", Code = "Delete", Icon = "Icon/search"},
@@ -69,7 +70,7 @@ namespace ProjectMato.iOS.Controls
 
                 };
             }
-            _musicFunctionPage = new MusicFunctionPage(imageButton.BindingContext as IBasicInfo, _mainMenuCellInfos);
+            _musicFunctionPage = new MusicFunctionPage(BindingContext as IBasicInfo, _mainMenuCellInfos);
             _musicFunctionPage.OnFinished += MusicFunctionPage_OnFinished;
 
             this.Popup.ShowPopup(_musicFunctionPage);
@@ -103,14 +104,14 @@ namespace ProjectMato.iOS.Controls
             }
             else if (e.MenuCellInfo.Code == "NextPlay")
             {
-                //todo:尚未實現
+                MusicInfoServer.Current.InsertQueueEntry(e.MusicInfo as MusicInfo);
 
             }
-
             else if (e.MenuCellInfo.Code == "AddToQueue")
             {
-                MusicInfoServer.Current.CreateQueueEntry(e.MusicInfo as MusicInfo);
+                MusicInfoServer.Current.InsertToEndQueueEntry(e.MusicInfo as MusicInfo);
             }
+
             else if (e.MenuCellInfo.Code == "GoAlbumPage")
             {
                 var albumInfo = MusicInfoServer.Current.GetAlbumInfos().Find(c => c.Title == (e.MusicInfo as MusicInfo).AlbumTitle);
@@ -121,7 +122,7 @@ namespace ProjectMato.iOS.Controls
                 var artistInfo = MusicInfoServer.Current.GetArtistInfos().Find(c => c.Title == (e.MusicInfo as MusicInfo).Artist);
                 CommonHelper.GoNavigate("ArtistPage", new object[] { artistInfo });
             }
-            if (e.MenuCellInfo.Code == "AddMusicCollectionToPlaylist")
+            else if (e.MenuCellInfo.Code == "AddMusicCollectionToPlaylist")
             {
 
                 _playlistChoosePage = new PlaylistChoosePage();
@@ -139,34 +140,15 @@ namespace ProjectMato.iOS.Controls
 
                    );
             }
+            else if (e.MenuCellInfo.Code == "AddMusicCollectionToQueue")
+            {
+                var musicCollectionInfo = e.MusicInfo as MusicCollectionInfo;
+                if (musicCollectionInfo != null)
+                    MusicInfoServer.Current.InsertToEndQueueEntrys(musicCollectionInfo.Musics
+                        .ToList());
+            }
             OnFinishedChoice?.Invoke(sender, e);
 
-        }
-        private void IsFavouriteButton_OnClicked(object sender, EventArgs e)
-        {
-
-            var imageButton = sender as ImageButton;
-            var musicInfo = imageButton.BindingContext as MusicInfo;
-            if (musicInfo != null)
-            {
-                if (!musicInfo.IsFavourite)
-                {
-
-                    if (MusicInfoServer.Current.CreatePlaylistEntryToMyFavourite(musicInfo))
-                    {
-                        musicInfo.IsFavourite = !musicInfo.IsFavourite;
-                    }
-
-                }
-                else
-                {
-                    if (MusicInfoServer.Current.DeletePlaylistEntryFromMyFavourite(musicInfo))
-                    {
-                        musicInfo.IsFavourite = !musicInfo.IsFavourite;
-                    }
-
-                }
-            }
         }
     }
 }

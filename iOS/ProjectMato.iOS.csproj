@@ -224,7 +224,6 @@
     <Compile Include="Renders\GeneralListViewRenderer.cs" />
     <Compile Include="Renders\MovableViewCellRenderer.cs" />
     <Compile Include="Server\DatabaseManager.cs" />
-    <Compile Include="Server\LogicServer.cs" />
     <Compile Include="Server\SettingServer.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuPageViewModel.cs" />

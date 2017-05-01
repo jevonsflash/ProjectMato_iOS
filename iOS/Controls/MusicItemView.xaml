@@ -3,38 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="ProjectMato.iOS.Controls.MusicItemView">
-<Grid>
+    <Grid>
 
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="4*"></ColumnDefinition>
-      <ColumnDefinition Width="1*"></ColumnDefinition>
-    </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
 
-    <Label VerticalOptions="Center"
-           Text="{Binding Title}"
-           FontSize="Large">
-    </Label>
+        <Label VerticalOptions="Center"
+               Text="{Binding Title}"
+               FontSize="Large">
+        </Label>
 
-    <StackLayout Grid.Column="1"
-                 VerticalOptions="Center"
-                 HorizontalOptions="Center"
-                 Orientation="Horizontal">
-      <Grid>
-        <controls:ImageButton Image="Icon/More"
-                              Clicked="MoreButton_OnClicked">
+        <StackLayout Grid.Column="1"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Center"
+                     Orientation="Horizontal">
+            <Grid>
+                <controls:ImageButton Image="Icon/More"
+                                      Clicked="MoreButton_OnClicked">
 
-        </controls:ImageButton>
-      </Grid>
-      <Grid>
-
-        <Image Source="Icon/FavouriteDis"
-               IsVisible="{Binding IsFavourite,Converter={StaticResource True2FalseConverter}}"></Image>
-        <Image Source="Icon/FavouriteEn"
-               IsVisible="{Binding IsFavourite}"></Image>
-        <controls:ImageButton Clicked="IsFavouriteButton_OnClicked"></controls:ImageButton>
-      </Grid>
-    </StackLayout>
-</Grid>
+                </controls:ImageButton>
+            </Grid>
+            
+        </StackLayout>
+    </Grid>
 
 </ContentView>

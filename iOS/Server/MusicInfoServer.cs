@@ -253,7 +253,7 @@ namespace ProjectMato.iOS.Server
         /// <summary>
         /// 将MusicInfo插入到列队
         /// </summary>
-        /// <param name="musicInfo"></param>
+        /// <param name="musicInfo">musicInfo对象</param>
         /// <returns></returns>
         public bool CreateQueueEntry(MusicInfo musicInfo)
         {
@@ -262,14 +262,23 @@ namespace ProjectMato.iOS.Server
             return result > 0;
         }
 
+
+
+        public bool InsertToEndQueueEntrys(List<MusicInfo> musicInfos)
+        {
+            //var rankValue = 0;
+            var sortedMusicInfos = musicInfos.Except(GetQueueEntry()).ToList();
+            var result = CreateQueueEntrys(sortedMusicInfos);
+            return result;
+        }
+
         /// <summary>
         /// 将MusicInfo集合插入到列队
         /// </summary>
-        /// <param name="musicInfos"></param>
+        /// <param name="musicInfos">需要进行操作的MusicInfo集合</param>
         /// <returns></returns>
         public bool CreateQueueEntrys(List<MusicInfo> musicInfos)
         {
-            //var rankValue = 0;
             var entrys = musicInfos.Select(c => new QueueEntryTable(c.Title, 0));
             var result = DatabaseManager.Current.AddQueueEntryTables(entrys);
             return result > 0;
@@ -295,9 +304,96 @@ namespace ProjectMato.iOS.Server
         }
 
         /// <summary>
+        /// 将MusicInfo插入到列队中的下一曲
+        /// </summary>
+        /// <param name="musicInfo">musicInfo对象</param>
+        /// <returns></returns>
+        public bool InsertQueueEntry(MusicInfo musicInfo)
+        {
+            var result = false;
+            var isSuccessCreate = false;
+            //如果没有则先创建
+            if (!MusicInfoServer.Current.GetIsQueueContains(musicInfo.Title))
+            {
+                isSuccessCreate = CreateQueueEntry(musicInfo);
+            }
+            else
+            {
+                isSuccessCreate = true;
+            }
+            //确定包含后与下一曲交换位置
+            if (isSuccessCreate)
+            {
+                var currnet = MusicRelatedViewModel.Current.CurrentMusic;
+                var next = MusicSystem.GetNextMusic(currnet, false);
+
+                MusicInfoServer.Current.ReorderQueue(musicInfo, next);
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 将MusicInfo插入到列队中的末尾
+        /// </summary>
+        /// <param name="musicInfo">musicInfo对象</param>
+        /// <returns></returns>
+        public bool InsertToEndQueueEntry(MusicInfo musicInfo)
+        {
+            var result = false;
+            var isSuccessCreate = false;
+            //如果没有则先创建    
+            var queueEntrys = DatabaseManager.Current.FetchQueueEntryTables();
+            var queueEntry = queueEntrys.First(c => c.MusicTitle == musicInfo.Title);
+
+            if (queueEntry == null)
+            {
+                isSuccessCreate = CreateQueueEntry(musicInfo);
+            }
+            else
+            {
+                DeleteMusicInfoFormQueueEntry(queueEntry.MusicTitle);
+                isSuccessCreate = CreateQueueEntry(musicInfo);
+            }
+
+            return isSuccessCreate;
+        }
+
+
+        /// <summary>
+        /// 返回一个值表明一个Title是否包含在列队中
+        /// </summary>
+        /// <param name="musicTitle">music标题</param>
+        /// <returns></returns>
+        public bool GetIsQueueContains(string musicTitle)
+        {
+            var result = false;
+            var queueEntrys = DatabaseManager.Current.FetchQueueEntryTables();
+            result = queueEntrys.Any(c => c.MusicTitle == musicTitle);
+            return result;
+        }
+
+        /// <summary>
         /// 从列队中删除指定MusicInfo
         /// </summary>
-        /// <param name="musicInfo"></param>
+        /// <param name="musicTitle"></param>
+        /// <returns></returns>
+        public bool DeleteMusicInfoFormQueueEntry(string musicTitle)
+        {
+            var entry =
+                DatabaseManager.Current.FetchQueueEntryTables().FirstOrDefault(c => c.MusicTitle == musicTitle);
+            var result = DatabaseManager.Current.DeleteQueueItem(entry.QueueEntryId);
+            return result > 0;
+        }
+
+        /// <summary>
+        /// 从列队中删除指定MusicInfo
+        /// </summary>
+        /// <param name="musicInfo">musicInfo对象</param>
         /// <returns></returns>
         public bool DeleteMusicInfoFormQueueEntry(MusicInfo musicInfo)
         {
@@ -328,7 +424,7 @@ namespace ProjectMato.iOS.Server
         /// <summary>
         /// 将MusicInfo插入到歌单
         /// </summary>
-        /// <param name="musicInfo"></param>
+        /// <param name="musicInfo">musicInfo对象</param>
         /// <param name="playlistId"></param>
         /// <returns></returns>
         public bool CreatePlaylistEntry(MusicInfo musicInfo, int playlistId)
@@ -374,7 +470,7 @@ namespace ProjectMato.iOS.Server
         /// <summary>
         /// 从歌单中删除MusicInfo
         /// </summary>
-        /// <param name="musicInfo"></param>
+        /// <param name="musicInfo">musicInfo对象</param>
         /// <param name="playlistId"></param>
         /// <returns></returns>
         public bool DeletePlaylistEntry(MusicInfo musicInfo, int playlistId)
@@ -386,7 +482,7 @@ namespace ProjectMato.iOS.Server
         /// <summary>
         /// 将MusicInfo插入到“我最喜爱”歌单
         /// </summary>
-        /// <param name="musicInfo"></param>
+        /// <param name="musicInfo">musicInfo对象</param>
         /// <returns></returns>
         public bool CreatePlaylistEntryToMyFavourite(MusicInfo musicInfo)
         {
@@ -397,7 +493,7 @@ namespace ProjectMato.iOS.Server
         /// <summary>
         /// 从“我最喜爱”中删除MusicInfo
         /// </summary>
-        /// <param name="musicInfo"></param>
+        /// <param name="musicInfo">musicInfo对象</param>
         /// <returns></returns>
         public bool DeletePlaylistEntryFromMyFavourite(MusicInfo musicInfo)
         {
