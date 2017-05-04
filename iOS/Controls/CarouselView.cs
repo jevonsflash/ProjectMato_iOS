@@ -10,13 +10,6 @@ namespace ProjectMato.iOS.Controls
 {
     public class CarouselView : ExtendedScrollView
     {
-        public enum IndicatorStyleEnum
-        {
-            None,
-            Dots,
-            Tabs
-        }
-        public event EventHandler<OnFlippedEventArgs> OnFlipped;
 
         readonly StackLayout _stack;
 
@@ -35,8 +28,6 @@ namespace ProjectMato.iOS.Controls
             Content = _stack;
         }
 
-        public IndicatorStyleEnum IndicatorStyle { get; set; }
-
         public IList<View> Children
         {
             get
@@ -51,11 +42,14 @@ namespace ProjectMato.iOS.Controls
             base.LayoutChildren(x, y, width, height);
             if (_layingOutChildren)
                 return;
+            _layingOutChildren = true;
             if (IsScreenWidth)
             {
                 _layingOutChildren = true;
                 foreach (var child in Children)
+                {
                     child.WidthRequest = width;
+                }
                 _layingOutChildren = false;
             }
 
@@ -86,60 +80,6 @@ namespace ProjectMato.iOS.Controls
             }
         }
 
-        public void OnFlippedEventTrigger()
-        {
-            var onflippedEventArges = new OnFlippedEventArgs();
-            if (_flipDirection < 0)
-            {
-                onflippedEventArges.FlipType = FlipType.后退;
-                this.OnFlipped?.Invoke(this, onflippedEventArges);
-
-            }
-            else if (_flipDirection > 0)
-            {
-                onflippedEventArges.FlipType = FlipType.前进;
-                this.OnFlipped?.Invoke(this, onflippedEventArges);
-
-            }
-            this._flipDirection = 0;
-            if (this.RealTimeIndex != this.SelectedIndex)
-            {
-                SelectedIndex = RealTimeIndex;
-            }
-
-        }
-        public static readonly BindableProperty RealTimeIndexProperty =
-                   BindableProperty.Create<CarouselView, int>(
-                       carousel => carousel.RealTimeIndex,
-                       0,
-                       BindingMode.TwoWay,
-                       propertyChanged: (bindable, oldValue, newValue) =>
-                       {
-
-                           if (newValue > oldValue)
-                           {
-
-                               ((CarouselView)bindable)._flipDirection++;
-                           }
-                           if (newValue < oldValue)
-                           {
-                               ((CarouselView)bindable)._flipDirection--;
-                           }
-
-                       }
-                   );
-
-        public int RealTimeIndex
-        {
-            get
-            {
-                return (int)GetValue(RealTimeIndexProperty);
-            }
-            set
-            {
-                SetValue(RealTimeIndexProperty, value);
-            }
-        }
 
         async Task UpdateSelectedItem()
         {
@@ -193,6 +133,9 @@ namespace ProjectMato.iOS.Controls
                 var bindableObject = view as BindableObject;
                 if (bindableObject != null)
                     bindableObject.BindingContext = item;
+                var tapGesture = new TapGestureRecognizer();
+                tapGesture.Tapped += TapGesture_Tapped;
+                view.GestureRecognizers.Add(tapGesture);
                 _stack.Children.Add(view);
             }
 
@@ -201,6 +144,12 @@ namespace ProjectMato.iOS.Controls
                 SelectedIndex = _selectedIndex;
             }
             //this.SelectedIndex = 1;
+        }
+
+        private void TapGesture_Tapped(object sender, EventArgs e)
+        {
+            var view = sender as View;
+            if (view != null) SelectedItem = view.BindingContext;
         }
 
         public DataTemplate ItemTemplate
@@ -214,11 +163,6 @@ namespace ProjectMato.iOS.Controls
             set;
         }
 
-        public static bool IsScrollToSelection
-        {
-            get;
-            set;
-        }
         public static readonly BindableProperty SelectedItemProperty =
             BindableProperty.Create(
                 nameof(SelectedItem),
@@ -231,7 +175,6 @@ namespace ProjectMato.iOS.Controls
                     ((CarouselView)bindable).UpdateSelectedIndex();
                 }
             );
-        private int _flipDirection;
 
         public object SelectedItem
         {
@@ -254,14 +197,5 @@ namespace ProjectMato.iOS.Controls
                 .ToList()
                 .IndexOf(SelectedItem);
         }
-    }
-    public class OnFlippedEventArgs
-    {
-        public FlipType FlipType { get; set; }
-    }
-
-    public enum FlipType
-    {
-        前进, 后退
     }
 }

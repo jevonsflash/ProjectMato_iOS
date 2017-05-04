@@ -181,16 +181,12 @@
     <Compile Include="Common\ReorderCommandParam.cs" />
     <Compile Include="Common\SleepModeDispatcher.cs" />
     <Compile Include="Common\WindowArg.cs" />
-    <Compile Include="Controls\BackgroundFliperView.xaml.cs">
-      <DependentUpon>BackgroundFliperView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\CarouselView.cs" />
     <Compile Include="Controls\GeneralListView.cs" />
     <Compile Include="Controls\LibraryGridView.cs" />
     <Compile Include="Controls\MenuCell.xaml.cs">
       <DependentUpon>MenuCell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MenuTableView.cs" />
     <Compile Include="Controls\MovableViewCell.cs" />
     <Compile Include="Controls\MusicGroupHeaderView.xaml.cs">
       <DependentUpon>MusicGroupHeaderView.xaml</DependentUpon>
@@ -223,7 +219,6 @@
     <Compile Include="Model\PlaylistTable.cs" />
     <Compile Include="Model\QueueEntryTable.cs" />
     <Compile Include="Model\SettingTable.cs" />
-    <Compile Include="Renders\GeneralListViewRenderer.cs" />
     <Compile Include="Renders\MovableViewCellRenderer.cs" />
     <Compile Include="Server\DatabaseManager.cs" />
     <Compile Include="Server\SettingServer.cs" />
@@ -304,11 +299,9 @@
     <Compile Include="Views\NowPlayingPage.xaml.cs">
       <DependentUpon>NowPlayingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Renders\CarouselRenderer.cs" />
     <Compile Include="Renders\EllipseRenderer.cs" />
     <Compile Include="Server\MusicInfoServer.cs" />
     <Compile Include="ViewModel\AboutPageViewModel.cs" />
-    <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MusicRelatedViewModel.cs" />
     <Compile Include="System\MusicSystem.cs" />
     <Compile Include="Converter\True2FalseConverter.cs" />
@@ -317,8 +310,6 @@
       <DependentUpon>MusicFliperView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\SliderMaxValueConverter.cs" />
-    <Compile Include="Renders\MenuTableViewRenderer.cs" />
-    <Compile Include="Renders\MainPageRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -482,12 +473,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\MusicItemView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Controls\BackgroundFliperView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -709,6 +694,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\PopupView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Style\TemplateDictionary.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

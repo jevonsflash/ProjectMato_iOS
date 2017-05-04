@@ -4,10 +4,12 @@
              xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
              BindingContext="{Binding Source={StaticResource Locator},Path=MenuPage}"
              x:Class="ProjectMato.iOS.MenuPage"
+             BackgroundColor="{StaticResource PhoneContrastBackgroundBrush}"
              Title="Mato"
              Icon="Icon/slideout.png">
     <StackLayout VerticalOptions="FillAndExpand">
         <controls:GeneralListView x:Name="MainMenuListView"
+                                  Margin="0,150"
                                   ItemsSource="{Binding  MainMenuCellInfos}"
                                   SelectedItem="{Binding CurrentMenuCellInfo,Mode=TwoWay}"
                                   RowHeight="58">
@@ -15,7 +17,7 @@
                 <DataTemplate>
                     <controls:MenuCell ContentText="{Binding Title}"
                                        ContentImage="{Binding Icon}"
-                                       ContentBackground="{Binding Source={StaticResource PhoneContrastBackgroundBrush}}"></controls:MenuCell>
+                                       ContentBackground="Transparent"></controls:MenuCell>
 
                 </DataTemplate>
             </controls:GeneralListView.ItemTemplate>

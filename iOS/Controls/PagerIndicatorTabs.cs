@@ -19,8 +19,6 @@ namespace ProjectMato.iOS.Controls
 			HorizontalOptions = LayoutOptions.CenterAndExpand;
 			VerticalOptions = LayoutOptions.Center;
 			DotColor = Color.Black;
-			Device.OnPlatform(iOS: () => BackgroundColor = Color.Gray);
-
 			var assembly = typeof(PagerIndicatorTabs).GetTypeInfo().Assembly;
 			foreach (var res in assembly.GetManifestResourceNames())
 				System.Diagnostics.Debug.WriteLine("found resource: " + res);

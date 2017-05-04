@@ -6,13 +6,14 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
 using ProjectMato.iOS.Common;
 using Xamarin.Forms;
 
 namespace ProjectMato.iOS
 {
 
-    public class AboutPageViewModel : BaseViewModel
+    public class AboutPageViewModel : ViewModelBase
     {
         private RelayCommand goLoveCommand;
         public RelayCommand GoLoveCommand
@@ -55,7 +56,8 @@ namespace ProjectMato.iOS
             get { return strUpdate; }
             set
             {
-               base.SetObservableProperty(ref strUpdate,value);
+                strUpdate = value;
+                base.RaisePropertyChanged();
             }
         }
         private string version;
@@ -65,8 +67,8 @@ namespace ProjectMato.iOS
             get { return version; }
             set
             {
-                base.SetObservableProperty(ref version, value);
-
+                version = value;
+                base.RaisePropertyChanged();
             }
         }
 
@@ -77,8 +79,8 @@ namespace ProjectMato.iOS
             get { return introduction; }
             set
             {
-                base.SetObservableProperty(ref introduction, value);
-
+                introduction = value;
+                base.RaisePropertyChanged();
             }
         }
 
@@ -89,8 +91,8 @@ namespace ProjectMato.iOS
             get { return brief; }
             set
             {
-                base.SetObservableProperty(ref brief, value);
-
+                brief = value;
+                base.RaisePropertyChanged();
             }
         }
 

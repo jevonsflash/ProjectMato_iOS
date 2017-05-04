@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using GalaSoft.MvvmLight;
 using ProjectMato.iOS.Server;
 
 namespace ProjectMato.iOS.ViewModel
 {
-    public class SearchPageViewModel : BaseViewModel
+    public class SearchPageViewModel : ViewModelBase
     {
         public SearchPageViewModel()
         {
@@ -34,9 +35,9 @@ namespace ProjectMato.iOS.ViewModel
             }
             set
             {
+                musics = value;
 
-                SetObservableProperty(ref musics, value);
-
+                RaisePropertyChanged();
             }
         }
 
@@ -51,7 +52,8 @@ namespace ProjectMato.iOS.ViewModel
             }
             set
             {
-                base.SetObservableProperty(ref _selectedItem, value);
+                _selectedItem = value;
+                base.RaisePropertyChanged();
             }
         }
         public Common.RelayCommand ItemSelectedCommand { get; set; }

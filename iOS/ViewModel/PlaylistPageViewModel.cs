@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight;
 using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 
 namespace ProjectMato.iOS
 {
-    public class PlaylistPageViewModel : BaseViewModel
+    public class PlaylistPageViewModel : ViewModelBase
     {
 
         public PlaylistPageViewModel()
@@ -75,8 +76,9 @@ namespace ProjectMato.iOS
             }
             set
             {
+                _playlists = value;
 
-                SetObservableProperty(ref _playlists, value);
+                RaisePropertyChanged();
             }
         }
 

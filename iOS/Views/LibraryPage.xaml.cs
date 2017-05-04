@@ -24,20 +24,18 @@ namespace ProjectMato.iOS
 
         }
 
-        private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem is ArtistInfo)
             {
                 var artistInfo = e.SelectedItem as ArtistInfo;
-
-                await Navigation.PushAsync(new ArtistPage(artistInfo));
+                CommonHelper.GoNavigate("ArtistPage", new object[] { artistInfo });
 
             }
             else if (e.SelectedItem is AlbumInfo)
             {
                 var albumInfo = e.SelectedItem as AlbumInfo;
-
-                await Navigation.PushAsync(new AlbumPage(albumInfo));
+                CommonHelper.GoNavigate("AlbumPage", new object[] { albumInfo });
             }
         }
 

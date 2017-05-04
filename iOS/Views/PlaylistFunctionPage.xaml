@@ -3,38 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="ProjectMato.iOS.PlaylistFunctionPage"
-             BackgroundColor="Gray"
-             HeightRequest="350"
-             >
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto">
-      </RowDefinition>
+             BackgroundColor="{StaticResource PhoneBackgroundBrush}"
+             HeightRequest="350">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto">
+            </RowDefinition>
             <RowDefinition>
             </RowDefinition>
         </Grid.RowDefinitions>
 
-    <!--TitlePanel 包含应用程序的名称和页标题-->
-    <StackLayout Grid.Row="0"
-                 Padding="{StaticResource DefaultContentPadding}">
-      <Label x:Name="LabelCreate" Text="添加歌单"
-             FontSize="{StaticResource SubtitleFontSize}" LineBreakMode="NoWrap" />
-    </StackLayout>
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <StackLayout Grid.Row="0"
+                     Padding="{StaticResource DefaultContentPadding}">
+            <Label x:Name="LabelCreate"
+                   Text="添加歌单"
+                   FontSize="{StaticResource SubtitleFontSize}"
+                   LineBreakMode="NoWrap" />
+        </StackLayout>
 
-    <StackLayout
-      Grid.Row="1"
-      Padding="{StaticResource DefaultContentPadding}">
-      <controls:ExtendedEntry Font="Large" Placeholder="请输入歌单名称" Text="{Binding PlaylistInfo.Title,Mode=TwoWay}"></controls:ExtendedEntry>
-      <controls:ExtendedButton
-             Text="提交"
-             x:Name="SubmitButton"
-             TextColor="{StaticResource PhoneForegroundBrush}"
-             HorizontalContentAlignment="Start"
-             FontSize="Large"
-             Command="{Binding SubmitCommand}"
-             Clicked="SubmitButtonButton_OnClicked">
-      </controls:ExtendedButton>
-    </StackLayout>
-  </Grid>
+        <StackLayout Grid.Row="1"
+                     Padding="{StaticResource DefaultContentPadding}">
+            <controls:ExtendedEntry Font="Large"
+                                    Placeholder="请输入歌单名称"
+                                    Text="{Binding PlaylistInfo.Title,Mode=TwoWay}"></controls:ExtendedEntry>
+            <controls:ExtendedButton Text="提交"
+                                     x:Name="SubmitButton"
+                                     TextColor="{StaticResource PhoneForegroundBrush}"
+                                     HorizontalContentAlignment="Start"
+                                     FontSize="Large"
+                                     Command="{Binding SubmitCommand}"
+                                     Clicked="SubmitButtonButton_OnClicked">
+            </controls:ExtendedButton>
+        </StackLayout>
+    </Grid>
 
 </ContentView>

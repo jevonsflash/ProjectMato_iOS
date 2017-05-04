@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GalaSoft.MvvmLight;
 
 namespace ProjectMato.iOS
 {
-    public class ArtistPageViewModel : BaseViewModel
+    public class ArtistPageViewModel : ViewModelBase
     {
         public ArtistPageViewModel(ArtistInfo artistInfo)
         {
@@ -15,7 +16,11 @@ namespace ProjectMato.iOS
         public ArtistInfo ArtistInfo
         {
             get { return _artistInfo; }
-            set { base.SetObservableProperty(ref _artistInfo, value); }
+            set
+            {
+                _artistInfo = value;
+                base.RaisePropertyChanged();
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectMato.iOS.Common;
+using ProjectMato.iOS.Helper;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 using Xamarin.Forms;
@@ -20,11 +21,10 @@ namespace ProjectMato.iOS
         }
 
 
-        private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var playlist = e.SelectedItem as PlaylistInfo;
-
-            await Navigation.PushAsync(new PlaylistEntryPage(playlist));
+            CommonHelper.GoNavigate("PlaylistEntryPage", new object[] { playlist });
         }
 
         private void MusicCollectionItemView_OnOnFinishedChoice(object sender, MusicFunctionEventArgs e)
@@ -62,7 +62,7 @@ namespace ProjectMato.iOS
                 else
                     playlistPageViewModel.CreateAction(playlistInfo);
             }
-            
+
             popup3.HidePopup();
         }
 

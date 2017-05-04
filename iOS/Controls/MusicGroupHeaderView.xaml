@@ -1,25 +1,26 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
              x:Class="ProjectMato.iOS.Controls.MusicGroupHeaderView">
-  <ContentView.Content>
-    <Grid BackgroundColor="{StaticResource PhoneBackgroundBrush}">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto">
-        </ColumnDefinition>
-        <ColumnDefinition>
-        </ColumnDefinition>
-      </Grid.ColumnDefinitions>
-      <controls:EllipseView Color="{StaticResource PhoneAccentBrush}"
-                         WidthRequest="50">
-      </controls:EllipseView>
-      <Label YAlign="Center"
-             XAlign="Center"
-             Text="{Binding Title}"
-             TextColor="{StaticResource PhoneForegroundBrush}"
-             FontSize="Large">
-      </Label>
-    </Grid>
+    <ContentView.Content>
+        <Grid BackgroundColor="{StaticResource PhoneBackgroundBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto">
+                </ColumnDefinition>
+                <ColumnDefinition>
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <controls:EllipseView Color="{StaticResource PhoneContrastBackgroundBrush}"
+                                  WidthRequest="50">
+            </controls:EllipseView>
+            <Label VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"
+                   Text="{Binding Title}"
+                   TextColor="{StaticResource PhoneContrastForegroundBrush}"
+                   FontSize="Large">
+            </Label>
+        </Grid>
 
-  </ContentView.Content>
+    </ContentView.Content>
 </ContentView>

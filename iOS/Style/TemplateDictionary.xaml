@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+                    x:Class="ProjectMato.iOS.Style.TemplateDictionary">
+    <DataTemplate x:Key="BackgroundFliperViewTemplate">
+        <ContentView>
+            <Grid Padding="5,0"
+                  WidthRequest="150"
+                  HeightRequest="260">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
+                      Grid.RowSpan="3">
+                    <Image  Aspect="AspectFit"
+                            Source="{Binding Img}" />
+                    <Label Margin="20"
+                           Text="{Binding Title}"
+                           FontSize="Large" />
+                </Grid>
+                <Grid Grid.Row="1"
+                      Grid.Column="1">
+                    <Image Source="Icon/uncheck"
+                           IsVisible="{Binding IsSel,Converter={StaticResource True2FalseConverter}}"></Image>
+                    <Image Source="Icon/check"
+                           IsVisible="{Binding IsSel}"></Image>
+                </Grid>
+            </Grid>
+        </ContentView>
+
+    </DataTemplate>
+
+</ResourceDictionary>

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 using CoreMedia;
+using GalaSoft.MvvmLight;
 using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 
 namespace ProjectMato.iOS.ViewModel
 {
-    public class PlaylistEntryPageViewModel : BaseViewModel
+    public class PlaylistEntryPageViewModel : ViewModelBase
     {
         public PlaylistEntryPageViewModel(PlaylistInfo playlist)
         {
@@ -49,7 +50,8 @@ namespace ProjectMato.iOS.ViewModel
             }
             set
             {
-                SetObservableProperty(ref playlist, value);
+                playlist = value;
+                RaisePropertyChanged();
             }
         }
         private ObservableCollectionEx<MusicInfo> musics;
@@ -66,7 +68,8 @@ namespace ProjectMato.iOS.ViewModel
             }
             set
             {
-                SetObservableProperty(ref musics, value);
+                musics = value;
+                RaisePropertyChanged();
             }
         }
     }

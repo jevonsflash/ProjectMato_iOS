@@ -1,9 +1,10 @@
 ﻿using System;
+using GalaSoft.MvvmLight;
 using Xamarin.Forms;
 
 namespace ProjectMato.iOS
 {
-    public class MusicInfo : BaseViewModel, IBasicInfo
+    public class MusicInfo : ViewModelBase, IBasicInfo
     {
         public MusicInfo()
         {
@@ -37,7 +38,11 @@ namespace ProjectMato.iOS
         {
             get { return isFavourite; }
 
-            set { base.SetObservableProperty(ref isFavourite, value); }
+            set
+            {
+                isFavourite = value;
+                base.RaisePropertyChanged();
+            }
         }
         public string GroupHeader { get; set; }
         public ImageSource AlbumArt { get; set; }

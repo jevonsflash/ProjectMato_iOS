@@ -1,63 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-
+             BindingContext="{Binding Source={StaticResource Locator} ,Path=SettingPage}"
              xmlns:local="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
              x:Class="ProjectMato.iOS.SettingPage"
              BackgroundColor="{StaticResource PhoneBackgroundBrush}">
 
 
 
-  <Grid x:Name="LayoutRoot">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-    <StackLayout Grid.Row="0"
-                 Padding="{StaticResource DefaultContentPadding}">
-      <Label Text="设置"
-             FontSize="{StaticResource HeaderFontSize}" />
-    </StackLayout>
-
-    <Grid
-        Grid.Row="1"
-        x:Name="ContentRoot"
-        Padding="{StaticResource DefaultContentPadding}"
-            >
-      <ScrollView>
-        <StackLayout>
-          <TableView Intent="Settings" RowHeight="48" HasUnevenRows="True">
-            <TableRoot>
-              <TableSection Title="个性化" >
-                <ViewCell Height="260">
-
-                  <local:CarouselView
-                      
-                      IsScreenWidth="False"
-                      IsScrollToSelection="False"
-                      x:Name="BackgroundFliperView"
-                      ItemsSource="{Binding BackgroundList}">
-                  </local:CarouselView>
-                </ViewCell>
-              </TableSection>
-              <TableSection Title="睡眠模式">
-                <ViewCell>
-                  <Button Text="睡眠模式设置" Clicked="Button_OnClicked"></Button>
-
-                </ViewCell>
-              </TableSection>
-              <TableSection Title="常规">
-                <SwitchCell Text="自动下载歌词" On="{Binding IsAutoLrc,Mode=TwoWay}"/>
-                <SwitchCell Text="歌词自动滚动" On="{Binding IsAutoOffset,Mode=TwoWay}" />
-                <SwitchCell Text="协助改善产品" On="{Binding IsAutoGA,Mode=TwoWay}"  />
-              </TableSection>
-            </TableRoot>
-          </TableView>
+        <StackLayout Grid.Row="0"
+                     Padding="{StaticResource DefaultContentPadding}">
+            <Label Text="设置"
+                   FontSize="{StaticResource HeaderFontSize}" />
         </StackLayout>
-      </ScrollView>
+
+        <Grid Grid.Row="1"
+              x:Name="ContentRoot"
+              Padding="{StaticResource DefaultContentPadding}">
+            <ScrollView>
+                <StackLayout>
+                    <TableView Intent="Settings"
+                               RowHeight="48"
+                               HasUnevenRows="True">
+                        <TableRoot>
+                            <TableSection Title="个性化">
+                                <ViewCell Height="260">
+
+                                    <local:CarouselView IsScreenWidth="False"
+                                                        ItemTemplate="{StaticResource BackgroundFliperViewTemplate}"
+                                                        x:Name="BackgroundFliperView"
+                                                        SelectedItem="{Binding SelectedBackgroundTable ,Mode=TwoWay}"
+                                                        ItemsSource="{Binding BackgroundList}">
+                                    </local:CarouselView>
+                                </ViewCell>
+                            </TableSection>
+                            <TableSection Title="睡眠模式">
+                                <ViewCell>
+                                    <Button Text="睡眠模式设置"
+                                            Clicked="Button_OnClicked"></Button>
+
+                                </ViewCell>
+                            </TableSection>
+                            <TableSection Title="常规">
+                                <SwitchCell Text="自动下载歌词"
+                                            On="{Binding IsAutoLrc,Mode=TwoWay}" />
+                                <SwitchCell Text="歌词自动滚动"
+                                            On="{Binding IsAutoOffset,Mode=TwoWay}" />
+                                <SwitchCell Text="协助改善产品"
+                                            On="{Binding IsAutoGA,Mode=TwoWay}" />
+                            </TableSection>
+                        </TableRoot>
+                    </TableView>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
     </Grid>
-  </Grid>
 
 
 </ContentPage>

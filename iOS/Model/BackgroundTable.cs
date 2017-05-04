@@ -42,7 +42,16 @@ namespace ProjectMato.iOS.Model
         public string Title { get; set; }
         public string Name { get; set; }
         public string Img { get; set; }
-        public bool IsSel { get; set; }
+        private bool _isSel;
+        public bool IsSel
+        {
+            get { return _isSel; }
+            set
+            {
+                _isSel = value;
+                RaisePropertyChanged(nameof(IsSel));
+            }
+        }
         public string Ext { get; set; }
     }
 }

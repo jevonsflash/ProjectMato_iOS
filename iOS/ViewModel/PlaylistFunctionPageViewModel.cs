@@ -1,11 +1,12 @@
 ﻿using System;
+using GalaSoft.MvvmLight;
 using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 
 namespace ProjectMato.iOS.ViewModel
 {
-    public class PlaylistFunctionPageViewModel : BaseViewModel
+    public class PlaylistFunctionPageViewModel : ViewModelBase
     {
         public PlaylistFunctionPageViewModel()
         {
@@ -21,7 +22,11 @@ namespace ProjectMato.iOS.ViewModel
         public PlaylistInfo PlaylistInfo
         {
             get { return _playlistInfo; }
-            set { base.SetObservableProperty(ref _playlistInfo, value); }
+            set
+            {
+                _playlistInfo = value;
+                base.RaisePropertyChanged();
+            }
         }
         private void SubmitAction(object obj)
         {

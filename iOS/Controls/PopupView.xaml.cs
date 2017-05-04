@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 
 namespace ProjectMato.iOS.Controls
@@ -15,6 +16,7 @@ namespace ProjectMato.iOS.Controls
         public PopupView()
         {
             InitializeComponent();
+            //this.BackView.On<Xamarin.Forms.PlatformConfiguration.iOS>().UseBlurEffect(BlurEffectStyle.Dark);
         }
 
         public void ShowPopup(View FunctionPage)

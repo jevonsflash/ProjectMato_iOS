@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GalaSoft.MvvmLight;
 
 namespace ProjectMato.iOS
 {
-   public class AlbumPageViewModel:BaseViewModel
+   public class AlbumPageViewModel:ViewModelBase
     {
         public AlbumPageViewModel(AlbumInfo albumInfo)
         {
@@ -15,7 +16,11 @@ namespace ProjectMato.iOS
         public AlbumInfo AlbumInfo
         {
             get { return _albumInfo; }
-            set { base.SetObservableProperty(ref _albumInfo, value); }
+            set
+            {
+                _albumInfo = value;
+                base.RaisePropertyChanged();
+            }
         }
     }
 }

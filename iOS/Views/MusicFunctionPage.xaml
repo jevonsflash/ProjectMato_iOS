@@ -4,7 +4,7 @@
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              xmlns:controls1="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
              x:Class="ProjectMato.iOS.MusicFunctionPage"
-             BackgroundColor="Gray"
+             BackgroundColor="{StaticResource PhoneBackgroundBrush}"
              HeightRequest="350">
     <Grid>
         <Grid.RowDefinitions>

@@ -7,11 +7,12 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Timers;
+using GalaSoft.MvvmLight;
 using ProjectMato.iOS.Server;
 
 namespace ProjectMato.iOS
 {
-    public class MusicRelatedViewModel : BaseViewModel
+    public class MusicRelatedViewModel : ViewModelBase
     {
         private static MusicRelatedViewModel current;
 
@@ -55,7 +56,7 @@ namespace ProjectMato.iOS
             this.ShuffleCommand = new RelayCommand(c => true, ShuffleAction);
             this.PropertyChanged += DetailPageViewModel_PropertyChanged;
             this.IsRepeatOne = SettingServer.Current.GetSetting(SettingServer.Properties.IsRepeatOne);
-            this.isShuffle = SettingServer.Current.GetSetting(SettingServer.Properties.IsShuffle);
+            this._isShuffle = SettingServer.Current.GetSetting(SettingServer.Properties.IsShuffle);
             MusicSystem.OnPlayFinished += MusicSystem_OnMusicChanged;
             MusicSystem.SetRepeatOneStatus(IsRepeatOne);
             MusicSystem.UpdateShuffleMap();
@@ -161,40 +162,42 @@ namespace ProjectMato.iOS
             this.CurrentMusic = Musics.FirstOrDefault(c => c.Title == title);
         }
 
-        private List<MusicInfo> musics;
+        private List<MusicInfo> _musics;
 
         public List<MusicInfo> Musics
         {
             get
             {
-                if (musics == null)
+                if (_musics == null)
                 {
-                    musics = MusicSystem.MusicInfos;
+                    _musics = MusicSystem.MusicInfos;
                 }
 
-                return musics;
+                return _musics;
             }
             set
             {
-                SetObservableProperty(ref musics, value);
+                _musics = value;
+                RaisePropertyChanged();
             }
         }
 
-        private MusicInfo currentMusic;
+        private MusicInfo _currentMusic;
 
         public MusicInfo CurrentMusic
         {
             get
             {
-                if (currentMusic == null)
+                if (_currentMusic == null)
                 {
                     InitCurrentMusic();
                 }
-                return currentMusic;
+                return _currentMusic;
             }
             set
             {
-                SetObservableProperty(ref currentMusic, value);
+                _currentMusic = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -214,105 +217,109 @@ namespace ProjectMato.iOS
             }
         }
 
-        private bool isPlaying;
+        private bool _isPlaying;
 
         public bool IsPlaying
         {
-            get { return isPlaying; }
+            get { return _isPlaying; }
             set
             {
+                _isPlaying = value;
 
-                SetObservableProperty(ref isPlaying, value);
-
+                RaisePropertyChanged();
             }
         }
 
-        private double currentTime;
+        private double _currentTime;
 
         public double CurrentTime
         {
-            get { return currentTime; }
+            get { return _currentTime; }
             set
             {
-                SetObservableProperty(ref currentTime, value);
-
+                _currentTime = value;
+                RaisePropertyChanged();
             }
         }
 
-        private double duration;
+        private double _duration;
 
         public double Duration
         {
-            get { return duration; }
+            get { return _duration; }
             set
             {
+                _duration = value;
 
-                SetObservableProperty(ref duration, value);
-
+                RaisePropertyChanged();
             }
         }
 
-        private MusicInfo previewMusic;
+        private MusicInfo _previewMusic;
 
         public MusicInfo PreviewMusic
         {
             get
             {
-                if (previewMusic == null)
+                if (_previewMusic == null)
                 {
                     InitPreviewAndNextMusic();
                 }
-                return previewMusic;
+                return _previewMusic;
             }
             set
             {
-                SetObservableProperty(ref previewMusic, value);
+                _previewMusic = value;
+                RaisePropertyChanged();
             }
         }
-        private MusicInfo nextMusic;
+        private MusicInfo _nextMusic;
 
         public MusicInfo NextMusic
         {
             get
             {
-                if (nextMusic == null)
+                if (_nextMusic == null)
                 {
                     InitPreviewAndNextMusic();
                 }
-                return nextMusic;
+                return _nextMusic;
             }
             set
             {
-                SetObservableProperty(ref nextMusic, value);
+                _nextMusic = value;
+                RaisePropertyChanged();
             }
         }
 
-        private bool isShuffle;
+        private bool _isShuffle;
 
         public bool IsShuffle
         {
             get
             {
-                return isShuffle;
+                return _isShuffle;
             }
             set
             {
-                SetObservableProperty(ref isShuffle, value);
+                _isShuffle = value;
+                RaisePropertyChanged();
             }
         }
 
 
-        private bool isRepeatOne;
+        private bool _isRepeatOne;
 
         public bool IsRepeatOne
         {
             get
             {
-                return isRepeatOne;
+                return _isRepeatOne;
             }
             set
             {
-                SetObservableProperty(ref isRepeatOne, value);
+                _isRepeatOne = value;
+                RaisePropertyChanged();
             }
         }
         #endregion

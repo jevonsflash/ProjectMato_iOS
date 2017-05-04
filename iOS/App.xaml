@@ -4,14 +4,12 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:ProjectMato.iOS;assembly=ProjectMatoiOS"
              x:Class="ProjectMato.iOS.App"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModel="clr-namespace:ProjectMato.iOS.ViewModel;assembly=ProjectMatoiOS"
-             >
+             xmlns:style="clr-namespace:ProjectMato.iOS.Style;assembly=ProjectMatoiOS"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
     <Application.Resources>
         <ResourceDictionary>
-            <viewModel:ViewModelLocator x:Key="Locator"
-                                 />
-
+            <viewModel:ViewModelLocator x:Key="Locator" />
             <system:String x:Key="Version">3.2.0</system:String>
             <system:Double x:Key="HeaderFontSize">57.5</system:Double>
             <system:Double x:Key="SubtitleFontSize">38</system:Double>
@@ -19,11 +17,30 @@
             <system:Double x:Key="BodyFontSize">18</system:Double>
             <system:String x:Key="Bound">0</system:String>
             <Color x:Key="PhoneBackgroundBrush">Transparent</Color>
-            <Color x:Key="PhoneForegroundBrush">DeepPink</Color>
-            <Color x:Key="PhoneContrastBackgroundBrush">#2C3E50</Color>
+            <Color x:Key="PhoneForegroundBrush">#198a62</Color>
+            <Color x:Key="PhoneContrastBackgroundBrush">#93ad34</Color>
             <Color x:Key="PhoneContrastForegroundBrush">White</Color>
             <Color x:Key="PhoneAccentBrush">Red</Color>
             <Color x:Key="PhoneChromeBrush">Gray</Color>
+            <Color x:Key="Linear1AColor">#93ad34</Color>
+            <Color x:Key="Linear1BColor">#198a62</Color>
+            <Color x:Key="Linear2AColor">#5648c1</Color>
+            <Color x:Key="Linear2BColor">#6fe3e7</Color>
+            <Color x:Key="Linear3AColor">#7b4397</Color>
+            <Color x:Key="Linear3BColor">#2b85a6</Color>
+            <Color x:Key="Linear4AColor">#248556</Color>
+            <Color x:Key="Linear4BColor">#16226e</Color>
+            <Color x:Key="Linear5AColor">#d16645</Color>
+            <Color x:Key="Linear5BColor">#13052e</Color>
+            <Color x:Key="Linear6AColor">#d23c39</Color>
+            <Color x:Key="Linear6BColor">#dca74a</Color>
+            <Color x:Key="Linear7AColor">#7f7280</Color>
+            <Color x:Key="Linear7BColor">#000000</Color>
+            <Color x:Key="Linear8AColor">#77cfa0</Color>
+            <Color x:Key="Linear8BColor">#0c2b50</Color>
+            <Color x:Key="Linear9AColor">#29c0db</Color>
+            <Color x:Key="Linear9BColor">#1178c2</Color>
+
             <Style TargetType="Label">
                 <Setter Property="TextColor"
                         Value="{StaticResource PhoneForegroundBrush}">
@@ -45,6 +62,45 @@
             </local:SliderMaxValueConverter>
             <local:SecondsToTimeSpanConverter x:Key="SecondsToTimeSpanConverter">
             </local:SecondsToTimeSpanConverter>
+            <DataTemplate x:Key="BackgroundFliperViewTemplate">
+                <ContentView>
+                    <Grid Padding="5,0"
+                          WidthRequest="150"
+                          HeightRequest="260">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="0"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="3"
+                              Grid.RowSpan="3">
+                            <Image  Aspect="AspectFit"
+                                    Source="{Binding Img}" />
+                            <Label Margin="20"
+                                   Text="{Binding Title}"
+                                   FontSize="Large" />
+                        </Grid>
+                        <Grid Grid.Row="1"
+                              Grid.Column="1">
+                            <Image Source="Icon/uncheck"
+                                   IsVisible="{Binding IsSel,Converter={StaticResource True2FalseConverter}}"></Image>
+                            <Image Source="Icon/check"
+                                   IsVisible="{Binding IsSel}"></Image>
+                        </Grid>
+                    </Grid>
+                </ContentView>
+
+            </DataTemplate>
+
         </ResourceDictionary>
+
+
     </Application.Resources>
 </Application>

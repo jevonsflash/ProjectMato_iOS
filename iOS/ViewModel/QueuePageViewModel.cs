@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Text;
+using GalaSoft.MvvmLight;
 using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Server;
 
 namespace ProjectMato.iOS.ViewModel
 {
-    public class QueuePageViewModel : BaseViewModel
+    public class QueuePageViewModel : ViewModelBase
     {
 
         public QueuePageViewModel()
@@ -55,9 +56,10 @@ namespace ProjectMato.iOS.ViewModel
             }
             set
             {
+                musics = value;
 
 
-                SetObservableProperty(ref musics, value);
+                RaisePropertyChanged();
             }
         }
 

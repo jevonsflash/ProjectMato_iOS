@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using GalaSoft.MvvmLight;
 using ProjectMato.iOS.Server;
 
 namespace ProjectMato.iOS.ViewModel
 {
-    public class SleepModePageViewModel : BaseViewModel
+    public class SleepModePageViewModel : ViewModelBase
     {
         public SleepModePageViewModel()
         {
@@ -39,8 +40,8 @@ namespace ProjectMato.iOS.ViewModel
             }
             set
             {
-                base.SetObservableProperty(ref _isSleepModeOn,value);
-
+                _isSleepModeOn = value;
+                base.RaisePropertyChanged();
             }
         }
 
@@ -51,9 +52,8 @@ namespace ProjectMato.iOS.ViewModel
             get { return _timingOffValue; }
             set
             {
-                base.SetObservableProperty(ref _timingOffValue, value);
-
-
+                _timingOffValue = value;
+                base.RaisePropertyChanged();
             }
         }
 

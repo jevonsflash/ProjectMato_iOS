@@ -174,13 +174,16 @@ namespace ProjectMato.iOS
 
         public static void PauseOrResume(bool status)
         {
-            if (status)
+            if (CurrentPlayer != null)
             {
-                CurrentPlayer.Pause();
-            }
-            else
-            {
-                CurrentPlayer.Play();
+                if (status)
+                {
+                    CurrentPlayer.Pause();
+                }
+                else
+                {
+                    CurrentPlayer.Play();
+                }
             }
         }
 

@@ -8,6 +8,7 @@ using ProjectMato.iOS.Controls;
 using ProjectMato.iOS.Enums;
 using ProjectMato.iOS.Helper;
 using Xamarin.Forms;
+using XLabs.Forms.Controls;
 
 namespace ProjectMato.iOS
 {

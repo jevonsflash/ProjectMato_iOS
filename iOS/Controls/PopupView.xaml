@@ -5,10 +5,11 @@
              x:Class="ProjectMato.iOS.Controls.PopupView"
              IsVisible="False">
     <Grid x:Name="MainLayout">
-        <Grid  BackgroundColor="Black"
-               Opacity="0.5">
+        <BoxView x:Name="BackView"
+                 BackgroundColor="Black"
+                 Opacity="0.5">
             <controls:ImageButton Clicked="Button_OnClicked"></controls:ImageButton>
-        </Grid>
+        </BoxView>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -34,5 +35,4 @@
             </StackLayout>
         </Grid>
     </Grid>
-
 </ContentView>

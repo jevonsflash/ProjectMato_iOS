@@ -44,11 +44,11 @@ namespace ProjectMato.iOS
         private static Page GetPageInstance(string obj, object[] args)
         {
             Page result = null;
-            Type pageType = Type.GetType("ProjectMato.iOS." + obj, false);
+            Type pageType = Type.GetType(typeof(App).Namespace + "." + obj, false);
             if (pageType != null)
             {
                 var pageObj = Activator.CreateInstance(pageType, args);
-                result = new NavigationPage(pageObj as Page);
+                result = new NavigationPage(pageObj as Page) { BarBackgroundColor = (Color)Current.Resources["PhoneForegroundBrush"], BarTextColor = (Color)Current.Resources["PhoneContrastForegroundBrush"] };
             }
             return result;
         }

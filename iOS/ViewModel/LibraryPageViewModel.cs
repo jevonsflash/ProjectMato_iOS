@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GalaSoft.MvvmLight;
 using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Server;
 using Xamarin.Forms;
@@ -9,7 +10,7 @@ using XLabs;
 
 namespace ProjectMato.iOS
 {
-    public class LibraryPageViewModel : BaseViewModel
+    public class LibraryPageViewModel : ViewModelBase
     {
         public LibraryPageViewModel()
         {
@@ -30,130 +31,130 @@ namespace ProjectMato.iOS
 
         }
 
-        private List<MusicInfo> musics;
+        private List<MusicInfo> _musics;
 
         public List<MusicInfo> Musics
         {
             get
             {
-                if (musics == null)
+                if (_musics == null)
                 {
                     var result = MusicInfoServer.Current.GetMusicInfos();
-                    musics = result;
+                    _musics = result;
                 }
-                return musics;
+                return _musics;
 
             }
             set
             {
 
-                SetObservableProperty(ref musics, value);
+                _musics = value;
+                RaisePropertyChanged();
 
             }
         }
 
-        private List<AlbumInfo> albums;
+        private List<AlbumInfo> _albums;
 
         public List<AlbumInfo> Albums
         {
             get
             {
-                if (albums == null)
+                if (_albums == null)
                 {
 
                     InitAlbums();
                 }
-                return albums;
+                return _albums;
 
             }
             set
             {
-
-                SetObservableProperty(ref albums, value);
+                _albums = value;
+                RaisePropertyChanged();
 
             }
         }
 
-        private List<ArtistInfo> artists;
+        private List<ArtistInfo> _artists;
         public List<ArtistInfo> Artists
         {
             get
             {
-                if (artists == null)
+                if (_artists == null)
                 {
 
                     InitArtists();
                 }
-                return artists;
+                return _artists;
 
             }
             set
             {
-
-                SetObservableProperty(ref artists, value);
-
+                _artists = value;
+                RaisePropertyChanged();
             }
         }
 
-        private AlphaGroupedObservableCollection<MusicInfo> aGMusics;
+        private AlphaGroupedObservableCollection<MusicInfo> _aGMusics;
         public AlphaGroupedObservableCollection<MusicInfo> AGMusics
         {
             get
             {
-                if (aGMusics == null)
+                if (_aGMusics == null)
                 {
 
                     InitMusics();
                 }
-                return aGMusics;
+                return _aGMusics;
 
             }
             set
             {
-
-                SetObservableProperty(ref aGMusics, value);
+                _aGMusics = value;
+                RaisePropertyChanged();
 
             }
         }
 
-        private AlphaGroupedObservableCollection<ArtistInfo> aGArtists;
+        private AlphaGroupedObservableCollection<ArtistInfo> _aGArtists;
         public AlphaGroupedObservableCollection<ArtistInfo> AGArtists
         {
             get
             {
-                if (aGArtists == null)
+                if (_aGArtists == null)
                 {
 
                     InitArtists();
                 }
-                return aGArtists;
+                return _aGArtists;
 
             }
             set
             {
-
-                SetObservableProperty(ref aGArtists, value);
+                _aGArtists = value;
+                RaisePropertyChanged();
 
             }
         }
 
-        private AlphaGroupedObservableCollection<AlbumInfo> aGAlbums;
+        private AlphaGroupedObservableCollection<AlbumInfo> _aGAlbums;
         public AlphaGroupedObservableCollection<AlbumInfo> AGAlbums
         {
             get
             {
-                if (aGAlbums == null)
+                if (_aGAlbums == null)
                 {
 
                     InitAlbums();
                 }
-                return aGAlbums;
+                return _aGAlbums;
 
             }
             set
             {
-
-                SetObservableProperty(ref aGAlbums, value);
+                _aGAlbums = value;
+                RaisePropertyChanged();
 
             }
         }
@@ -169,8 +170,8 @@ namespace ProjectMato.iOS
             }
             set
             {
-
-                SetObservableProperty(ref _isShowGrid, value);
+                _isShowGrid = value;
+                RaisePropertyChanged();
 
             }
         }
