@@ -41,17 +41,22 @@ namespace ProjectMato.iOS.Controls
                 var musicInfo = BindingContext;
                 _mainMenuCellInfos = new List<MenuCellInfo>()
                 {
-                    new MenuCellInfo() {Title = "删除", Code = "Delete", Icon = "Icon/search"},
-                    new MenuCellInfo() {Title = "添加到..", Code = "AddToPlaylist", Icon = "Icon/headphone"},
-                    new MenuCellInfo() {Title = "下一首播放", Code = "NextPlay", Icon = "Icon/queue2"},
-                    new MenuCellInfo() {Title = "追加到列队", Code = "AddToQueue", Icon = "Icon/folder"},
+                    new MenuCellInfo() {Title = "删除", Code = "Remove", Icon = "Icon/remove"},
+                    new MenuCellInfo() {Title = "添加到..", Code = "AddToPlaylist", Icon = "Icon/addto"},
+                    new MenuCellInfo() {Title = "下一首播放", Code = "NextPlay", Icon = "Icon/playnext"},
+                    new MenuCellInfo() {Title = "追加到列队", Code = "AddToQueue", Icon = "Icon/addtostack"},
                     new MenuCellInfo()
                     {
                         Title = (musicInfo as MusicInfo).Artist,
                         Code = "GoArtistPage",
-                        Icon = "Icon/playlist"
+                        Icon = "Icon/microphone2"
                     },
-                    new MenuCellInfo() {Title = (musicInfo as MusicInfo).AlbumTitle, Code = "GoAlbumPage", Icon = "Icon/setting"},
+                    new MenuCellInfo()
+                    {
+                        Title = (musicInfo as MusicInfo).AlbumTitle,
+                        Code = "GoAlbumPage",
+                        Icon = "Icon/cd2"
+                    },
 
 
                 };
@@ -62,12 +67,12 @@ namespace ProjectMato.iOS.Controls
                 _mainMenuCellInfos = new List<MenuCellInfo>()
                 {
 
-                    new MenuCellInfo() {Title = "删除", Code = "Delete", Icon = "Icon/search"},
-                    new MenuCellInfo() {Title = "重命名..", Code = "Rename", Icon = "Icon/headphone"},
-                    new MenuCellInfo() {Title = "播放此专辑", Code = "Play", Icon = "Icon/queue2"},
-                    new MenuCellInfo() {Title = "追加到列队", Code = "AddMusicCollectionToQueue", Icon = "Icon/folder"},
-                    new MenuCellInfo() {Title = "添加到..", Code = "AddMusicCollectionToPlaylist", Icon = "Icon/playlist"},
-                    new MenuCellInfo() {Title = "收藏至我最喜爱", Code = "AddToFavourite", Icon = "Icon/setting"}
+                    new MenuCellInfo() {Title = "删除", Code = "Delete", Icon = "Icon/remove"},
+                    new MenuCellInfo() {Title = "重命名..", Code = "Rename", Icon = "Icon/rename"},
+                    new MenuCellInfo() {Title = "播放此专辑", Code = "Play", Icon = "Icon/cdplay"},
+                    new MenuCellInfo() {Title = "追加到列队", Code = "AddMusicCollectionToQueue", Icon = "Icon/addtostack"},
+                    new MenuCellInfo() {Title = "添加到..", Code = "AddMusicCollectionToPlaylist", Icon = "Icon/addto"},
+                    new MenuCellInfo() {Title = "收藏至我最喜爱", Code = "AddToFavourite", Icon = "Icon/favouriteadd"}
 
                 };
             }

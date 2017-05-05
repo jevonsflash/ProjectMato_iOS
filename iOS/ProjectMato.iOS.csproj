@@ -321,13 +321,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Icon\AddToList.png" />
     <BundleResource Include="Icon\ff.png" />
     <BundleResource Include="Icon\LRCDocument.png" />
     <BundleResource Include="Icon\More.png" />
     <BundleResource Include="Icon\pause.png" />
     <BundleResource Include="Icon\play.png" />
-    <BundleResource Include="Icon\Remove.png" />
     <BundleResource Include="Icon\rew.png" />
     <BundleResource Include="Icon\slideout.png" />
     <BundleResource Include="Img\AppRecommend\1.png" />
@@ -701,6 +699,39 @@
     <EmbeddedResource Include="Style\TemplateDictionary.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\rename.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\playnext.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\play2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\microphone2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\favouriteadd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\clean.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\cdplay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\cd2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\addto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Icon\addtostack.png" />
   </ItemGroup>
   <Import Project="..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
