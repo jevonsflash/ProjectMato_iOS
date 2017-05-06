@@ -35,7 +35,7 @@ namespace ProjectMato.iOS
             else
             {
                 MainMasterDetailPage.Detail = GetPageInstance(obj.Name, obj.Args);
-
+                MainMasterDetailPage.IsPresented = false;
             }
         }
 

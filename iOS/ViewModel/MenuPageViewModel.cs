@@ -4,13 +4,29 @@ using ProjectMato.iOS.Model;
 using Xamarin.Forms;
 using System.ComponentModel;
 using GalaSoft.MvvmLight.Messaging;
+using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Helper;
 
 namespace ProjectMato.iOS.ViewModel
 {
     public class MenuPageViewModel : ViewModelBase
     {
-        public MenuPageViewModel()
+        private static MenuPageViewModel current;
+
+        public static MenuPageViewModel Current
+        {
+            get
+            {
+                if (current == null)
+                {
+                    current = new MenuPageViewModel();
+                }
+                return current;
+            }
+
+        }
+
+        private MenuPageViewModel()
         {
             this.PropertyChanged += MenuPageViewModel_PropertyChanged;
         }
@@ -19,7 +35,7 @@ namespace ProjectMato.iOS.ViewModel
         {
             if (e.PropertyName == nameof(CurrentMenuCellInfo))
             {
-                CommonHelper.GoPage(CurrentMenuCellInfo.Code);
+                Messenger.Default.Send<WindowArg>(new WindowArg(CurrentMenuCellInfo.Code), TokenHelper.WindowToken);
             }
         }
 
@@ -60,8 +76,12 @@ namespace ProjectMato.iOS.ViewModel
             }
             set
             {
-                _currentMenuCellInfo = value;
-                base.RaisePropertyChanged();
+                if (_currentMenuCellInfo != value)
+                {
+                    _currentMenuCellInfo = value;
+                    base.RaisePropertyChanged();
+                }
+
             }
         }
 

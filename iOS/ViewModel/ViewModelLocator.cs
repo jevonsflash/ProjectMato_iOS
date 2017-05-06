@@ -43,12 +43,10 @@ namespace ProjectMato.iOS.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<MenuPageViewModel>();
             SimpleIoc.Default.Register<SettingPageViewModel>();
         }
 
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
-        public MenuPageViewModel MenuPage => ServiceLocator.Current.GetInstance<MenuPageViewModel>();
         public SettingPageViewModel SettingPage => ServiceLocator.Current.GetInstance<SettingPageViewModel>();
 
         public static void Cleanup()

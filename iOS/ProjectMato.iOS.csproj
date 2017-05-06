@@ -222,7 +222,7 @@
     <Compile Include="Model\PlaylistTable.cs" />
     <Compile Include="Model\QueueEntryTable.cs" />
     <Compile Include="Model\SettingTable.cs" />
-    <Compile Include="Renders\MovableViewCellRenderer.cs" />
+    <Compile Include="Renders\GeneralViewCellRenderer.cs" />
     <Compile Include="Server\DatabaseManager.cs" />
     <Compile Include="Server\SettingServer.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

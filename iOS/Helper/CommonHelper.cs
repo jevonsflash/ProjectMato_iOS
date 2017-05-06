@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using GalaSoft.MvvmLight.Messaging;
 using ProjectMato.iOS.Common;
 using ProjectMato.iOS.Server;
+using ProjectMato.iOS.ViewModel;
 using Xamarin.Forms;
 using XLabs.Forms.Controls;
 
@@ -11,8 +13,9 @@ namespace ProjectMato.iOS.Helper
     {
         public static void GoPage(string pageName, object[] args = null)
         {
-            Messenger.Default.Send<WindowArg>(new WindowArg(pageName, args, false), TokenHelper.WindowToken);
-
+            
+            MenuPageViewModel.Current.CurrentMenuCellInfo =
+                MenuPageViewModel.Current.MainMenuCellInfos.FirstOrDefault(c => c.Code == pageName);
         }
 
         public static void GoNavigate(string pageName, object[] args = null)

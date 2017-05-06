@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Messaging;
 using ProjectMato.iOS.Controls;
 using ProjectMato.iOS.Enums;
 using ProjectMato.iOS.Helper;
+using ProjectMato.iOS.ViewModel;
 using Xamarin.Forms;
 using XLabs.Forms.Controls;
 
@@ -18,6 +19,7 @@ namespace ProjectMato.iOS
         public MenuPage()
         {
             InitializeComponent();
+            this.BindingContext = MenuPageViewModel.Current;
         }
     }
 
