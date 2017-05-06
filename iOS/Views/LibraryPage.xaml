@@ -4,8 +4,7 @@
                              xmlns:local="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
                              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
                              x:Class="ProjectMato.iOS.LibraryPage"
-                             BarTintColor="{StaticResource PhoneBackgroundBrush}"
-                             TintColor="{StaticResource PhoneForegroundBrush}">
+                             CurrentPageChanged="LibraryPage_OnCurrentPageChanged">
     <ContentPage Title="歌曲"
                  Icon="Icon/music">
         <Grid>
@@ -22,9 +21,11 @@
                     <Label Text="歌曲"
                            FontSize="{StaticResource HeaderFontSize}" />
                 </StackLayout>
-                <Button Grid.Row="0"
-                        Command="{Binding PlayAllCommand}"
-                        Text="播放全部"></Button>
+                <StackLayout  Grid.Row="0"
+                              HorizontalOptions="EndAndExpand">
+                    <Button Command="{Binding PlayAllCommand}"
+                            Text="播放全部"></Button>
+                </StackLayout>
                 <Grid Padding="{StaticResource DefaultContentPadding}"
                       Grid.Row="1">
                     <local:GeneralListView  RowHeight="50"

@@ -174,17 +174,16 @@ namespace ProjectMato.iOS
 
         public static void PauseOrResume(bool status)
         {
-            if (CurrentPlayer != null)
+
+            if (status)
             {
-                if (status)
-                {
-                    CurrentPlayer.Pause();
-                }
-                else
-                {
-                    CurrentPlayer.Play();
-                }
+                CurrentPlayer.Pause();
             }
+            else
+            {
+                CurrentPlayer.Play();
+            }
+
         }
 
         private static int GetShuffleMusicIndex(int originItem, int increment)

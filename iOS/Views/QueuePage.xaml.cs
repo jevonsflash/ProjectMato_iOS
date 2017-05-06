@@ -29,7 +29,7 @@ namespace ProjectMato.iOS
         private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             MusicRelatedViewModel.Current.ChangeMusic(e.SelectedItem as MusicInfo);
-            CommonHelper.GoPage("NowPlayingPage");
+            //CommonHelper.GoPage("NowPlayingPage");
 
         }
 

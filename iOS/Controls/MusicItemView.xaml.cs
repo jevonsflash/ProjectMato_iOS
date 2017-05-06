@@ -41,7 +41,7 @@ namespace ProjectMato.iOS.Controls
                 var musicInfo = BindingContext;
                 _mainMenuCellInfos = new List<MenuCellInfo>()
                 {
-                    new MenuCellInfo() {Title = "删除", Code = "Remove", Icon = "Icon/remove"},
+                    new MenuCellInfo() {Title = "删除", Code = "Delete", Icon = "Icon/remove"},
                     new MenuCellInfo() {Title = "添加到..", Code = "AddToPlaylist", Icon = "Icon/addto"},
                     new MenuCellInfo() {Title = "下一首播放", Code = "NextPlay", Icon = "Icon/playnext"},
                     new MenuCellInfo() {Title = "追加到列队", Code = "AddToQueue", Icon = "Icon/addtostack"},

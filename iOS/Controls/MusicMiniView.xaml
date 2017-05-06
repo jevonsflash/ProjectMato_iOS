@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             x:Class="ProjectMato.iOS.Controls.MusicMiniView"
+             VerticalOptions="EndAndExpand">
+
+
+    <Grid Margin="20,0"
+          HeightRequest="78"
+          BackgroundColor="{StaticResource PhoneContrastBackgroundBrush}">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
+        </Grid.GestureRecognizers>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto">
+            </ColumnDefinition>
+            <ColumnDefinition Width="1*">
+            </ColumnDefinition>
+            <ColumnDefinition Width="Auto">
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Image x:Name="AlbumArtImage"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   HeightRequest="78"
+                   Source="{Binding CurrentMusic.AlbumArt}">
+
+            </Image>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
+            </Grid.GestureRecognizers>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*">
+                </RowDefinition>
+                <RowDefinition Height="1*">
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   HorizontalTextAlignment="Start"
+                   FontSize="{StaticResource StandOutBodyFontSize}"
+                   VerticalTextAlignment="Center"
+                   Text="{Binding CurrentMusic.Title}"
+                   LineBreakMode="TailTruncation"
+                   TextColor="{StaticResource PhoneWeakenBackgroundBrush }">
+            </Label>
+            <Label Grid.Row="1"
+                   HorizontalTextAlignment="Start"
+                   VerticalTextAlignment="Start"
+                   Text="{Binding CurrentMusic.Artist}"
+                   LineBreakMode="TailTruncation"
+                   TextColor="{StaticResource PhoneWeakenBackgroundBrush}">
+            </Label>
+        </Grid>
+        <Grid Grid.Column="2">
+            <Button Command="{Binding NextCommand}"
+                    TextColor="{StaticResource PhoneContrastForegroundBrush}"
+                    Text="下一曲"></Button>
+        </Grid>
+    </Grid>
+</ContentView>

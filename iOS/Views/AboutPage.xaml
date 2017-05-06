@@ -4,57 +4,82 @@
              xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
              x:Class="ProjectMato.iOS.AboutPage"
              BackgroundColor="{StaticResource PhoneBackgroundBrush}">
-  <ContentPage.Content>
     <Grid>
-      <Grid x:Name="LayoutRoot" BackgroundColor="Transparent">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid x:Name="LayoutRoot"
+              BackgroundColor="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <!--TitlePanel 包含应用程序的名称和页标题-->
-        <StackLayout Grid.Row="0" Padding="{StaticResource DefaultContentPadding}">
-          <Label Text="关于"  FontSize="{StaticResource HeaderFontSize}"/>
-        </StackLayout>
+            <!--TitlePanel 包含应用程序的名称和页标题-->
+            <StackLayout Grid.Row="0"
+                         Padding="{StaticResource DefaultContentPadding}">
+                <Label Text="关于"
+                       FontSize="{StaticResource HeaderFontSize}" />
+            </StackLayout>
 
-        <!--ContentPanel - 在此处放置其他内容-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Padding="{StaticResource DefaultContentPadding}">
-          <ScrollView>
-            <Grid>
-              <Grid.RowDefinitions>
-                <RowDefinition x:Name="Row0Logo" Height="120"></RowDefinition>
-                <RowDefinition x:Name="Row1" Height="Auto"></RowDefinition>
-                <RowDefinition x:Name="Row2Title" Height="55"></RowDefinition>
-                <RowDefinition x:Name="Row3" Height="Auto"></RowDefinition>
-                <RowDefinition x:Name="Row4Title" Height="55"></RowDefinition>
-                <RowDefinition x:Name="Row5" Height="Auto"></RowDefinition>
-                <RowDefinition x:Name="Row6"></RowDefinition>
-                <RowDefinition x:Name="Row7Title" Height="55"></RowDefinition>
-                <RowDefinition x:Name="Row8" Height="Auto"></RowDefinition>
-                <RowDefinition x:Name="Row9Title" Height="55"></RowDefinition>
-                <RowDefinition x:Name="Row10" Height="Auto"></RowDefinition>
-                <RowDefinition x:Name="Row11" Height="55"></RowDefinition>
-                <RowDefinition x:Name="Row12" Height="Auto"></RowDefinition>
-                <RowDefinition x:Name="Row13" Height="55"></RowDefinition>
-                <RowDefinition x:Name="Row14" Height="Auto"></RowDefinition>
-              </Grid.RowDefinitions>
-              <Image Grid.Row="0" Source="Img/AlbumArtPlaceholder.png"></Image>
-              <StackLayout Grid.Row="1">
-                <Label Text="{Binding Brief}"></Label>
-                <Label  HorizontalOptions="Center" FontSize="21">
-                  -  版本
-                </Label>
-                <Label x:Name="TBVersion" Text="{Binding Version,Mode=OneWay}"></Label>
-                <Label HorizontalOptions="Center" FontSize="21">
-                  Design &amp; Code By LinXiao &#169; 2015
-                </Label>
-              </StackLayout>
-              <StackLayout Grid.Row="2" HeightRequest="55" BackgroundColor="{StaticResource PhoneChromeBrush}">
-                <Label  Text="说明 &amp; 感谢"  FontSize="{StaticResource SubtitleFontSize}" />
-              </StackLayout>
-              <StackLayout Grid.Row="3">
-                <Label>
-                  MVVMLight Toolkit
+            <!--ContentPanel - 在此处放置其他内容-->
+            <Grid x:Name="ContentPanel"
+                  Grid.Row="1"
+                  Padding="{StaticResource DefaultContentPadding}">
+                <ScrollView>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition x:Name="Row0Logo"
+                                           Height="120"></RowDefinition>
+                            <RowDefinition x:Name="Row1"
+                                           Height="Auto"></RowDefinition>
+                            <RowDefinition x:Name="Row2Title"
+                                           Height="55"></RowDefinition>
+                            <RowDefinition x:Name="Row3"
+                                           Height="Auto"></RowDefinition>
+                            <RowDefinition x:Name="Row4Title"
+                                           Height="55"></RowDefinition>
+                            <RowDefinition x:Name="Row5"
+                                           Height="Auto"></RowDefinition>
+                            <RowDefinition x:Name="Row6"></RowDefinition>
+                            <RowDefinition x:Name="Row7Title"
+                                           Height="55"></RowDefinition>
+                            <RowDefinition x:Name="Row8"
+                                           Height="Auto"></RowDefinition>
+                            <RowDefinition x:Name="Row9Title"
+                                           Height="55"></RowDefinition>
+                            <RowDefinition x:Name="Row10"
+                                           Height="Auto"></RowDefinition>
+                            <RowDefinition x:Name="Row11"
+                                           Height="55"></RowDefinition>
+                            <RowDefinition x:Name="Row12"
+                                           Height="Auto"></RowDefinition>
+                            <RowDefinition x:Name="Row13"
+                                           Height="55"></RowDefinition>
+                            <RowDefinition x:Name="Row14"
+                                           Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="0"
+                               Source="Img/AlbumArtPlaceholder.png"></Image>
+                        <StackLayout Grid.Row="1">
+                            <Label Text="{Binding Brief}"></Label>
+                            <Label  HorizontalOptions="Center"
+                                    FontSize="21">
+                                -  版本
+                            </Label>
+                            <Label x:Name="TBVersion"
+                                   Text="{Binding Version,Mode=OneWay}"></Label>
+                            <Label HorizontalOptions="Center"
+                                   FontSize="21">
+                                Design &amp; Code By LinXiao &#169; 2015
+                            </Label>
+                        </StackLayout>
+                        <StackLayout Grid.Row="2"
+                                     HeightRequest="55"
+                                     BackgroundColor="{StaticResource PhoneChromeBrush}">
+                            <Label  Text="说明 &amp; 感谢"
+                                    FontSize="{StaticResource SubtitleFontSize}" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="3">
+                            <Label>
+                                MVVMLight Toolkit
 
                   Metro Studio
 
@@ -63,115 +88,148 @@
                   歌词内容来源于歌词迷(geci.me)，部分图标元素来源于互联网。
 
                   隐私声明: 本应用收集应用使用信息用于改善产品，而不涉及用户隐私。
-                </Label>
-              </StackLayout>
+                            </Label>
+                        </StackLayout>
 
-              <StackLayout Grid.Row="4" HeightRequest="55" BackgroundColor="{StaticResource PhoneChromeBrush}">
-                <Label  Text="关于" FontSize="{StaticResource SubtitleFontSize}"/>
-              </StackLayout>
-              <StackLayout  Grid.Row="5" >
-                <Label>
-                  首先感谢下载并体验，祝您有个好心情
-                </Label>
-                <Label x:Name="TBVersion2" Text="{Binding Version,Mode=OneWay}"></Label>
-                <Label>
+                        <StackLayout Grid.Row="4"
+                                     HeightRequest="55"
+                                     BackgroundColor="{StaticResource PhoneChromeBrush}">
+                            <Label  Text="关于"
+                                    FontSize="{StaticResource SubtitleFontSize}" />
+                        </StackLayout>
+                        <StackLayout  Grid.Row="5">
+                            <Label>
+                                首先感谢下载并体验，祝您有个好心情
+                            </Label>
+                            <Label x:Name="TBVersion2"
+                                   Text="{Binding Version,Mode=OneWay}"></Label>
+                            <Label>
 
-                  更新内容：
-                </Label>
+                                更新内容：
+                            </Label>
 
-                <controls:GeneralListView
-                  ItemsSource="{Binding StrUpdate}"
-                  >
-                  <controls:GeneralListView>
-                    <DataTemplate>
-                      <ViewCell>
-                        <Label Text="{Binding}"  FontSize="21" ></Label>
-                      </ViewCell>
-                    </DataTemplate>
-                  </controls:GeneralListView>
-                </controls:GeneralListView>
+                            <controls:GeneralListView ItemsSource="{Binding StrUpdate}">
+                                <controls:GeneralListView>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Label Text="{Binding}"
+                                                   FontSize="21"></Label>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </controls:GeneralListView>
+                            </controls:GeneralListView>
 
-                <Label Text="{Binding Introduction}"></Label>
+                            <Label Text="{Binding Introduction}"></Label>
 
 
-                <Label>
+                            <Label>
 
-                  如果您在使用的过程中有疑问，可以参考下面的使用帮助，也可以发送邮件给我。
+                                如果您在使用的过程中有疑问，可以参考下面的使用帮助，也可以发送邮件给我。
                   邮件链接在【意见反馈】一栏。
-                </Label>
-              </StackLayout>
-              <StackLayout Grid.Row="7" HeightRequest="55" BackgroundColor="{StaticResource PhoneChromeBrush}">
-                <Label  Text="意见反馈"  FontSize="{StaticResource SubtitleFontSize}"/>
-              </StackLayout>
-              <Label Grid.Row="8">
+                            </Label>
+                        </StackLayout>
+                        <StackLayout Grid.Row="7"
+                                     HeightRequest="55"
+                                     BackgroundColor="{StaticResource PhoneChromeBrush}">
+                            <Label  Text="意见反馈"
+                                    FontSize="{StaticResource SubtitleFontSize}" />
+                        </StackLayout>
+                        <Label Grid.Row="8">
 
-                如果您觉得番茄播放器不错，请支持我！
+                            如果您觉得番茄播放器不错，请支持我！
 
-              </Label>
-              <Button x:Name="BTNLove" Command="{Binding GoLoveCommand}" Grid.Row="9">
-                亲，给个好评吧
-              </Button>
-              <Label Grid.Row="10" >
+                        </Label>
+                        <Button x:Name="BTNLove"
+                                Command="{Binding GoLoveCommand}"
+                                Grid.Row="9">
+                            亲，给个好评吧
+                        </Button>
+                        <Label Grid.Row="10">
 
-                同样，我非常期待您的意见和建议。请将要反馈的内容发送到以下地址，对于每一条建议我都会认真回复：
+                            同样，我非常期待您的意见和建议。请将要反馈的内容发送到以下地址，对于每一条建议我都会认真回复：
 
                 也可以关注我的新浪微博：
 
-              </Label>
-              <StackLayout Grid.Row="11" HeightRequest="55" BackgroundColor="{StaticResource PhoneChromeBrush}">
-                <Label  Text="使用帮助"  FontSize="{StaticResource SubtitleFontSize}"/>
-              </StackLayout>
-              <StackLayout Grid.Row="12" HorizontalOptions="Center" VerticalOptions="Start">
-                <Label >
-                  1.长按技巧，长按播放或随机播放按钮会出现小范围的播放选项，在列队页面也可通过长按激活排序状态
-                </Label>
-                <Label>
-                  2.在新歌曲拷贝到手机后，需要通过“更新库”同步至播放器，否则不会出现在库里面。
-                </Label>
-                <Label>
-                  3.由于技术限制，暂无法读取音乐文件专辑封面图片，将在未来版本中修复。
-                </Label>
-                <Label>
-                  4.新加入手势功能，在首页您可以通过滑动专辑图片进行上一曲/下一曲操作
-                </Label>
-              </StackLayout>
-              <StackLayout Grid.Row="13" HeightRequest="55" BackgroundColor="{StaticResource PhoneChromeBrush}">
-                <Label  Text="应用推荐"  FontSize="{StaticResource SubtitleFontSize}"/>
-              </StackLayout>
-              <Grid Grid.Row="14">
-                <StackLayout>
-                  <StackLayout HeightRequest="60" Orientation="Horizontal">
-                    <Image WidthRequest="55" VerticalOptions="Start" Source="Img/AppRecommend/1.png"></Image>
-                    <StackLayout WidthRequest="200">
-                      <Label  Text="心情天气"></Label>
-                      <Label  Text="简洁漂亮的天气预报" FontSize="18"></Label>
-                    </StackLayout>
-                    <Button x:Name="BTNGoAPP1" Clicked="BTNGoAPP1_Click"  Text="去看看"></Button>
-                  </StackLayout>
-                  <StackLayout HeightRequest="60" Orientation="Horizontal">
-                    <Image WidthRequest="55" VerticalOptions="Start" Source="Img/AppRecommend/2.png"></Image>
-                    <StackLayout WidthRequest="200">
-                      <Label  Text="健康食疗菜谱"></Label>
-                      <Label  Text="食疗菜谱指南" FontSize="18"></Label>
-                    </StackLayout>
-                    <Button x:Name="BTNGoAPP2" Clicked="BTNGoAPP2_Click"  Text="去看看"></Button>
-                  </StackLayout>
-                  <StackLayout HeightRequest="60" Orientation="Horizontal">
-                    <Image WidthRequest="55" VerticalOptions="Start" Source="Img/AppRecommend/3.png"></Image>
-                    <StackLayout WidthRequest="200">
-                      <Label  Text="番茄健康助手"></Label>
-                      <Label  Text="疾病，病状，药品查询" FontSize="18"></Label>
-                    </StackLayout>
-                    <Button x:Name="BTNGoAPP3" Clicked="BTNGoAPP3_Click"  Text="去看看"></Button>
-                  </StackLayout>
-                </StackLayout>
-              </Grid>
+                        </Label>
+                        <StackLayout Grid.Row="11"
+                                     HeightRequest="55"
+                                     BackgroundColor="{StaticResource PhoneChromeBrush}">
+                            <Label  Text="使用帮助"
+                                    FontSize="{StaticResource SubtitleFontSize}" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="12"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Start">
+                            <Label>
+                                1.长按技巧，长按播放或随机播放按钮会出现小范围的播放选项，在列队页面也可通过长按激活排序状态
+                            </Label>
+                            <Label>
+                                2.在新歌曲拷贝到手机后，需要通过“更新库”同步至播放器，否则不会出现在库里面。
+                            </Label>
+                            <Label>
+                                3.由于技术限制，暂无法读取音乐文件专辑封面图片，将在未来版本中修复。
+                            </Label>
+                            <Label>
+                                4.新加入手势功能，在首页您可以通过滑动专辑图片进行上一曲/下一曲操作
+                            </Label>
+                        </StackLayout>
+                        <StackLayout Grid.Row="13"
+                                     HeightRequest="55"
+                                     BackgroundColor="{StaticResource PhoneChromeBrush}">
+                            <Label  Text="应用推荐"
+                                    FontSize="{StaticResource SubtitleFontSize}" />
+                        </StackLayout>
+                        <Grid Grid.Row="14">
+                            <StackLayout>
+                                <StackLayout HeightRequest="60"
+                                             Orientation="Horizontal">
+                                    <Image WidthRequest="55"
+                                           VerticalOptions="Start"
+                                           Source="Img/AppRecommend/1.png"></Image>
+                                    <StackLayout WidthRequest="200">
+                                        <Label  Text="心情天气"></Label>
+                                        <Label  Text="简洁漂亮的天气预报"
+                                                FontSize="18"></Label>
+                                    </StackLayout>
+                                    <Button x:Name="BTNGoAPP1"
+                                            Clicked="BTNGoAPP1_Click"
+                                            Text="去看看"></Button>
+                                </StackLayout>
+                                <StackLayout HeightRequest="60"
+                                             Orientation="Horizontal">
+                                    <Image WidthRequest="55"
+                                           VerticalOptions="Start"
+                                           Source="Img/AppRecommend/2.png"></Image>
+                                    <StackLayout WidthRequest="200">
+                                        <Label  Text="健康食疗菜谱"></Label>
+                                        <Label  Text="食疗菜谱指南"
+                                                FontSize="18"></Label>
+                                    </StackLayout>
+                                    <Button x:Name="BTNGoAPP2"
+                                            Clicked="BTNGoAPP2_Click"
+                                            Text="去看看"></Button>
+                                </StackLayout>
+                                <StackLayout HeightRequest="60"
+                                             Orientation="Horizontal">
+                                    <Image WidthRequest="55"
+                                           VerticalOptions="Start"
+                                           Source="Img/AppRecommend/3.png"></Image>
+                                    <StackLayout WidthRequest="200">
+                                        <Label  Text="番茄健康助手"></Label>
+                                        <Label  Text="疾病，病状，药品查询"
+                                                FontSize="18"></Label>
+                                    </StackLayout>
+                                    <Button x:Name="BTNGoAPP3"
+                                            Clicked="BTNGoAPP3_Click"
+                                            Text="去看看"></Button>
+                                </StackLayout>
+                            </StackLayout>
+                        </Grid>
+                    </Grid>
+                </ScrollView>
             </Grid>
-          </ScrollView>
         </Grid>
-      </Grid>
+        <controls:MusicMiniView></controls:MusicMiniView>
     </Grid>
-
-  </ContentPage.Content>
-
 </ContentPage>
+

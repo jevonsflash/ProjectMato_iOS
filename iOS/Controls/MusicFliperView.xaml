@@ -25,14 +25,14 @@
         </Grid.RowDefinitions>
         <Grid Grid.Column="1"
               Grid.Row="0">
-            <local:EllipseView Color="White"
-                               x:Name="AlbumArtBorder">
-            </local:EllipseView>
-            <controls:CircleImage x:Name="AlbumArtImage"
-                                  HorizontalOptions="Center"
-                                  VerticalOptions="Center"
-                                  Source="{Binding AlbumArt}">
-            </controls:CircleImage>
+            <BoxView Color="White"
+                     x:Name="AlbumArtBorder">
+            </BoxView>
+            <Image x:Name="AlbumArtImage"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Source="{Binding AlbumArt}">
+            </Image>
         </Grid>
         <Grid Grid.Column="1"
               Grid.Row="1">

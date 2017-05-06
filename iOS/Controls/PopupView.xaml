@@ -7,7 +7,7 @@
     <Grid x:Name="MainLayout">
         <BoxView x:Name="BackView"
                  BackgroundColor="Black"
-                 Opacity="0.5">
+                 Opacity="0.9">
             <controls:ImageButton Clicked="Button_OnClicked"></controls:ImageButton>
         </BoxView>
         <Grid>
@@ -24,12 +24,11 @@
             <StackLayout  Grid.Column="1"
                           Grid.Row="1">
                 <Grid x:Name="Popup"></Grid>
-                <Grid BackgroundColor="{StaticResource PhoneAccentBrush}">
+                <Grid>
                     <Button Text="取消"
                             x:Name="CancelButton"
                             TextColor="White"
                             FontSize="Large"
-                            HorizontalOptions="Center"
                             Clicked="Button_OnClicked"></Button>
                 </Grid>
             </StackLayout>

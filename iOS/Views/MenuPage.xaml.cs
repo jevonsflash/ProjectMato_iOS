@@ -19,11 +19,6 @@ namespace ProjectMato.iOS
         {
             InitializeComponent();
         }
-
-        private void Cell_OnTapped(object sender, EventArgs e)
-        {
-            
-        }
     }
 
 }

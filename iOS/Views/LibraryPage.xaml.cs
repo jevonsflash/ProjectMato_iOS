@@ -13,9 +13,6 @@ namespace ProjectMato.iOS
 {
     public partial class LibraryPage
     {
-        private PlaylistChoosePage playlistChoosePage;
-        private MusicFunctionPage musicFunctionPage;
-        private NavigationPage detailPage;
 
         public LibraryPage()
         {
@@ -43,6 +40,13 @@ namespace ProjectMato.iOS
         {
             MusicRelatedViewModel.Current.ChangeMusic(e.SelectedItem as MusicInfo);
             CommonHelper.GoPage("NowPlayingPage");
+        }
+
+        private void LibraryPage_OnCurrentPageChanged()
+        {
+            this.popup?.HidePopup();
+            this.popup2?.HidePopup();
+            this.popup3?.HidePopup();
         }
     }
 }

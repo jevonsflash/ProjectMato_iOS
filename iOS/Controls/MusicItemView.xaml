@@ -21,12 +21,13 @@
                      HorizontalOptions="Center"
                      Orientation="Horizontal">
             <Grid>
-                <controls:ImageButton Image="Icon/More"
-                                      Clicked="MoreButton_OnClicked">
+                <Button Text="●●●"
+                        FontSize="6"
+                        Clicked="MoreButton_OnClicked">
 
-                </controls:ImageButton>
+                </Button>
             </Grid>
-            
+
         </StackLayout>
     </Grid>
 

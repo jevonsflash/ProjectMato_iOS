@@ -35,6 +35,7 @@
                 </controls:GeneralListView>
             </Grid>
         </Grid>
+        <controls:MusicMiniView></controls:MusicMiniView>
         <controls:PopupView  x:Name="popup"></controls:PopupView>
     </Grid>
 </ContentPage>

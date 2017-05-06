@@ -4,7 +4,7 @@
              HeightRequest="350"
              xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
              x:Class="ProjectMato.iOS.PlaylistChoosePage"
-             BackgroundColor="{StaticResource PhoneBackgroundBrush}">
+             BackgroundColor="Transparent">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto">

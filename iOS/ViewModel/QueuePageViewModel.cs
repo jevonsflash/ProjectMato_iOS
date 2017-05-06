@@ -15,24 +15,31 @@ namespace ProjectMato.iOS.ViewModel
         public QueuePageViewModel()
         {
             this.DeleteCommand = new RelayCommand(c => true, DeleteAction);
+            this.CleanQueueCommand = new RelayCommand(c => true, CleanQueueAction);
             this.Musics.CollectionChanged += Musics_CollectionChanged;
+        }
+
+        private void CleanQueueAction(object obj)
+        {
+            this.Musics.Clear();
         }
 
         private void Musics_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Move)
             {
-
                 var oldIndex = e.OldStartingIndex;
                 var newIndex = e.NewStartingIndex;
                 MusicInfoServer.Current.ReorderQueue(Musics[oldIndex], Musics[newIndex]);
-
             }
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
                 MusicInfoServer.Current.DeleteMusicInfoFormQueueEntry(e.OldItems[0] as MusicInfo);
             }
-
+            else if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                MusicInfoServer.Current.ClearQueue();
+            }
         }
 
         public void DeleteAction(object obj)
@@ -64,5 +71,6 @@ namespace ProjectMato.iOS.ViewModel
         }
 
         public RelayCommand DeleteCommand { get; set; }
+        public RelayCommand CleanQueueCommand { get; set; }
     }
 }
