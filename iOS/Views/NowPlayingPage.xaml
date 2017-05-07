@@ -9,8 +9,8 @@
     <ContentPage.Content>
         <Grid>
             <Image x:Name="NowPlayingBackgroundImage"
-                   Source="Img/Violet"
-                   Aspect="AspectFill"></Image>
+                   Source="Img/mask.png"
+                   Aspect="Fill"></Image>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

@@ -29,7 +29,7 @@
                                     Text="{Binding PlaylistInfo.Title,Mode=TwoWay}"></controls:ExtendedEntry>
             <controls:ExtendedButton Text="提交"
                                      x:Name="SubmitButton"
-                                     TextColor="{StaticResource PhoneForegroundBrush}"
+                                     TextColor="{DynamicResource PhoneForegroundBrush}"
                                      HorizontalContentAlignment="Start"
                                      FontSize="Large"
                                      Command="{Binding SubmitCommand}"

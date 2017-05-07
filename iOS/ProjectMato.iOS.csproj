@@ -365,40 +365,7 @@
     <BundleResource Include="Img\AlbumArtPlaceholder.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Img\Fairyland.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Img\Girl.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Img\Grass.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Img\Guitar.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Img\Mato.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Img\metro.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Img\Peace.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Img\Slide_200x550.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Img\Umbrella.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Img\UserContro.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Img\Violet.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Img\Wine.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml">
@@ -740,6 +707,36 @@
     <EmbeddedResource Include="Controls\MusicMiniView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Img\mask.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Img\Linear1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Img\Linear2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Img\Linear3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Img\Linear4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Img\Linear5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Img\Linear6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Img\Linear7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Img\Linear8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Img\Linear9.png" />
   </ItemGroup>
   <Import Project="..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

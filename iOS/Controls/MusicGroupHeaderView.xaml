@@ -4,14 +4,14 @@
              xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
              x:Class="ProjectMato.iOS.Controls.MusicGroupHeaderView">
     <ContentView.Content>
-        <Grid BackgroundColor="{StaticResource PhoneWeakenBackgroundBrush}">
+        <Grid BackgroundColor="{DynamicResource PhoneWeakenBackgroundBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto">
                 </ColumnDefinition>
                 <ColumnDefinition>
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <controls:EllipseView Color="{StaticResource PhoneContrastBackgroundBrush}"
+            <controls:EllipseView Color="{DynamicResource PhoneContrastBackgroundBrush}"
                                   WidthRequest="50">
             </controls:EllipseView>
             <Label VerticalTextAlignment="Center"

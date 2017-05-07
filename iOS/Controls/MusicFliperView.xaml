@@ -8,6 +8,7 @@
              VerticalOptions="CenterAndExpand"
              WidthRequest="{StaticResource Bound}"
              HeightRequest="{StaticResource Bound}">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*">
@@ -25,12 +26,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.Column="1"
               Grid.Row="0">
-            <BoxView Color="White"
-                     x:Name="AlbumArtBorder">
-            </BoxView>
-            <Image x:Name="AlbumArtImage"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
+            <Image HorizontalOptions="Fill"
+                   VerticalOptions="Fill"
                    Source="{Binding AlbumArt}">
             </Image>
         </Grid>
@@ -48,14 +45,14 @@
                    VerticalTextAlignment="Center"
                    Text="{Binding Title}"
                    LineBreakMode="TailTruncation"
-                   TextColor="{StaticResource PhoneForegroundBrush }">
+                   TextColor="{StaticResource PhoneContrastForegroundBrush }">
             </Label>
             <Label Grid.Row="1"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Center"
                    Text="{Binding Artist}"
                    LineBreakMode="TailTruncation"
-                   TextColor="{StaticResource PhoneForegroundBrush}">
+                   TextColor="{StaticResource PhoneContrastForegroundBrush}">
             </Label>
         </Grid>
     </Grid>

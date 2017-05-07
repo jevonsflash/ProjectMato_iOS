@@ -224,9 +224,13 @@ namespace ProjectMato.iOS
             get { return _isPlaying; }
             set
             {
-                _isPlaying = value;
+                if (_isPlaying != value)
+                {
+                    _isPlaying = value;
 
-                RaisePropertyChanged();
+                    RaisePropertyChanged();
+
+                }
             }
         }
 

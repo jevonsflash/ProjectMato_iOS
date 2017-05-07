@@ -8,7 +8,7 @@
 
     <Grid Margin="20,0"
           HeightRequest="78"
-          BackgroundColor="{StaticResource PhoneContrastBackgroundBrush}">
+          BackgroundColor="{DynamicResource PhoneContrastBackgroundBrush}">
         <Grid.GestureRecognizers>
             <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
         </Grid.GestureRecognizers>
@@ -45,14 +45,14 @@
                    VerticalTextAlignment="Center"
                    Text="{Binding CurrentMusic.Title}"
                    LineBreakMode="TailTruncation"
-                   TextColor="{StaticResource PhoneWeakenBackgroundBrush }">
+                   TextColor="{DynamicResource PhoneWeakenBackgroundBrush }">
             </Label>
             <Label Grid.Row="1"
                    HorizontalTextAlignment="Start"
                    VerticalTextAlignment="Start"
                    Text="{Binding CurrentMusic.Artist}"
                    LineBreakMode="TailTruncation"
-                   TextColor="{StaticResource PhoneWeakenBackgroundBrush}">
+                   TextColor="{DynamicResource PhoneWeakenBackgroundBrush}">
             </Label>
         </Grid>
         <Grid Grid.Column="2">

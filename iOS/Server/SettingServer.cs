@@ -142,17 +142,25 @@ namespace ProjectMato.iOS.Server
 
             DatabaseManager.Current.ClearBackground();
 
-            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("绿茵", "Grass", "Img/Grass.png", false, "0x091000|0x122000"));
-            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("伞", "Umbrella", "Img/Umbrella.png", false, "0x2f1f01|0x462e01"));
-            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("电吉他", "Guitar", "Img/Guitar.jpg", false, "0x060829|0x090e44"));
-            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("女孩", "Girl", "Img/Girl.jpg", false, "0x241418|0x3f232a"));
+            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("绿茵", "Grass", "Img/Linear1.png", false, "#93ad34", "#198a62", "#EFF5D8"));
+            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("清蓝", "Grass", "Img/Linear2.png", false, "#31A7D4", "#5648c1", "#EFEDFF"));
+            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("亮紫", "Grass", "Img/Linear3.png", false, "#2b85a6", "#7b4397", "#FCF7FF"));
+            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("沼泽", "Grass", "Img/Linear4.png", false, "#248556", "#16226e", "#F1FFF8"));
+            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("赤岩", "Grass", "Img/Linear5.png", false, "#d16645", "#13052e", "#FFF4F1"));
+            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("番茄", "Grass", "Img/Linear6.png", false, "#dca74a", "#d23c39", "#FFF3F3"));
+            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("绿茵", "Grass", "Img/Linear7.png", false, "#7f7280", "#000000", "#EAEAEA"));
+            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("绿茵", "Grass", "Img/Linear8.png", false, "#49976D", "#0c2b50", "#EFF6FF"));
+            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("绿茵", "Grass", "Img/Linear9.png", true, "#29c0db", "#1178c2", "#E9F6FF"));
 
-            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("平静", "Peace", "Img/Peace.png", false, "0x01102f|0x01194b"));
-            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("地下铁", "Metro", "Img/Metro.png", false, "0x000000|0x2d2d2d"));
-            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("紫罗兰", "Violet", "Img/Violet.png", false, "0x1d082d|0x2d0d47"));
-            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("童话", "Fairyland", "Img/Fairyland.png", false, "0x14262d|0x213e4a"));
-            DatabaseManager.Current.AddBackgroundEntry(new BackgroundTable("葡萄酒", "Wine", "Img/Wine.png", true, "0x2d1d20|0x4a2f35"));
 
+        }
+
+        private string GetColorFromAppconfig(string key)
+        {
+
+            var result = "";
+            result = App.Current.Resources[key] as string;
+            return result;
         }
 
         public List<SettingTable> GetAllSettings()
@@ -181,14 +189,17 @@ namespace ProjectMato.iOS.Server
 
         public BackgroundTable GetSelectedBackground()
         {
-            return DatabaseManager.Current.QuerySelectedBackground();
-
+            var result = DatabaseManager.Current.QuerySelectedBackground();
+            if (result == null)
+            {
+                result = GetAllBackgrounds().FirstOrDefault(c => c.IsSel);
+            }
+            return result;
         }
 
         public void SetSelectedBackground(BackgroundTable background)
         {
             DatabaseManager.Current.Update(background);
-            
         }
     }
 }

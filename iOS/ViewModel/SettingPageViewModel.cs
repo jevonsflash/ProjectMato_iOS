@@ -8,8 +8,10 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using GalaSoft.MvvmLight;
 using ProjectMato.iOS.Common;
+using ProjectMato.iOS.Helper;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
+using Xamarin.Forms;
 
 namespace ProjectMato.iOS.ViewModel
 {
@@ -21,10 +23,8 @@ namespace ProjectMato.iOS.ViewModel
             IsAutoLrc = SettingServer.Current.GetSetting(SettingServer.Properties.IsAutoLrc);
             IsAutoGA = SettingServer.Current.GetSetting(SettingServer.Properties.IsAutoGA);
             IsAutoLrc = SettingServer.Current.GetSetting(SettingServer.Properties.IsAutoLrc);
-            this.SelectedBackgroundTable = BackgroundList.FirstOrDefault(c => c.IsSel = true);
         }
 
-        //todo: 需要优化
         private void SettingPageViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(SelectedBackgroundTable))
@@ -40,7 +40,10 @@ namespace ProjectMato.iOS.ViewModel
                     {
                         BackgroundList[i].IsSel = true;
                         SettingServer.Current.SetSelectedBackground(BackgroundList[i]);
-
+                        App.Current.Resources["PhoneForegroundBrush"] = Color.FromHex(BackgroundList[i].ColorB);
+                        App.Current.Resources["PhoneContrastBackgroundBrush"] = Color.FromHex(BackgroundList[i].ColorA);
+                        App.Current.Resources["PhoneWeakenBackgroundBrush"] = Color.FromHex(BackgroundList[i].ColorC);
+                        App.Current.Resources["PhoneBackgroundImage"] = BackgroundList[i].Img;
                     }
                 }
             }
@@ -123,14 +126,20 @@ namespace ProjectMato.iOS.ViewModel
             {
                 if (_selectedBackgroundTable == null)
                 {
-                    _selectedBackgroundTable = new BackgroundTable();
+                    _selectedBackgroundTable = BackgroundList.FirstOrDefault(c => c.IsSel = true);
+
                 }
                 return _selectedBackgroundTable;
             }
             set
             {
-                _selectedBackgroundTable = value;
-                RaisePropertyChanged();
+                if (!Equals(_selectedBackgroundTable, value))
+                {
+                    _selectedBackgroundTable = value;
+                    RaisePropertyChanged();
+
+                }
+
             }
         }
 

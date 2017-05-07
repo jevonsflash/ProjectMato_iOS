@@ -4,6 +4,7 @@
              BindingContext="{Binding Source={StaticResource Locator} ,Path=SettingPage}"
              xmlns:local="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
              x:Class="ProjectMato.iOS.SettingPage"
+             
              BackgroundColor="{StaticResource PhoneBackgroundBrush}">
 
 

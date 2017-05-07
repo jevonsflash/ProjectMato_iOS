@@ -22,9 +22,9 @@
             <Grid Padding="{StaticResource DefaultContentPadding}"
                   Grid.Row="1">
                 <controls:AutoCompleteView Placeholder="请输入歌曲、艺术家、或专辑的名称"
-                                           SearchTextColor="{StaticResource PhoneForegroundBrush}"
+                                           SearchTextColor="{DynamicResource PhoneForegroundBrush}"
                                            TextColor="{StaticResource PhoneBackgroundBrush}"
-                                           TextBackgroundColor="{StaticResource PhoneForegroundBrush}"
+                                           TextBackgroundColor="{DynamicResource PhoneForegroundBrush}"
                                            SearchBackgroundColor="{StaticResource PhoneBackgroundBrush}"
                                            SearchBorderRadius="5"
                                            SelectedCommand="{Binding ItemSelectedCommand}"

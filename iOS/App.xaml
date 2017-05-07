@@ -16,6 +16,7 @@
             <system:Double x:Key="StandOutBodyFontSize">28</system:Double>
             <system:Double x:Key="BodyFontSize">18</system:Double>
             <system:String x:Key="Bound">0</system:String>
+            <system:String x:Key="PhoneBackgroundImage">aa</system:String>
             <Color x:Key="PhoneBackgroundBrush">WhiteSmoke</Color>
             <Color x:Key="PhoneForegroundBrush">#198a62</Color>
             <Color x:Key="PhoneContrastBackgroundBrush">#93ad34</Color>
@@ -23,33 +24,51 @@
             <Color x:Key="PhoneContrastForegroundBrush">White</Color>
             <Color x:Key="PhoneAccentBrush">Red</Color>
             <Color x:Key="PhoneChromeBrush">Gray</Color>
+
             <Color x:Key="Linear1AColor">#93ad34</Color>
             <Color x:Key="Linear1BColor">#198a62</Color>
-            <Color x:Key="Linear2AColor">#5648c1</Color>
-            <Color x:Key="Linear2BColor">#6fe3e7</Color>
-            <Color x:Key="Linear3AColor">#7b4397</Color>
-            <Color x:Key="Linear3BColor">#2b85a6</Color>
+            <Color x:Key="Linear1CColor">#EFF5D8</Color>
+
+            <Color x:Key="Linear2AColor">#31A7D4</Color>
+            <Color x:Key="Linear2BColor">#5648c1</Color>
+            <Color x:Key="Linear2CColor">#EFEDFF</Color>
+
+            <Color x:Key="Linear3AColor">#2b85a6</Color>
+            <Color x:Key="Linear3BColor">#7b4397</Color>
+            <Color x:Key="Linear3CColor">#FCF7FF</Color>
+
             <Color x:Key="Linear4AColor">#248556</Color>
             <Color x:Key="Linear4BColor">#16226e</Color>
+            <Color x:Key="Linear4CColor">#F1FFF8</Color>
+
             <Color x:Key="Linear5AColor">#d16645</Color>
             <Color x:Key="Linear5BColor">#13052e</Color>
-            <Color x:Key="Linear6AColor">#d23c39</Color>
-            <Color x:Key="Linear6BColor">#dca74a</Color>
+            <Color x:Key="Linear5CColor">#FFF4F1</Color>
+
+            <Color x:Key="Linear6AColor">#dca74a</Color>
+            <Color x:Key="Linear6BColor">#d23c39</Color>
+            <Color x:Key="Linear6CColor">#FFF3F3</Color>
+
             <Color x:Key="Linear7AColor">#7f7280</Color>
             <Color x:Key="Linear7BColor">#000000</Color>
-            <Color x:Key="Linear8AColor">#77cfa0</Color>
+            <Color x:Key="Linear7CColor">#EAEAEA</Color>
+
+            <Color x:Key="Linear8AColor">#49976D</Color>
             <Color x:Key="Linear8BColor">#0c2b50</Color>
+            <Color x:Key="Linear8CColor">#EFF6FF</Color>
+
             <Color x:Key="Linear9AColor">#29c0db</Color>
             <Color x:Key="Linear9BColor">#1178c2</Color>
+            <Color x:Key="Linear9CColor">#E9F6FF</Color>
 
             <Style TargetType="Label">
                 <Setter Property="TextColor"
-                        Value="{StaticResource PhoneForegroundBrush}">
+                        Value="{DynamicResource PhoneForegroundBrush}">
                 </Setter>
             </Style>
             <Style TargetType="Button">
                 <Setter Property="TextColor"
-                        Value="{StaticResource PhoneForegroundBrush}">
+                        Value="{DynamicResource PhoneForegroundBrush}">
                 </Setter>
                 <Setter Property="Margin"
                         Value="10,10"></Setter>
@@ -92,6 +111,7 @@
                             <Image  Aspect="AspectFit"
                                     Source="{Binding Img}" />
                             <Label Margin="20"
+                                   TextColor="{Binding ColorA}"
                                    Text="{Binding Title}"
                                    FontSize="Large" />
                         </Grid>

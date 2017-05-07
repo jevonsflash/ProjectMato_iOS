@@ -19,7 +19,9 @@ namespace ProjectMato.iOS.Model
             public const string Name = "Name";
             public const string Img = "Img";
             public const string IsSel = "IsSel";
-            public const string Ext = "Ext";
+            public const string ColorA = "ColorA";
+            public const string ColorB = "ColorB";
+            public const string ColorC = "ColorC";
         }
 
         public BackgroundTable()
@@ -28,15 +30,16 @@ namespace ProjectMato.iOS.Model
             Name = string.Empty;
             Img = string.Empty;
             IsSel = false;
-            Ext = string.Empty;
         }
-        public BackgroundTable(string title, string name, string img, bool isSel, string ext)
+        public BackgroundTable(string title, string name, string img, bool isSel, string colorA, string colorB, string colorC)
         {
             Title = title;
             Name = name;
             Img = img;
             IsSel = isSel;
-            Ext = ext;
+            ColorA = colorA;
+            ColorB = colorB;
+            ColorC = colorC;
         }
 
         public string Title { get; set; }
@@ -52,6 +55,8 @@ namespace ProjectMato.iOS.Model
                 RaisePropertyChanged(nameof(IsSel));
             }
         }
-        public string Ext { get; set; }
+        public string ColorA { get; set; }
+        public string ColorB { get; set; }
+        public string ColorC { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace ProjectMato.iOS
 {
@@ -9,14 +10,6 @@ namespace ProjectMato.iOS
         public MusicFliperView()
         {
             InitializeComponent();
-            this.AlbumArtBorder.SizeChanged += AlbumArtBorder_SizeChanged;
-        }
-
-        private void AlbumArtBorder_SizeChanged(object sender, EventArgs e)
-        {
-            AlbumArtImage.HeightRequest = AlbumArtBorder.Height - 5;
-            AlbumArtImage.WidthRequest = AlbumArtBorder.Width - 5;
-
         }
     }
 }
