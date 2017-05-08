@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GalaSoft.MvvmLight;
 
 namespace ProjectMato.iOS.Model
 {
@@ -33,7 +34,7 @@ namespace ProjectMato.iOS.Model
         public List<LrcWord> LrcWords = new List<LrcWord>();
     }
 
-    public class LrcWord
+    public class LrcWord : ViewModelBase
     {
         public LrcWord()
         {
@@ -45,6 +46,17 @@ namespace ProjectMato.iOS.Model
         public int LrcWordId { get; set; }
         public TimeSpan Time { get; set; }
         public string Content { get; set; }
-        public bool IsCurrent { get; set; }
+        private bool _isCurrent;
+
+        public bool IsCurrent
+        {
+            get { return _isCurrent; }
+            set
+            {
+                _isCurrent = value;
+                base.RaisePropertyChanged();
+            }
+        }
+
     }
 }

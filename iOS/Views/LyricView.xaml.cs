@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 using Xamarin.Forms;
@@ -22,25 +23,56 @@ namespace ProjectMato.iOS
         public LyricView()
         {
             this.InitializeComponent();
-            this.BindingContext = MusicRelatedViewModel.Current;
-            LBLyric.BindingContext = this.CurrentLrcItem;
-            var musicRelatedViewModel = this.BindingContext as MusicRelatedViewModel;
-            if (musicRelatedViewModel != null)
-                musicRelatedViewModel.OnMusicChanged += Current_OnMusicChanged;
         }
 
-        private void Current_OnMusicChanged(object sender, EventArgs e)
+        private void Current_OnMusicChanged(MusicInfo CurrentMusic)
         {
+            if (CurrentMusic != null)
+            {
 
-            // 搜索API
-            var json = MusicAPIServer.Search("执迷", 5);
-            // 歌曲详情API
-            json = MusicAPIServer.Detail("29775505", "300587");
-            // 歌词API
-            json = MusicAPIServer.Lyric("29775505");
-            CurrentLrcItem = MusicAPIServer.ParseLrc(json);
-            LBLyric.BindingContext = this.CurrentLrcItem;
 
+                // 搜索API
+                var json = MusicAPIServer.Search(CurrentMusic.Title, 1);
+                var musiclist = JsonConvert.DeserializeObject<MusicListData>(json);
+
+                // 歌曲详情API
+                //json = MusicAPIServer.Detail("29775505", "300587");
+                // 歌词API
+
+                if (musiclist.Result.Songs != null && musiclist.Result.Songs.Length > 0)
+                {
+                    var lrcjson = MusicAPIServer.Lyric(musiclist.Result.Songs[0].Id);
+
+                    var lrcObj = JsonConvert.DeserializeObject<LrcData>(lrcjson);
+                    if (lrcObj.Lrc != null)
+                    {
+                        CurrentLrcItem = MusicAPIServer.ParseLrc(lrcObj.Lrc.Lyric);
+                        LBLyric.ItemsSource = this.CurrentLrcItem.LrcWords;
+                    }
+                }
+
+            }
+        }
+
+        public MusicInfo CurrentMusicInfo
+        {
+            get { return GetValue(CurrentMusicInfoProperty) as MusicInfo; }
+            set { SetValue(CurrentMusicInfoProperty, value); }
+        }
+
+
+        public static readonly BindableProperty CurrentMusicInfoProperty =
+            BindableProperty.Create("CurrentMusicInfo", typeof(MusicInfo), typeof(LyricView), null, BindingMode.OneWay, null, OnCurrentMusicInfoChanged);
+
+        private static void OnCurrentMusicInfoChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            LyricView thisView = bindable as LyricView;
+
+            if (thisView != null)
+            {
+                thisView.Current_OnMusicChanged(newValue as MusicInfo);
+
+            }
         }
 
         public string ElapsedTime

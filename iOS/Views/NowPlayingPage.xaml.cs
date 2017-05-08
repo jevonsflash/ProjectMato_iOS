@@ -5,6 +5,7 @@ using ProjectMato.iOS.Controls;
 using ProjectMato.iOS.Helper;
 using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
+using ProjectMato.iOS.ViewModel;
 using UIKit;
 using Xamarin.Forms;
 using XLabs.Forms.Controls;
@@ -14,25 +15,25 @@ namespace ProjectMato.iOS
 {
     public partial class NowPlayingPage : ContentPage
     {
-        private NavigationPage detailPage;
         private MusicFunctionPage _musicFunctionPage;
         private PlaylistChoosePage _playlistChoosePage;
 
         public NowPlayingPage()
         {
             InitializeComponent();
-            this.BindingContext = MusicRelatedViewModel.Current;
+            this.BindingContext =new NowPlayingPageViewModel();
         }
 
-
-
-        void OnValueChanged(object sender, ValueChangedEventArgs e)
+        private void OnValueChanged(object sender, ValueChangedEventArgs e)
         {
-            var musicRelatedViewModel = (this.BindingContext) as MusicRelatedViewModel;
-            if (musicRelatedViewModel != null)
-                musicRelatedViewModel.ChangeProgess(e.NewValue);
+            var bindableObject = sender as BindableObject;
+            if (bindableObject != null)
+            {
+                var musicRelatedViewModel = bindableObject.BindingContext as MusicRelatedViewModel;
+                if (musicRelatedViewModel != null)
+                    musicRelatedViewModel.ChangeProgess(e.NewValue);
+            }
         }
-
 
         private void Button_OnClicked(object sender, EventArgs e)
         {
@@ -42,7 +43,7 @@ namespace ProjectMato.iOS
         private void IsFavouriteButton_OnClicked(object sender, EventArgs e)
         {
 
-            var imageButton = sender as ImageButton;
+            var imageButton = sender as BindableObject;
             var musicInfo = (imageButton.BindingContext as MusicRelatedViewModel).CurrentMusic;
             if (musicInfo != null)
             {
@@ -65,29 +66,42 @@ namespace ProjectMato.iOS
                 }
             }
         }
+
         private void MoreButton_OnClicked(object sender, EventArgs e)
         {
 
 
-            var imageButton = sender as ImageButton;
+            var imageButton = sender as BindableObject;
             var musicInfo = (imageButton.BindingContext as MusicRelatedViewModel).CurrentMusic;
-            var _mainMenuCellInfos = new List<MenuCellInfo>()
+            var mainMenuCellInfos = new List<MenuCellInfo>()
             {
-                new MenuCellInfo() {Title = "删除" ,Code = "Delete",Icon = "Icon/search" },
-                new MenuCellInfo() {Title = "添加到.." ,Code = "AddToPlaylist",Icon = "Icon/headphone" },
-                new MenuCellInfo() {Title = "下一首播放" ,Code = "NextPlay",Icon = "Icon/queue2" },
-                new MenuCellInfo() {Title = "追加到列队" ,Code = "AddToQueue",Icon = "Icon/folder" },
-                new MenuCellInfo() {Title = musicInfo.Artist ,Code = "GoArtistPage",Icon = "Icon/playlist" },
-                new MenuCellInfo() {Title = musicInfo.AlbumTitle ,Code = "GoAlbumPage",Icon = "Icon/setting" },
+                new MenuCellInfo() {Title = "删除", Code = "Delete", Icon = "Icon/remove"},
+                new MenuCellInfo() {Title = "添加到..", Code = "AddToPlaylist", Icon = "Icon/addto"},
+                new MenuCellInfo() {Title = "下一首播放", Code = "NextPlay", Icon = "Icon/playnext"},
+                new MenuCellInfo() {Title = "追加到列队", Code = "AddToQueue", Icon = "Icon/addtostack"},
+                new MenuCellInfo()
+                {
+                    Title = (musicInfo as MusicInfo).Artist,
+                    Code = "GoArtistPage",
+                    Icon = "Icon/microphone2"
+                },
+                new MenuCellInfo()
+                {
+                    Title = (musicInfo as MusicInfo).AlbumTitle,
+                    Code = "GoAlbumPage",
+                    Icon = "Icon/cd2"
+                },
+
+
             };
-            _musicFunctionPage = new MusicFunctionPage(musicInfo, _mainMenuCellInfos);
+            _musicFunctionPage = new MusicFunctionPage(musicInfo, mainMenuCellInfos);
             _musicFunctionPage.OnFinished += MusicFunctionPage_OnFinished;
 
             this.popup.ShowPopup(_musicFunctionPage);
 
         }
 
-        private async void MusicFunctionPage_OnFinished(object sender, MusicFunctionEventArgs e)
+        private void MusicFunctionPage_OnFinished(object sender, MusicFunctionEventArgs e)
         {
             //var libraryPageViewModel = this.BindingContext as LibraryPageViewModel;
             if (e.MusicInfo == null)

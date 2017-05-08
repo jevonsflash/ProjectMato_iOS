@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:ProjectMato.iOS.Controls;assembly=ProjectMatoiOS"
              x:Class="ProjectMato.iOS.LyricView"
-             BackgroundColor="{StaticResource PhoneBackgroundBrush}">
+             WidthRequest="{StaticResource Bound}"
+             HeightRequest="{StaticResource Bound}"
+             BackgroundColor="Pink">
   <Grid x:Name="LayoutRoot">
     <controls:GeneralListView
       x:Name="LBLyric"

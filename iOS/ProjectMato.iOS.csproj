@@ -210,6 +210,7 @@
     <Compile Include="Model\BaseTable.cs" />
     <Compile Include="Model\IBasicInfo.cs" />
     <Compile Include="Model\LrcInfo.cs" />
+    <Compile Include="Model\NetEaseJsonData.cs" />
     <Compile Include="Model\MenuCellInfo.cs" />
     <Compile Include="Model\MenuFunction.cs" />
     <Compile Include="Model\MusicCollectionInfo.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Server\SettingServer.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuPageViewModel.cs" />
+    <Compile Include="ViewModel\NowPlayingPageViewModel.cs" />
     <Compile Include="ViewModel\PlaylistFunctionPageViewModel.cs" />
     <Compile Include="ViewModel\AlbumPageViewModel.cs" />
     <Compile Include="ViewModel\ArtistPageViewModel.cs" />
