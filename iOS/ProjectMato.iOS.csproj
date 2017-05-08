@@ -176,6 +176,7 @@
     <Compile Include="Common\CommonFunctionEventArgs.cs" />
     <Compile Include="Common\IObservableCollectionEx.cs" />
     <Compile Include="Common\MovableCellGestureRecognizer.cs" />
+    <Compile Include="Common\MusicApiConfig.cs" />
     <Compile Include="Common\MusicFunctionEventArgs.cs" />
     <Compile Include="Common\ObservableCollectionEx.cs" />
     <Compile Include="Common\ReorderCommandParam.cs" />
@@ -199,21 +200,16 @@
     </Compile>
     <Compile Include="Converter\SecondsToTimeSpanConverter.cs" />
     <Compile Include="Enums\MenuCode.cs" />
-    <Compile Include="Helper\ColorHelper.cs" />
     <Compile Include="Helper\CommonHelper.cs" />
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Helper\IsolatedStorageFileHelper.cs" />
-    <Compile Include="Helper\HttpHelper.cs" />
-    <Compile Include="Helper\LRCSer.cs" />
     <Compile Include="Helper\TokenHelper.cs" />
     <Compile Include="Model\AlbumInfo.cs" />
     <Compile Include="Model\ArtistInfo.cs" />
     <Compile Include="Model\BackgroundTable.cs" />
     <Compile Include="Model\BaseTable.cs" />
-    <Compile Include="Model\Gecime_Artist.cs" />
-    <Compile Include="Model\Gecime_Lyric.cs" />
     <Compile Include="Model\IBasicInfo.cs" />
-    <Compile Include="Model\LRCItem.cs" />
+    <Compile Include="Model\LrcInfo.cs" />
     <Compile Include="Model\MenuCellInfo.cs" />
     <Compile Include="Model\MenuFunction.cs" />
     <Compile Include="Model\MusicCollectionInfo.cs" />
@@ -221,9 +217,11 @@
     <Compile Include="Model\PlaylistInfo.cs" />
     <Compile Include="Model\PlaylistTable.cs" />
     <Compile Include="Model\QueueEntryTable.cs" />
+    <Compile Include="Model\RequestData.cs" />
     <Compile Include="Model\SettingTable.cs" />
     <Compile Include="Renders\GeneralViewCellRenderer.cs" />
     <Compile Include="Server\DatabaseManager.cs" />
+    <Compile Include="Server\MusicAPIServer.cs" />
     <Compile Include="Server\SettingServer.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuPageViewModel.cs" />

@@ -13,25 +13,35 @@ using Xamarin.Forms;
 namespace ProjectMato.iOS
 {
 
-    public partial class LyricView  
+    public partial class LyricView
     {
-        private string elapsedtime = string.Empty;
-        private string songname = string.Empty;
-        private string artistname = string.Empty;
-        private FileHelper FileHelper = new FileHelper();
-        private List<Result2> list;
 
-        public LRCItem lrcItem { get; private set; }
+        public LrcInfo CurrentLrcItem { get; private set; }
 
 
         public LyricView()
         {
             this.InitializeComponent();
-            
+            this.BindingContext = MusicRelatedViewModel.Current;
+            LBLyric.BindingContext = this.CurrentLrcItem;
+            var musicRelatedViewModel = this.BindingContext as MusicRelatedViewModel;
+            if (musicRelatedViewModel != null)
+                musicRelatedViewModel.OnMusicChanged += Current_OnMusicChanged;
         }
 
+        private void Current_OnMusicChanged(object sender, EventArgs e)
+        {
 
+            // 搜索API
+            var json = MusicAPIServer.Search("执迷", 5);
+            // 歌曲详情API
+            json = MusicAPIServer.Detail("29775505", "300587");
+            // 歌词API
+            json = MusicAPIServer.Lyric("29775505");
+            CurrentLrcItem = MusicAPIServer.ParseLrc(json);
+            LBLyric.BindingContext = this.CurrentLrcItem;
 
+        }
 
         public string ElapsedTime
         {
@@ -40,121 +50,62 @@ namespace ProjectMato.iOS
         }
 
 
-        // Using a DependencyProperty as the backing store for ElapsedTime.  This enables animation, styling, binding, etc...
         public static readonly BindableProperty ElapsedTimeProperty =
-            BindableProperty.Create("ElapsedTime", typeof(string), typeof(LyricView), string.Empty, BindingMode.OneWay, null, new BindableProperty.BindingPropertyChangedDelegate(OnElapsedTimeChanged));
+            BindableProperty.Create("ElapsedTime", typeof(string), typeof(LyricView), string.Empty, BindingMode.OneWay, null, OnElapsedTimeChanged);
 
         private static void OnElapsedTimeChanged(BindableObject bindable, object oldValue, object newValue)
         {
+            LyricView thisView = bindable as LyricView;
 
-            LyricView testControl = bindable as LyricView;
-            testControl.elapsedtime = testControl.ElapsedTime;
-            if (testControl.LBLyric.BindingContext is List<LrcWord>)
+            if (thisView != null)
             {
+                TimeSpan currentElapsedTime;
+                TimeSpan.TryParse(thisView.ElapsedTime, out currentElapsedTime);
 
+                var oldIndex = 0;
 
-                var lrcWords = testControl.LBLyric.BindingContext as List<LrcWord>;
-                var item = lrcWords.FirstOrDefault(c => c.Time.ToString().Contains(testControl.elapsedtime));
-                if (item != null)
+                var currentIndex = 0;
+                for (var i = 0; i < thisView.CurrentLrcItem.LrcWords.Count; i++)
                 {
-                    int currentIndex = lrcWords.ToList().IndexOf(item);
-                    lrcWords[currentIndex].IsCurrent = true;
-                    //todo:设置画刷
-                    if (SettingServer.Current.GetSetting(SettingServer.Properties.IsAutoOffset))
+
+                    if (thisView.CurrentLrcItem.LrcWords[i].IsCurrent)
                     {
-                        //todo:设置滚动
+                        oldIndex = i;
                     }
 
+                    if (i == 0)
+                    {
+                        if (new TimeSpan(0, 0, 0, 0) < currentElapsedTime &&
+                            thisView.CurrentLrcItem.LrcWords[i].Time > currentElapsedTime)
+                        {
+                            currentIndex = i;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (thisView.CurrentLrcItem.LrcWords[i - 1].Time < currentElapsedTime && thisView.CurrentLrcItem.LrcWords[i].Time > currentElapsedTime)
+                        {
+                            currentIndex = i;
+                            break;
+                        }
+                    }
+                }
+                if (oldIndex != currentIndex)
+                {
+                    thisView.CurrentLrcItem.LrcWords[currentIndex].IsCurrent = true;
+                    thisView.CurrentLrcItem.LrcWords[oldIndex].IsCurrent = false;
                 }
             }
-
         }
 
 
-        #region 请求歌词算法
-        /// <summary>
-        /// 发送歌词请求
-        /// </summary>
-        public void DoHttpWebRequest(string keyWord)
-        {
-            HttpHelper ht = new HttpHelper();
-            string url = "http://geci.me/api/lyric/" + keyWord;
-            ht.CreatePostHttpResponse(url);
-            ht.FileWatchEvent += ht_FileWatchEvent;
-        }
-        /// <summary>
-        /// 处理返回值
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void ht_FileWatchEvent(object sender, CompleteEventArgs e)
-        {
-            list = LRCSer.GecimeLyricDeserializer(e.Node).Result.ToList();
-            if (list.Count == 0)
-            {
-                ShowErr();
-            }
-            else
-            {
-
-                Result2 result2 = list.First();
-                HttpHelper ht = new HttpHelper();
-                ht.CreatePostHttpResponse(result2.lrc);
-                ht.FileWatchEvent += ht_FileWatchEvent2;
-            }
-        }
-
-        private void ShowErr()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        /// <summary>
-        /// 处理返回值2
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        async void ht_FileWatchEvent2(object sender, CompleteEventArgs e)
-        {
-            string lrcStr = e.Node;
-            string fileName = songname + "-" + artistname + ".lrc";
-            if (await FileHelper.CreateAndWriteFileAsync(fileName, lrcStr))
-            {
-                lrcItem = LRCSer.InitLrc(lrcStr);
 
 
 
-
-            }
-
-
-        }
-
-
-        #endregion
         /// <summary>
         /// 初始化
         /// </summary>
-        public async void InitializeLrc()
-        {
-            string fileName = "MatoLrc\\" + songname + "-" + artistname + ".lrc";
-            string lrcStr;
-
-            lrcStr = await ReadLrcFile(fileName);
-            if (!string.IsNullOrEmpty(lrcStr))
-            {
-                lrcItem = LRCSer.InitLrc(lrcStr);
-
-            }
-            else
-            {
-                if (SettingServer.Current.GetSetting(SettingServer.Properties.IsAutoLrc))
-                {
-                    DoHttpWebRequest(songname);
-                }
-            }
-        }
 
         private static async Task<string> ReadLrcFile(string fileName)
         {
@@ -166,18 +117,7 @@ namespace ProjectMato.iOS
             return lrcStr;
         }
 
-        private void UpdateMusic()
-        {
 
-            HideErr();
-            return;
-
-        }
-
-        private void HideErr()
-        {
-
-        }
 
 
 

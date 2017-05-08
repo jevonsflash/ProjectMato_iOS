@@ -56,7 +56,7 @@ namespace ProjectMato.iOS
             this.ShuffleCommand = new RelayCommand(c => true, ShuffleAction);
             this.PropertyChanged += DetailPageViewModel_PropertyChanged;
             this.IsRepeatOne = SettingServer.Current.GetSetting(SettingServer.Properties.IsRepeatOne);
-            this._isShuffle = SettingServer.Current.GetSetting(SettingServer.Properties.IsShuffle);
+            this.IsShuffle = SettingServer.Current.GetSetting(SettingServer.Properties.IsShuffle);
             MusicSystem.OnPlayFinished += MusicSystem_OnMusicChanged;
             MusicSystem.SetRepeatOneStatus(IsRepeatOne);
             MusicSystem.UpdateShuffleMap();

@@ -5,15 +5,45 @@
              x:Class="ProjectMato.iOS.LyricView"
              BackgroundColor="{StaticResource PhoneBackgroundBrush}">
   <Grid x:Name="LayoutRoot">
-    <controls:GeneralListView x:Name="LBLyric">
-      <controls:GeneralListView>
+    <controls:GeneralListView
+      x:Name="LBLyric"
+      ItemsSource="{Binding LrcWords}"
+      >
+      <controls:GeneralListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
-            <Label Text="{Binding}"></Label>
+            <Grid>
+
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+              </Grid.ColumnDefinitions>
+
+
+              <Label VerticalOptions="Center"
+                     Text="{Binding Content}"
+                     FontSize="Large">
+              </Label>
+
+              <StackLayout Grid.Column="1"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Orientation="Horizontal">
+                <Grid>
+                  <Button Text="●●●"
+                          IsVisible="{Binding IsCurrent}"
+                          FontSize="6"
+                          >
+
+                  </Button>
+                </Grid>
+
+              </StackLayout>
+            </Grid>
           </ViewCell>
         </DataTemplate>
-      </controls:GeneralListView>
+      </controls:GeneralListView.ItemTemplate>
     </controls:GeneralListView>
-    
+
   </Grid>
 </ContentView>

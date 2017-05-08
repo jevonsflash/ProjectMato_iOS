@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ProjectMato.iOS.Model
 {
-    public class LRCItem
+    public class LrcInfo
     {
         public int Id { get; set; }
         /// <summary>
