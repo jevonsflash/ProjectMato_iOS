@@ -36,15 +36,6 @@ namespace ProjectMato.iOS
         }
         private static AVAudioPlayer currentPlayer;
 
-        public static AVAudioPlayer CurrentPlayer
-        {
-            get
-            {
-                return currentPlayer;
-            }
-
-        }
-
         private static List<MusicInfo> musicInfos;
 
         public static List<MusicInfo> MusicInfos
@@ -65,6 +56,21 @@ namespace ProjectMato.iOS
         }
 
         public static int LastIndex { get { return MusicInfos.FindLastIndex(c => true); } }
+
+
+        public static double Duration { get { return currentPlayer.Duration; } }
+
+
+        public static double CurrentTime { get { return currentPlayer.CurrentTime; } }
+
+
+        public static bool IsPlaying { get { return currentPlayer.Playing; } }
+
+        public static void SeekTo(double position)
+
+        {
+            currentPlayer.CurrentTime = position;
+        }
 
         public static MusicInfo GetNextMusic(MusicInfo current, bool isShuffle)
         {
@@ -136,10 +142,12 @@ namespace ProjectMato.iOS
 
         public static void InitPlayer(MusicInfo CurrentMusic)
         {
+            AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
+            AVAudioSession.SharedInstance().SetActive(true);
             currentPlayer = new AVAudioPlayer(new NSUrl(CurrentMusic.Url), "", out nserror);
             //注册完成播放事件
-            CurrentPlayer.FinishedPlaying -= new EventHandler<AVStatusEventArgs>(OnFinishedPlaying);
-            CurrentPlayer.FinishedPlaying += new EventHandler<AVStatusEventArgs>(OnFinishedPlaying);
+            currentPlayer.FinishedPlaying -= new EventHandler<AVStatusEventArgs>(OnFinishedPlaying);
+            currentPlayer.FinishedPlaying += new EventHandler<AVStatusEventArgs>(OnFinishedPlaying);
 
 
         }
@@ -148,27 +156,27 @@ namespace ProjectMato.iOS
         {
             if (currentMusic != null)
             {
-                if (CurrentPlayer != null)
+                if (currentPlayer != null)
                 {
                     Stop();
                 }
                 InitPlayer(currentMusic);
-                CurrentPlayer.Play();
+                currentPlayer.Play();
             }
         }
 
         public static void Stop()
         {
-            if (CurrentPlayer.Playing)
+            if (currentPlayer.Playing)
             {
-                CurrentPlayer.Stop();
+                currentPlayer.Stop();
             }
         }
 
         public static void PauseOrResume()
         {
 
-            var status = CurrentPlayer.Playing;
+            var status = currentPlayer.Playing;
             PauseOrResume(status);
         }
 
@@ -177,11 +185,11 @@ namespace ProjectMato.iOS
 
             if (status)
             {
-                CurrentPlayer.Pause();
+                currentPlayer.Pause();
             }
             else
             {
-                CurrentPlayer.Play();
+                currentPlayer.Play();
             }
 
         }
@@ -226,9 +234,9 @@ namespace ProjectMato.iOS
 
         public static void SetRepeatOneStatus(bool isRepeatOne)
         {
-            if (CurrentPlayer != null)
+            if (currentPlayer != null)
             {
-                CurrentPlayer.NumberOfLoops = isRepeatOne ? nint.MaxValue : 0;
+                currentPlayer.NumberOfLoops = isRepeatOne ? nint.MaxValue : 0;
             }
         }
     }

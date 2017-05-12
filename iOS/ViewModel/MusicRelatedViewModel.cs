@@ -29,7 +29,6 @@ namespace ProjectMato.iOS
 
         }
 
-        private Timer timer;
 
         public event EventHandler OnMusicChanged;
         public static class Properties
@@ -45,9 +44,7 @@ namespace ProjectMato.iOS
 
         private MusicRelatedViewModel()
         {
-            timer = new Timer(1000);
-            timer.Elapsed += DoUpdate;
-            timer.Start();
+            Xamarin.Forms.Device.StartTimer(new TimeSpan(0, 0, 0, 1), DoUpdate);
 
             this.PlayCommand = new RelayCommand(c => true, PlayAction);
             this.PreCommand = new RelayCommand(c => true, PreAction);
@@ -69,23 +66,23 @@ namespace ProjectMato.iOS
             NextAction(null);
         }
 
-        private void DoUpdate(object o, EventArgs e)
+        private bool DoUpdate()
         {
-            this.CurrentTime = MusicSystem.CurrentPlayer.CurrentTime;
+            this.CurrentTime = MusicSystem.CurrentTime;
+            return true;
         }
 
         private void DetailPageViewModel_PropertyChanged(Object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == Properties.CurrentMusic)
             {
-                AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
-                AVAudioSession.SharedInstance().SetActive(true);
+
                 MusicSystem.Play(CurrentMusic);
-                DoUpdate(this, EventArgs.Empty);
+                DoUpdate();
                 InitPreviewAndNextMusic();
                 if (OnMusicChanged != null)
                     OnMusicChanged(this, EventArgs.Empty);
-                this.Duration = MusicSystem.CurrentPlayer.Duration;
+                this.Duration = MusicSystem.Duration;
                 SettingServer.Current.SetSetting(SettingServer.Properties.BreakPointMusicIndex, Musics.IndexOf(CurrentMusic).ToString());
             }
             else if (e.PropertyName == Properties.IsPlaying)
@@ -145,11 +142,11 @@ namespace ProjectMato.iOS
         }
         public void ChangeProgess(double progress)
         {
-            if (Math.Abs(progress - MusicSystem.CurrentPlayer.CurrentTime) > 2.0)
+            if (Math.Abs(progress - MusicSystem.CurrentTime) > 2.0)
             {
-                MusicSystem.CurrentPlayer.CurrentTime = progress;
+                MusicSystem.SeekTo(progress);
             }
-            this.IsPlaying = MusicSystem.CurrentPlayer.Playing;
+            this.IsPlaying = MusicSystem.IsPlaying;
         }
 
         public void ChangeMusic(MusicInfo musicInfo)
