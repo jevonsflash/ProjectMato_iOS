@@ -25,30 +25,42 @@ namespace ProjectMato.iOS
             this.InitializeComponent();
         }
 
-        private void Current_OnMusicChanged(MusicInfo CurrentMusic)
+        private async void Current_OnMusicChanged(MusicInfo CurrentMusic)
         {
             if (CurrentMusic != null)
             {
 
+                var lrcObj = new LrcData();
 
-                // 搜索API
-                var json = MusicAPIServer.Search(CurrentMusic.Title, 1);
-                var musiclist = JsonConvert.DeserializeObject<MusicListData>(json);
+                await Task.Run(() =>
+                 {
+                     try
+                     {
+                         // 搜索API
+                         var json = MusicAPIServer.Search(CurrentMusic.Title, 1);
+                         var musiclist = JsonConvert.DeserializeObject<MusicListData>(json);
 
-                // 歌曲详情API
-                //json = MusicAPIServer.Detail("29775505", "300587");
-                // 歌词API
+                         // 歌曲详情API
+                         //json = MusicAPIServer.Detail("29775505", "300587");
+                         // 歌词API
 
-                if (musiclist.Result.Songs != null && musiclist.Result.Songs.Length > 0)
+                         if (musiclist.Result.Songs != null && musiclist.Result.Songs.Length > 0)
+                         {
+                             var lrcjson = MusicAPIServer.Lyric(musiclist.Result.Songs[0].Id);
+
+                             lrcObj = JsonConvert.DeserializeObject<LrcData>(lrcjson);
+                         }
+                     }
+                     catch (Exception e)
+                     {
+                         Console.WriteLine(e);
+                         //throw;
+                     }
+                 });
+                if (lrcObj.Lrc != null)
                 {
-                    var lrcjson = MusicAPIServer.Lyric(musiclist.Result.Songs[0].Id);
-
-                    var lrcObj = JsonConvert.DeserializeObject<LrcData>(lrcjson);
-                    if (lrcObj.Lrc != null)
-                    {
-                        CurrentLrcItem = MusicAPIServer.ParseLrc(lrcObj.Lrc.Lyric);
-                        LBLyric.ItemsSource = this.CurrentLrcItem.LrcWords;
-                    }
+                    CurrentLrcItem = MusicAPIServer.ParseLrc(lrcObj.Lrc.Lyric);
+                    LBLyric.ItemsSource = this.CurrentLrcItem.LrcWords;
                 }
 
             }
@@ -75,25 +87,32 @@ namespace ProjectMato.iOS
             }
         }
 
-        public string ElapsedTime
+        public double ElapsedTime
         {
-            get { return (string)GetValue(ElapsedTimeProperty); }
+            get { return (double)GetValue(ElapsedTimeProperty); }
             set { SetValue(ElapsedTimeProperty, value); }
         }
 
 
         public static readonly BindableProperty ElapsedTimeProperty =
-            BindableProperty.Create("ElapsedTime", typeof(string), typeof(LyricView), string.Empty, BindingMode.OneWay, null, OnElapsedTimeChanged);
+            BindableProperty.Create("ElapsedTime", typeof(double), typeof(LyricView), double.MinValue, BindingMode.OneWay, null, OnElapsedTimeChanged);
 
-        private static void OnElapsedTimeChanged(BindableObject bindable, object oldValue, object newValue)
+        private static async void OnElapsedTimeChanged(BindableObject bindable, object oldValue, object newValue)
         {
+
             LyricView thisView = bindable as LyricView;
 
             if (thisView != null)
             {
-                TimeSpan currentElapsedTime;
-                TimeSpan.TryParse(thisView.ElapsedTime, out currentElapsedTime);
+                if (thisView.CurrentLrcItem == null)
+                {
+                    return;
+                }
 
+
+                TimeSpan currentElapsedTime;
+                // TimeSpan.TryParse(thisView.ElapsedTime, out currentElapsedTime);
+                currentElapsedTime = new TimeSpan(0, 0, 0, (int)thisView.ElapsedTime);
                 var oldIndex = 0;
 
                 var currentIndex = 0;
@@ -125,8 +144,9 @@ namespace ProjectMato.iOS
                 }
                 if (oldIndex != currentIndex)
                 {
+                    thisView.CurrentLrcItem.LrcWords.ForEach(c => c.IsCurrent = false);
+
                     thisView.CurrentLrcItem.LrcWords[currentIndex].IsCurrent = true;
-                    thisView.CurrentLrcItem.LrcWords[oldIndex].IsCurrent = false;
                 }
             }
         }

@@ -20,9 +20,9 @@ namespace ProjectMato.iOS.Server
         /// <param name="offset">设置偏移量 用于分页</param>
         /// <param name="type">类型 [1 单曲] [10 专辑] [100 歌手] [1000 歌单] [1002 用户]</param>
         /// <returns>JSON</returns>
-        public static string Search( string s = null , int limit = 30 , int offset = 0 , int type = 1 )
+        public static string Search(string s = null, int limit = 30, int offset = 0, int type = 1)
         {
-            return Request( new MusicApiConfig.Search { FormData = new { s = s , limit = limit , offset = offset , type = type } } );
+            return Request(new MusicApiConfig.Search { FormData = new { s = s, limit = limit, offset = offset, type = type } });
         }
 
         /// <summary>
@@ -30,9 +30,9 @@ namespace ProjectMato.iOS.Server
         /// </summary>
         /// <param name="ids">要获取的歌曲id列表</param>
         /// <returns>JSON</returns>
-        public static string Detail( params string [ ] ids )
+        public static string Detail(params string[] ids)
         {
-            return Request( new MusicApiConfig.Detail { FormData = new { ids = string.Join( "," , ids ).AddBrackets( ) } } );
+            return Request(new MusicApiConfig.Detail { FormData = new { ids = string.Join(",", ids).AddBrackets() } });
         }
 
         /// <summary>
@@ -41,9 +41,9 @@ namespace ProjectMato.iOS.Server
         /// </summary>
         /// <param name="id">要获取的歌曲id</param>
         /// <returns>JSON</returns>
-        public static string Lyric( string id )
+        public static string Lyric(string id)
         {
-            return Request( new MusicApiConfig.Lyric { FormData = new { os = "pc" , id = id , lv = -1 , kv = -1 , tv = -1 } } );
+            return Request(new MusicApiConfig.Lyric { FormData = new { os = "pc", id = id, lv = -1, kv = -1, tv = -1 } });
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace ProjectMato.iOS.Server
         /// </summary>
         /// <param name="id">要获取的歌单id</param>
         /// <returns>JSON</returns>
-        public static string PlayList( string id )
+        public static string PlayList(string id)
         {
-            return Request( new MusicApiConfig.PlayList { FormData = new { id = id } } );
+            return Request(new MusicApiConfig.PlayList { FormData = new { id = id } });
         }
 
         /// <summary>
@@ -62,9 +62,9 @@ namespace ProjectMato.iOS.Server
         /// </summary>
         /// <param name="id">要获取的mvid</param>
         /// <returns>JSON</returns>
-        public static string MV( string id )
+        public static string MV(string id)
         {
-            return Request( new MusicApiConfig.MV { FormData = new { id = id , type = "mp4" } } );
+            return Request(new MusicApiConfig.MV { FormData = new { id = id, type = "mp4" } });
         }
 
         /// <summary>
@@ -73,36 +73,36 @@ namespace ProjectMato.iOS.Server
         /// <typeparam name="T">要请求的接口类型</typeparam>
         /// <param name="config">要请求的接口类型的对象</param>
         /// <returns>请求结果(JSON)</returns>
-        public static string Request<T>( T config ) where T : RequestData, new()
+        public static string Request<T>(T config) where T : RequestData, new()
         {
             // 请求URL
             var requestURL = config.Url;
             // 将数据包对象转换成QueryString形式的字符串
-            string @params = config.FormData.ParseQueryString( );
-            var isPost = config.Method.Equals( "post" , StringComparison.CurrentCultureIgnoreCase );
+            string @params = config.FormData.ParseQueryString();
+            var isPost = config.Method.Equals("post", StringComparison.CurrentCultureIgnoreCase);
 
-            if ( !isPost )
+            if (!isPost)
             {
                 // get方式 拼接请求url
-                var sep = requestURL.Contains( '?' ) ? "&" : "?";
+                var sep = requestURL.Contains('?') ? "&" : "?";
                 requestURL += sep + @params;
             }
 
-            var req = ( HttpWebRequest ) WebRequest.Create( requestURL );
+            var req = (HttpWebRequest)WebRequest.Create(requestURL);
             req.Method = config.Method;
             req.Referer = "http://music.163.com/";
 
-            if ( isPost )
+            if (isPost)
             {
                 // 写入post请求包
-                var formData = Encoding.UTF8.GetBytes( @params );
+                var formData = Encoding.UTF8.GetBytes(@params);
                 req.ContentType = "application/x-www-form-urlencoded";
                 req.ContentLength = formData.LongLength;
-                req.GetRequestStream( ).Write( formData , 0 , formData.Length );
+                req.GetRequestStream().Write(formData, 0, formData.Length);
             }
 
             // 发送http请求 并读取响应内容返回
-            return new StreamReader( req.GetResponse( ).GetResponseStream( ) ).ReadToEnd( );
+            return new StreamReader(req.GetResponse().GetResponseStream()).ReadToEnd();
         }
 
         /// <summary>
@@ -110,9 +110,9 @@ namespace ProjectMato.iOS.Server
         /// </summary>
         /// <param name="obj">要转换的对象</param>
         /// <returns></returns>
-        private static string ParseQueryString( this object obj )
+        private static string ParseQueryString(this object obj)
         {
-            return string.Join( "&" , obj.GetType( ).GetProperties( ).Select( x => string.Format( "{0}={1}" , x.Name , x.GetValue( obj ) ) ) );
+            return string.Join("&", obj.GetType().GetProperties().Select(x => string.Format("{0}={1}", x.Name, x.GetValue(obj))));
         }
 
         /// <summary>
@@ -121,9 +121,9 @@ namespace ProjectMato.iOS.Server
         /// <param name="s">要修改的字符串</param>
         /// <param name="placeholder">占位符规则</param>
         /// <returns></returns>
-        private static string AddBrackets( this string s , string placeholder = "[{0}]" )
+        private static string AddBrackets(this string s, string placeholder = "[{0}]")
         {
-            return string.Format( placeholder , s ?? string.Empty );
+            return string.Format(placeholder, s ?? string.Empty);
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace ProjectMato.iOS.Server
             {
                 lrc.Offset = SplitInfo(lrcStr);
             }
-         
+
 
             lrcStr = lrcStr.Replace("\r", "\n");
             var av = lrcStr.Split('\n');
@@ -177,7 +177,7 @@ namespace ProjectMato.iOS.Server
                                 lrc.LrcWords.Add(new LrcWord()
                                 {
                                     LrcWordId = id++,
-                                    Time = TimeSpan.Parse(item.ToString().Split('.')[0]),
+                                    Time = LyricTimeParse(item.ToString()),
                                     //Time = Math.Round(stringToInterval(item.ToString()), 1),
                                     Content = matchContent.ToString()
                                 });
@@ -208,7 +208,16 @@ namespace ProjectMato.iOS.Server
             return lrc;
         }
 
-
+        private static TimeSpan LyricTimeParse(string item)
+        {
+            TimeSpan result;
+            var maintime = item.Split('.')[0];
+            var subtime = item.Split('.')[1].Substring(0, 2);
+            var minute = maintime.Split(':')[0];
+            var sec = maintime.Split(':')[1];
+            result = new TimeSpan(0, 0, int.Parse(minute), int.Parse(sec), int.Parse(subtime) * 10);
+            return result;
+        }
 
         /// <summary>
         /// 处理信息(私有方法)

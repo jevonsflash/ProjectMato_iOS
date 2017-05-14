@@ -6,46 +6,37 @@
              WidthRequest="{StaticResource Bound}"
              HeightRequest="{StaticResource Bound}"
              BackgroundColor="Pink">
-  <Grid x:Name="LayoutRoot">
-    <controls:GeneralListView
-      x:Name="LBLyric"
-      ItemsSource="{Binding LrcWords}"
-      >
-      <controls:GeneralListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <Grid>
+    <Grid x:Name="LayoutRoot">
+        <controls:GeneralListView x:Name="LBLyric"
+                                  ItemsSource="{Binding LrcWords}">
+            <controls:GeneralListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
 
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-              </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid  Grid.Column="0"
+                                   IsVisible="{Binding IsCurrent}">
+                                <Label Margin="3,0" VerticalOptions="Center"
+                                       Text="●">
+                                </Label>
 
+                            </Grid>
 
-              <Label VerticalOptions="Center"
-                     Text="{Binding Content}"
-                     FontSize="Large">
-              </Label>
+                            <Label Grid.Column="1"
+                                   VerticalOptions="Center"
+                                   Text="{Binding Content}"
+                                   FontSize="Large">
+                            </Label>
 
-              <StackLayout Grid.Column="1"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"
-                           Orientation="Horizontal">
-                <Grid>
-                  <Button Text="●●●"
-                          IsVisible="{Binding IsCurrent}"
-                          FontSize="6"
-                          >
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </controls:GeneralListView.ItemTemplate>
+        </controls:GeneralListView>
 
-                  </Button>
-                </Grid>
-
-              </StackLayout>
-            </Grid>
-          </ViewCell>
-        </DataTemplate>
-      </controls:GeneralListView.ItemTemplate>
-    </controls:GeneralListView>
-
-  </Grid>
+    </Grid>
 </ContentView>

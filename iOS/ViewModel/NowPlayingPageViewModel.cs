@@ -16,7 +16,7 @@ namespace ProjectMato.iOS.ViewModel
 
         private void SwitchPannelAction(object obj)
         {
-            IsLrcPanel = true;
+            IsLrcPanel = !IsLrcPanel;
         }
 
         private MusicRelatedViewModel _currentMusicRelatedViewModel;
@@ -45,9 +45,13 @@ namespace ProjectMato.iOS.ViewModel
             get { return _isLrcPanel; }
             set
             {
-                _isLrcPanel = value;
-                RaisePropertyChanged();
+                if (_isLrcPanel != value)
+                {
+                    _isLrcPanel = value;
+                    RaisePropertyChanged();
 
+
+                }
             }
         }
 

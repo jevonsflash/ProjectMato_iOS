@@ -20,16 +20,18 @@
                     <RowDefinition Height="3*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <!--<local:MusicFliperView BindingContext="{Binding CurrentMusicRelatedViewModel.CurrentMusic}"
-                                           IsVisible="{Binding IsLrcPanel ,Converter={StaticResource True2FalseConverter}}"
-                                           >
+                    <local:MusicFliperView BindingContext="{Binding CurrentMusicRelatedViewModel.CurrentMusic}"
+                                           IsVisible="{Binding IsLrcPanel ,Converter={StaticResource True2FalseConverter}}">
 
-                    </local:MusicFliperView>-->
+                    </local:MusicFliperView>
                     <local:LyricView CurrentMusicInfo="{Binding CurrentMusicRelatedViewModel.CurrentMusic}"
-                                     ElapsedTime="{Binding CurrentMusicRelatedViewModel.CurrentTime}"></local:LyricView>
-                    <!--<Button TextColor="Aqua"
+                                     ElapsedTime="{Binding CurrentMusicRelatedViewModel.CurrentTime}"
+                                     IsVisible="{Binding IsLrcPanel}"></local:LyricView>
+                    <Button TextColor="White"
+                            HorizontalOptions="End"
+                            VerticalOptions="End"
                             Text="Switch"
-                            Command="{Binding SwitchPannelCommand}"></Button>-->
+                            Command="{Binding SwitchPannelCommand}"></Button>
                 </Grid>
                 <Grid Grid.Row="1"
                       BindingContext="{Binding CurrentMusicRelatedViewModel}">
