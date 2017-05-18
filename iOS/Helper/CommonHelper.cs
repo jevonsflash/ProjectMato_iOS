@@ -2,6 +2,7 @@
 using System.Linq;
 using GalaSoft.MvvmLight.Messaging;
 using ProjectMato.iOS.Common;
+using ProjectMato.iOS.Model;
 using ProjectMato.iOS.Server;
 using ProjectMato.iOS.ViewModel;
 using Xamarin.Forms;
@@ -58,5 +59,12 @@ namespace ProjectMato.iOS.Helper
             return arr;
         }
 
+        public static void SetTheme(BackgroundTable res)
+        {
+            App.Current.Resources["PhoneForegroundBrush"] = Color.FromHex(res.ColorB);
+            App.Current.Resources["PhoneContrastBackgroundBrush"] = Color.FromHex(res.ColorA);
+            App.Current.Resources["PhoneWeakenBackgroundBrush"] = Color.FromHex(res.ColorC);
+            App.Current.Resources["PhoneBackgroundImage"] = res.Img;
+        }
     }
 }

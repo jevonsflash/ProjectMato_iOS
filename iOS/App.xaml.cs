@@ -19,10 +19,7 @@ namespace ProjectMato.iOS
         {
             InitializeComponent();
             var currentSkin = SettingServer.Current.GetSelectedBackground();
-            App.Current.Resources["PhoneBackgroundImage"] = currentSkin.Img;
-            App.Current.Resources["PhoneForegroundBrush"] = Color.FromHex(currentSkin.ColorB);
-            App.Current.Resources["PhoneContrastBackgroundBrush"] = Color.FromHex(currentSkin.ColorA);
-            App.Current.Resources["PhoneWeakenBackgroundBrush"] = Color.FromHex(currentSkin.ColorC);
+            CommonHelper.SetTheme(currentSkin);
             App.Current.Resources["Bound"] = (UIScreen.MainScreen.Bounds.Width).ToString();
             MainPage = App.MainMasterDetailPage;
             Messenger.Default.Register<WindowArg>(this, TokenHelper.WindowToken, HandleWindowResult);
